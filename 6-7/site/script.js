@@ -48,6 +48,7 @@ function onMapClick(e) {
 map.on('click', onMapClick); //function activates on a click on the map
 
 
+//CHANGE EVENT TO POPUP INSTEAD OF ALERT
 var popup = L.popup();
 
 function onMapClick(e) {
@@ -55,6 +56,6 @@ function onMapClick(e) {
         .setLatLng(e.latlng)
         .setContent("You clicked the map at " + e.latlng.toString())
         .openOn(map);
-}
+} //when you click the map, it will popup with the .setContent statement
 
 map.on('click', onMapClick);
