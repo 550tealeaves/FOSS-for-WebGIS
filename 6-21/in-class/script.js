@@ -25,15 +25,25 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 const cunyGC = L.marker([40.74852647353538, -73.98364463562413]).addTo(map); //will add CUNY lat/lon as a marker to the map
 const macys = L.marker([40.750831692175524, -73.98912308794618]).addTo(map); //adds marker for Macy's
 const bryantPark = L.marker([40.753770806752044, -73.98355177128387]).addTo(map); //adds marker for BP
-const rField = L.marker([40.738312291224844, -73.61295112419006]).addTo(map);
-const montauk = L.marker([41.07096926408539, -71.85725578410428]).addTo(map);
+const castleWilliams = L.marker([40.69290300122759, -74.01902168181884]).addTo(map);
+const bbg = L.marker([40.67037291567229, -73.9638757889119]).addTo(map);
+const cloisters = L.marker([40.86482102080569, -73.93177033801098]).addTo(map);
+const vanCortlandt = L.marker([40.89724126054995, -73.8867219336929]).addTo(map);
+const bronxZoo = L.marker([40.84963116804752, -73.87661945118136]).addTo(map);
+const jfk = L.marker([40.64669826769352, -73.78483097720601]).addTo(map);
+const hss = L.marker([40.76517181052674, -73.95265567704324]).addTo(map);
 
-//ADD A POPUP
+//ADD POPUPS FOR MARKERS
 cunyGC.bindPopup("<b>This is CUNY GC</b>.").openPopup();
 macys.bindPopup("<b>Macy's flagship store.</b>").openPopup();
-bryantPark.bindPopup("<b>Bryant Park</b>").openPopup();
-rField.bindPopup("<b>Roosevelt Field Mall</b>").openPopup();
-montauk.bindPopup("<b>Montauk Lighthouse</b>").openPopup();
+bryantPark.bindPopup("<b>Bryant Park is slice of nature surrounded by skyscrapers</b>").openPopup();
+castleWilliams.bindPopup("<b>Castle Williams was a prison on Governor's Island</b>")
+bbg.bindPopup("<b>The Bk Botanical Garden is beautiful</b>")
+cloisters.bindPopup("<b>MET cloisters has religious art</b>")
+vanCortlandt.bindPopup("<b>Van Cortdlandt Park is bigger than Central Park but much less famous</b>")
+bronxZoo.bindPopup("<b>Bronx Zoo is probably the best place to take kids</b>")
+jfk.bindPopup("<b>JFK is one of the busiest airports in the world</b>")
+hss.bindPopup("<b>HSS specializes in orthopedic care</b>")
 
 
 //ADD DYNAMIC MESSAGE - popups above don't work when these are active
