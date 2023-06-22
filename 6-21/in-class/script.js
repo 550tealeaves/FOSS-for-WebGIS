@@ -102,6 +102,35 @@ axios('https://raw.githubusercontent.com/Willjfield/FOSS-for-WebGIS/main/6-21/si
                 default: return { color: "black" };
             }
         } //will take each feature and change it based on its properties - adds a certain color based on the letter (like real subway map) - useful for choropleth maps
-    }).addTo(map);
+    }).addTo(map).bringToBack();
 })
     
+
+//Add pizza places
+//Set Z Index
+const pizza = axios('../site/data/pizza.geojson').then(resp => {
+    var geojsonMarkerOptions = {
+        radius: 8,
+        fillColor: "#ff7800",
+        color: "#000",
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 1
+    };
+
+    L.geoJSON(resp.data, {
+        pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng, geojsonMarkerOptions);
+        }
+    }).addTo(map).bringToFront();
+
+});
+
+//Walking area
+const walking = axios('../site/data/walk-area.geojson').then(resp => {
+
+    L.geoJSON(resp.data, {
+        style: { opacity: 0.95, color: "purple", weight: 2 }
+    }).addTo(map).bringToBack();
+
+});
