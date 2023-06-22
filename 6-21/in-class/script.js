@@ -102,7 +102,7 @@ axios('https://raw.githubusercontent.com/Willjfield/FOSS-for-WebGIS/main/6-21/si
                 default: return { color: "black" };
             }
         } //will take each feature and change it based on its properties - adds a certain color based on the letter (like real subway map) - useful for choropleth maps
-    }).addTo(map).bringToBack();
+    }).addTo(map).bringToBack(); //move subway lines to the back
 })
     
 
@@ -122,7 +122,7 @@ const pizza = axios('../site/data/pizza.geojson').then(resp => {
         pointToLayer: function (feature, latlng) {
             return L.circleMarker(latlng, geojsonMarkerOptions);
         }
-    }).addTo(map).bringToFront();
+    }).addTo(map).bringToFront(); //moves the pizza dots to front of map
 
 });
 
@@ -131,6 +131,6 @@ const walking = axios('../site/data/walk-area.geojson').then(resp => {
 
     L.geoJSON(resp.data, {
         style: { opacity: 0.95, color: "purple", weight: 2 }
-    }).addTo(map).bringToBack();
+    }).addTo(map).bringToBack(); //moves walking data to back of map
 
 });
