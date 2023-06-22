@@ -40,7 +40,7 @@ bryantPark.bindPopup("<b>Bryant Park is slice of nature surrounded by skyscraper
 castleWilliams.bindPopup("<b>Castle Williams was a prison on Governor's Island</b>")
 bbg.bindPopup("<b>The Bk Botanical Garden is beautiful</b>")
 cloisters.bindPopup("<b>MET cloisters has religious art</b>")
-vanCortlandt.bindPopup("<b>Van Cortdlandt Park is bigger than Central Park but much less famous</b>")
+vanCortlandt.bindPopup("<b>Van Cortlandt Park is bigger than Central Park but much less famous</b>")
 bronxZoo.bindPopup("<b>Bronx Zoo is probably the best place to take kids</b>")
 jfk.bindPopup("<b>JFK is one of the busiest airports in the world</b>")
 hss.bindPopup("<b>HSS specializes in orthopedic care</b>")
