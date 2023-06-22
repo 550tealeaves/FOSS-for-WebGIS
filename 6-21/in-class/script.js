@@ -21,18 +21,26 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 //L.tileLayer - comes directly from Leaflet library
 //wants a URL from were to get the tiles 
 
-//ADD A MARKER
+//ADD MARKERS
 const cunyGC = L.marker([40.74852647353538, -73.98364463562413]).addTo(map); //will add CUNY lat/lon as a marker to the map
-const macys = L.marker([40.750831692175524, -73.98912308794618]).addTo(map);
+const macys = L.marker([40.750831692175524, -73.98912308794618]).addTo(map); //adds marker for Macy's
+const bryantPark = L.marker([40.753770806752044, -73.98355177128387]).addTo(map); //adds marker for BP
+const rField = L.marker([40.738312291224844, -73.61295112419006]).addTo(map);
+const montauk = L.marker([41.07096926408539, -71.85725578410428]).addTo(map);
 
 //ADD A POPUP
 cunyGC.bindPopup("<b>This is CUNY GC</b>.").openPopup();
 macys.bindPopup("<b>Macy's flagship store.</b>").openPopup();
+bryantPark.bindPopup("<b>Bryant Park</b>").openPopup();
+rField.bindPopup("<b>Roosevelt Field Mall</b>").openPopup();
+montauk.bindPopup("<b>Montauk Lighthouse</b>").openPopup();
 
-//ADD DYNAMIC MESSAGE
+
+//ADD DYNAMIC MESSAGE - popups above don't work when these are active
 const message = "hello Earthlings"; //this message will show
 cunyGC.bindPopup(`<b>CUNY GC</b> ${message}`); //use backticks to concatenate strings
-//macys.bindPopup(`<b>${message} from Macy's</b>`);
+macys.bindPopup(`<b>${message} from Macy's</b>`);
+
 
 //ADD GEOJSON
 //////// Add Subways
