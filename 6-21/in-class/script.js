@@ -22,14 +22,17 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 //wants a URL from were to get the tiles 
 
 //ADD A MARKER
-const marker = L.marker([40.74852647353538, -73.98364463562413]).addTo(map); //will add CUNY lat/lon as a marker to the map
+const cunyGC = L.marker([40.74852647353538, -73.98364463562413]).addTo(map); //will add CUNY lat/lon as a marker to the map
+const macys = L.marker([40.750831692175524, -73.98912308794618]).addTo(map);
 
 //ADD A POPUP
-marker.bindPopup("<b>This is CUNY GC</b>.").openPopup();
+cunyGC.bindPopup("<b>This is CUNY GC</b>.").openPopup();
+macys.bindPopup("<b>Macy's flagship store.</b>").openPopup();
 
 //ADD DYNAMIC MESSAGE
 const message = "hello Earthlings"; //this message will show
-marker.bindPopup(`<b>CUNY GC</b> ${message}`); //use backticks to concatenate strings
+cunyGC.bindPopup(`<b>CUNY GC</b> ${message}`); //use backticks to concatenate strings
+//macys.bindPopup(`<b>${message} from Macy's</b>`);
 
 //ADD GEOJSON
 //////// Add Subways
