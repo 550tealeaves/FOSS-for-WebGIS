@@ -22,7 +22,7 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 //wants a URL from were to get the tiles 
 
 //ADD A MARKER
-const marker = L.marker([40.7, -73.983]).addTo(map); //will add CUNY lat/lon as a marker to the map
+const marker = L.marker([40.74852647353538, -73.98364463562413]).addTo(map); //will add CUNY lat/lon as a marker to the map
 
 //ADD A POPUP
 marker.bindPopup("<b>This is CUNY GC</b>.").openPopup();
@@ -42,7 +42,20 @@ marker.bindPopup(`<b>CUNY GC</b> ${message}`); //use backticks to concatenate st
 // const subways = axios('../site/data/subways.geojson').then(resp => {
 //     console.log(resp);
 //     L.geoJSON(resp.data, {
-//         style: { color: "#ff0000" }
+//         style: function (feature) { 
+//              switch (feature.properties.rt_symbol) {
+//             case 'A': case 'C': case 'E': return { color: "blue" };
+//             case 'B': case 'M': case 'D': return { color: "orange" };
+//             case 'N': case 'Q': case 'R': case 'W': return { color: "yellow" };
+//             case '1': case '2': case '3': return { color: "red" };
+//             case 'J': case 'Z': return { color: "brown" };
+//             case '4': case '5': case '6': return { color: "green" };
+//             case '7': return { color: "purple" };
+//             case 'G': return { color: "lightgreen" };
+//             case 'S': case 'L': return { color: "gray" };
+//             default: return { color: "black" };
+//            }
+//        }
 //     }).addTo(map);
 // }); //must use ajax to load local files and said files must be managed by a server to load it 
 //.then = promise - will wait for the axios request to finish and load the data, then run this function with the response from the file 
