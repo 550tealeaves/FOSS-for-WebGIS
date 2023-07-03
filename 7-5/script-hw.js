@@ -21,14 +21,37 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 //L.tileLayer - comes directly from Leaflet library
 //wants a URL from were to get the tiles 
 
+
 const allStates = axios('usState.json').then(resp => { //brings in the map data 
-    console.log(resp); //see response in console log
+    console.log('response', resp); //see response in console log
 
     L.geoJSON(resp.data, { //access the response.data and style it 
-        style: { 
+        style: {
             opacity: 0.85, //higher the number the more opaque it is
-            color: "magenta", 
-            weight: 2 } //higher the number, thicker the lines are 
-    }).addTo(map).bringToFront(); //brought the map to the front so it sits on top
+            color: "magenta",
+            weight: 2
+        } //higher the number, thicker the lines are 
+    }).addTo(map).bringToBack(); //brought the map to the front so it sits on top
 
 }) //map shows up 
+
+//trying to get the state percentages to show
+const statesPct = axios('census_states_pct_nototals.json').then(states => {
+    console.log('states', states);
+
+    L.geoJSON(states.data, {
+        style: { radius: 3, opacity: 0.95, color: "yellow", weight: 4 }
+    }).addTo(map).bringToBack(); 
+
+})
+
+
+//trying to get the occupation percentages to show but something isn't working - no console log errors
+const categoriesPct = axios('census_cat_total_subset.json').then(catPct => {
+    console.log('categories', catPct); 
+
+    L.geoJSON(catPct.data.MalePop, {
+        style: { radius: 6, opacity: 0.95, color: "green", weight: 5 }
+    }).addTo(map).bringToBack(); 
+    
+})
