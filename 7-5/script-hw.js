@@ -41,7 +41,7 @@ const statesPct = axios('census_states_pct_nototals.json').then(states => {
 
     L.geoJSON(states.data, {
         style: { radius: 3, opacity: 0.95, color: "yellow", weight: 4 }
-    }).addTo(map).bringToBack(); 
+    }).addTo(map).bringToFront(); 
 
 })
 
@@ -52,6 +52,6 @@ const categoriesPct = axios('census_cat_total_subset.json').then(catPct => {
 
     L.geoJSON(catPct.data.MalePop, {
         style: { radius: 6, opacity: 0.95, color: "green", weight: 5 }
-    }).addTo(map).bringToBack(); 
+    }).addTo(map).bringToFront(); 
     
 })
