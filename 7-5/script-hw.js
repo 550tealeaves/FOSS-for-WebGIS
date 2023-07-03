@@ -29,8 +29,8 @@ const allStates = axios('usState.json').then(resp => { //brings in the map data
         style: {
             opacity: 0.85, //higher the number the more opaque it is
             color: "magenta",
-            weight: 2
-        } //higher the number, thicker the lines are 
+            weight: 2 //higher the number, thicker the lines are 
+        } 
     }).addTo(map).bringToBack(); //brought the map to the front so it sits on top
 
 }) //map shows up 
@@ -40,7 +40,12 @@ const statesPct = axios('census_states_pct_nototals.json').then(states => {
     console.log('states', states);
 
     L.geoJSON(states.data, {
-        style: { radius: 3, opacity: 0.95, color: "yellow", weight: 4 }
+        style: {
+             radius: 3, 
+             opacity: 0.95, 
+             color: "yellow", 
+             weight: 4 
+            }
     }).addTo(map).bringToFront(); 
 
 })
@@ -51,7 +56,12 @@ const categoriesPct = axios('census_cat_total_subset.json').then(catPct => {
     console.log('categories', catPct); 
 
     L.geoJSON(catPct.data.MalePop, {
-        style: { radius: 6, opacity: 0.95, color: "green", weight: 5 }
+        style: { 
+            radius: 6, 
+            opacity: 0.95, 
+            color: "green", 
+            weight: 5 
+        }
     }).addTo(map).bringToFront(); 
     
 })
