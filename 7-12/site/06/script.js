@@ -60,9 +60,9 @@ async function main() {
         'layout': {},
         //https://maplibre.org/maplibre-style-spec/layers/#circle
         'paint': {
-            'circle-color': '#68f',
+            'circle-color': 'gold',
             'circle-stroke-width': 2,
-            'circle-stroke-color': 'white'
+            'circle-stroke-color': 'brown'
         }
     });
 
@@ -87,8 +87,8 @@ function addEvents() {
         map.getCanvas().style.cursor = 'pointer';
 
         const coordinates = e.features[0].geometry.coordinates.slice();
-        const name = e.features[0].properties.SCHOOLNAME;
-        const district = e.features[0].properties.DIST_NAME;
+        const name = e.features[0].properties.SCHOOLNAME; //want to display name in popup
+        const district = e.features[0].properties.DIST_NAME; //want to display district in popup
         // Ensure that if the map is zoomed out such that multiple
         // copies of the feature are visible, the popup appears
         // over the copy being pointed to.
@@ -98,11 +98,14 @@ function addEvents() {
 
         // Populate the popup and set its coordinates
         // based on the feature found.
+        //this is what will display in the popup
         popup.setLngLat(coordinates).setHTML(
             `
+            <div class="popup-style">  //can add div and class to do further styling 
             <b>${name}</b>
             <br>
             ${district}
+            </div>
             `
         ).addTo(map);
     });

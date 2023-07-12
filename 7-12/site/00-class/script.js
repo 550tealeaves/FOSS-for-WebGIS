@@ -60,14 +60,23 @@ async function main() {
         'id': 'nj-schools',
         'source': 'schools-geo-source',
         'type': 'circle', //can be fill layer, pts etc, includes default color (black) & radius
-        'layout': {},
+        'layout': {}, //layout property changes things like text positioning (justified)
         //https://maplibre.org/maplibre-style-spec/layers/#circle
-        'paint': {
+        'paint': { // paint is an object that changes things like color, stroke width, outline, radius
             'circle-color': 'red',
             'circle-stroke-width': 2,
             'circle-stroke-color': 'white'
         }
     });
+    
+    //add Events
+    addEvents();
+}
+
+    function addEvents() {
+        map.on('mouseover', 'nj-schools', (e) => {
+            console.log(e);
+        })
 
 
 }

@@ -60,9 +60,9 @@ async function main(){
         'layout': {},
         //https://maplibre.org/maplibre-style-spec/layers/#circle
         'paint':{
-            'circle-color':'#68f',
+            'circle-color':'violet',
             'circle-stroke-width':2,
-            'circle-stroke-color':'white'
+            'circle-stroke-color':'purple'
         }
     });
 
@@ -71,8 +71,8 @@ async function main(){
 
 }
 
-function addEvents(){
+function addEvents(){ 
     map.on('mouseover','schools',(e)=>{
         console.log(e);
-    })
+    }) //when you hover over school, it provides coordinates in console log
 }
