@@ -59,7 +59,7 @@ async function main() {
     map.addLayer({
         'id': 'nj-schools',
         'source': 'schools-geo-source',
-        'type': 'circle', //can be fill layer, pts etc, default color and radius
+        'type': 'circle', //can be fill layer, pts etc, includes default color (black) & radius
         'layout': {},
         //https://maplibre.org/maplibre-style-spec/layers/#circle
         'paint': {
