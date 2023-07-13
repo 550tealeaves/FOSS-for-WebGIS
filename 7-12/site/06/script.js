@@ -99,9 +99,10 @@ function addEvents() {
         // Populate the popup and set its coordinates
         // based on the feature found.
         //this is what will display in the popup
+        //can wrap setHTML in div for further styling
         popup.setLngLat(coordinates).setHTML(
             `
-            <div class="popup-style">  //can add div and class to do further styling 
+            <div class="popup-style">   
             <b>${name}</b>
             <br>
             ${district}
