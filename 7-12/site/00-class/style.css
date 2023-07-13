@@ -6,3 +6,32 @@ body{
 html, body, #map{
     height: 100%
 }
+
+.popup-style{
+    color: mediumblue;
+    text-align: center;
+}
+
+
+#fly-to {
+    margin: 0px auto;
+    width: 10%;
+    height: 40px;
+    padding: 3px;
+    border: none;
+    border-radius: 30px;
+    font-size: 12px;
+    color: #fff;
+    background: #486e5f;
+}
+
+#fly-to:hover {
+    cursor: pointer;
+}
+
+#fly-to:active {
+    color: #486e5f;
+    background-color: white;
+    border: solid #486e5f;
+    box-shadow: 5px 5px 5px #486e5f;
+}

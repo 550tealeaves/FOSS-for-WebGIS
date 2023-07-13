@@ -119,10 +119,8 @@ function addEvents() {
     //Select Button on html (based on id) - when clicked, the map will move to the location coordinates specified in the center (Bryant Park)
     document.getElementById('fly').addEventListener('click', () => {
         map.flyTo({
-            center: [
-                -73.98344561474633,
-                40.75380245526688
-            ],  
+            center: [-73.98344561474633, 40.75380245526688],
+            zoom: 17, //set a zoom or else map will be too far when you click button
             essential: true // this animation is considered essential with respect to prefers-reduced-motion
         });
     });

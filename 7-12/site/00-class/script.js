@@ -63,7 +63,7 @@ async function main() {
         'layout': {}, //layout property changes things like text positioning (justified)
         //https://maplibre.org/maplibre-style-spec/layers/#circle
         'paint': { // paint is an object that changes things like color, stroke width, outline, radius
-            'circle-color': 'red',
+            'circle-color': 'palevioletred',
             'circle-stroke-width': 2,
             'circle-stroke-color': 'white'
         }
@@ -73,10 +73,44 @@ async function main() {
     addEvents();
 }
 
-    function addEvents() {
-        map.on('mouseover', 'nj-schools', (e) => {
-            console.log(e);
+function addEvents() {
+    const popup = new maplibregl.Popup({
+        closeButton: false,
+        closeOnClick: false
+    });
+
+    map.on('mouseenter', 'nj-schools', (e) => {
+        // console.log()
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = 'pointer';
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const props = e.features[0].properties;
+
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+        console.log(props)
+        popup.setLngLat(coordinates).setHTML(
+            `
+            <div class='popup-style'>
+            <b>${props.SCHOOLNAME}</b>
+            <br>
+            ${props.DIST_NAME}
+            </div>
+            `
+        ).addTo(map);
+    });
+
+    map.on('mouseleave', 'nj-schools', (e) => {
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = 'initial';
+        popup.remove();
+    });
+
+    document.getElementById('fly-to').addEventListener('click', () => {
+        map.flyTo({
+            center: [-73.983486, 40.7489],
+            zoom: 16 //set a zoom so that the map is not too far away when you click
         })
-
-
+    })
 }
