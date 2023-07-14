@@ -44,7 +44,7 @@
             geolocate:true
         }).addTo(map);
         L.control.maptilerGeocoding({ apiKey: key }).addTo(map);
-        const subways = axios('./data/subways.geojson').then(resp => {
+        const subways = axios('subways.geojson').then(resp => {
 
             L.geoJSON(resp.data, {
                 style: function (feature) {
