@@ -1,6 +1,8 @@
 let map = L.map('map').setView([40.7, -73.9], 11);
 
 //http://maps.stamen.com/#terrain/12/37.7706/-122.3782
+//L.tileLayer lets you add new map layers - we are adding terrain and osm layers
+//Inside include the options - maxZoom and attribution
 const baseLayers = {
     terrain: L.tileLayer("https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg", {
         maxZoom: 19,
@@ -12,6 +14,7 @@ const baseLayers = {
     })
 }
 
+//add both the base layers and then create the layer control
 baseLayers['terrain'].addTo(map);
 baseLayers['osm'].addTo(map);
 

@@ -79,3 +79,11 @@ const pizza = axios('../data/pizza.geojson').then(resp => {
     }).addTo(map).bringToFront();
 
 })
+
+//Add a polygon - use L.geoJSON for the resp.data
+const walking = axios('../data/walk-area.geojson').then(resp => {
+    L.geoJSON(resp.data, {
+        style: { opacity: 0.95, color: 'palegoldenrod', weight: 2 } //similar styling options that you would find in CSS 
+    }).addTo(map).bringToBack();
+}) 
+

@@ -14,11 +14,12 @@ const basemap_urls = {
 }
 //adding different basemaps
 
+
 L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
-//L.tileLayer - comes directly from Leaflet library
+//L.tileLayer - comes directly from Leaflet library - used to add a layer
 //wants a URL from were to get the tiles 
 
 //ADD MARKERS
