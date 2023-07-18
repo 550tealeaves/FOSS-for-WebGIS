@@ -1,3 +1,5 @@
+//https://github.com/IvanSanchez/Leaflet.Polyline.SnakeAnim
+//https://ivansanchez.gitlab.io/gleo/
 let map = L.map('map').setView([40.7, -73.9], 11);
 
 //http://maps.stamen.com/#terrain/12/37.7706/-122.3782
@@ -43,18 +45,23 @@ const subways = axios('../data/subways.geojson').then(resp => {
     L.geoJSON(resp.data, {
         style: function (feature) {
             switch (feature.properties.rt_symbol) {
-                case 'A': case 'C': case 'E': return { color: "blue" };
-                case 'B': case 'M': case 'D': return { color: "orange" };
-                case 'N': case 'Q': case 'R': case 'W': return { color: "yellow" };
-                case '1': case '2': case '3': return { color: "red" };
-                case 'J': case 'Z': return { color: "brown" };
-                case '4': case '5': case '6': return { color: "green" };
-                case '7': return { color: "purple" };
-                case 'G': return { color: "lightgreen" };
-                case 'S': case 'L': return { color: "gray" };
-                default: return { color: "black" };
+                case 'A': case 'C': case 'E': return { color: "blue", weight: 4 };
+                case 'B': case 'M': case 'D': return { color: "orange", weight: 4 };
+                case 'N': case 'Q': case 'R': case 'W': return { color: "yellow", weight: 4 };
+                case '1': case '2': case '3': return { color: "red", weight: 4 };
+                case 'J': case 'Z': return { color: "brown", weight: 4 };
+                case '4': case '5': case '6': return { color: "green", weight: 4 };
+                case '7': return { color: "purple", weight: 4 };
+                case 'G': return { color: "lightgreen", weight: 4 };
+                case 'S': case 'L': return { color: "gray", weight: 4 };
+                default: return { color: "black", weight: 4 };
 
 
+            }
+        },
+        onEachFeature: function (feature, layer) {
+            if (feature.properties && feature.properties.rt_symbol) {
+                layer.bindPopup(feature.properties.rt_symbol);
             }
         }
     }).addTo(map).bringToBack();
@@ -65,9 +72,9 @@ const subways = axios('../data/subways.geojson').then(resp => {
 const pizza = axios('../data/pizza.geojson').then(resp => {
     var geojsonMarkerOptions = {
         radius: 8,
-        fillColor: "#ff7800",
-        color: "#000",
-        weight: 1,
+        fillColor: "limegreen",
+        color: "gold",
+        weight: 3,
         opacity: 1,
         fillOpacity: 1
     };
@@ -75,9 +82,21 @@ const pizza = axios('../data/pizza.geojson').then(resp => {
     L.geoJSON(resp.data, {
         pointToLayer: function (feature, latlng) {
             return L.circleMarker(latlng, geojsonMarkerOptions);
+        },
+        onEachFeature: function (feature, layer) {
+            if (feature.properties && feature.properties.name) {
+                layer.bindPopup(feature.properties.name);
+            }
         }
-     
     }).addTo(map).bringToFront();
+
+    console.log(resp.data)
+
+    const points = resp.data.features
+        .map(f => new L.LatLng(f.geometry.coordinates[1], f.geometry.coordinates[0]));
+
+    var line = L.polyline(points, { snakingSpeed: 20, color: "magenta", weight: 5 });
+    line.addTo(map).snakeIn();
 
 });
 
@@ -85,7 +104,7 @@ const pizza = axios('../data/pizza.geojson').then(resp => {
 const walking = axios('../data/walk-area.geojson').then(resp => {
 
     L.geoJSON(resp.data, {
-        style: { opacity: 0.95, color: "#000", weight: 2 }
+        style: { opacity: 0.95, color: "indigo", weight: 2 }
     }).addTo(map).bringToBack();
 
 });
