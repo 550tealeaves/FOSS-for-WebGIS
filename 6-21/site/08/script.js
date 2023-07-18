@@ -71,7 +71,11 @@ const subways = axios('../data/subways.geojson').then(resp => {
 
             }
         },
+        
+        //onEachFeature loops through each feature and performs an action
+        //Loops through features and if features.properties and feature.properties.rt_symbol, then the Popup marker will display the result of features.properties.rt_symbol (the name of subway line)
         onEachFeature: function (feature, layer) {
+            console.log('subway', feature)
             if (feature.properties && feature.properties.rt_symbol) {
                 layer.bindPopup(feature.properties.rt_symbol);
             }
@@ -95,7 +99,11 @@ const pizza = axios('../data/pizza.geojson').then(resp => {
         pointToLayer: function (feature, latlng) {
             return L.circleMarker(latlng, geojsonMarkerOptions);
         },
-        onEachFeature: function (feature, layer) {
+        
+        //onEachFeature loops through each feature and performs an action
+        //Loops through features and if features.properties and feature.properties.name, then the Popup marker will display the result of features.properties.name (the pizza store's name)
+        onEachFeature: function (feature, layer) { 
+            console.log("pizza", feature)
             if (feature.properties && feature.properties.name) {
                 layer.bindPopup(feature.properties.name);
             }
