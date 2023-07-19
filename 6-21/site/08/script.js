@@ -90,12 +90,37 @@ const subways = axios('../data/subways.geojson').then(resp => {
 const pizza = axios('../data/pizza.geojson').then(resp => {
     var geojsonMarkerOptions = {
         radius: 8,
-        fillColor: "magenta",
-        color: "skyblue",
+        fillColor: "yellow",
+        color: "crimson",
         weight: 3,
         opacity: 1,
         fillOpacity: 1
     };
+
+    L.geoJSON(resp.data, {
+        pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng, geojsonMarkerOptions);
+        },
+        onEachFeature: function (feature, layer) {
+            if (feature.properties && feature.properties.name) {
+                layer.bindPopup(feature.properties.name);
+            }
+        }
+    }).addTo(map).bringToFront();
+    //to find the lat/lng of the pizza places, 1st console log the response.data
+    //console.log("pizza-info", resp.data);
+
+    //map function loops through every feature in array and returns a transformation of the item
+    const points = resp.data.features.map(feature => {  //"feature" could be named anything, ex: "f"
+        return[feature.geometry.coordinates[1], feature.geometry.coordinates[0]];  //return feature.geometry.coordinates would return lng/lat coords but since [0] = lng coord pos in array & [1] = lat coord pos in array, reverse them to get lat, lng results
+    });
+
+    //add a new polyline and include snakingSpeed (speed of which it moves) & then add to map and include snakeIn()
+    var line = L.polyline(points, { snakingSpeed: 15, color: "magenta", weight: 6 });
+    line.addTo(map).snakeIn();
+
+    console.log("points", points);
+
 
     L.geoJSON(resp.data, {
         pointToLayer: function (feature, latlng) {
