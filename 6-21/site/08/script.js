@@ -16,6 +16,7 @@ const baseLayers = {
 baseLayers['terrain'].addTo(map);
 baseLayers['osm'].addTo(map);
 
+//create this layerControl to easily toggle between layers 
 const layerControl = L.control.layers(baseLayers).addTo(map);
 
 
