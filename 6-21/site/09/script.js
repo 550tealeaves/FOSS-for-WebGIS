@@ -110,8 +110,9 @@ const pizza = axios('../data/pizza.geojson').then(resp => {
 
     console.log(resp.data)
 
+    //f.geometry.coordinates could also be features.geometry.coordinates
     const points = resp.data.features
-        .map(f => new L.LatLng(f.geometry.coordinates[1], f.geometry.coordinates[0]));
+        .map(f => new L.LatLng(f.geometry.coordinates[1], f.geometry.coordinates[0])); 
 
     var line = L.polyline(points, { snakingSpeed: 20, color: "magenta", weight: 6 });
     line.addTo(map).snakeIn();
