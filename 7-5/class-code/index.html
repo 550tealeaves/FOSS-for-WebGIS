@@ -3,20 +3,28 @@
 
 <head>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>Display a map</title>
-    <!-- Leaflet -->
+    <title>MapTiler and Leaflet</title>
+    <!-- Leaflet CSS & JS files -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 
-    <!-- MapTiler SDK -->
+    <!-- MapTiler SDK script & CSS files -->
     <script src="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.umd.js"></script>
     <link href="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.css" rel="stylesheet" />
 
-    <!-- MapTiler SDK + Leaflet bindings -->
+    <!-- Library that binds MapTiler SDK + Leaflet -->
     <script src="https://cdn.maptiler.com/leaflet-maptilersdk/latest/leaflet-maptilersdk.js"></script>
+    
+    <!--These two libraries are for geocoding-->
     <script src="https://cdn.maptiler.com/maptiler-geocoding-control/v0.0.95/leaflet.umd.js"></script>
     <link href="https://cdn.maptiler.com/maptiler-geocoding-control/v0.0.95/style.css" rel="stylesheet" />
+    
+    <!--Add axios for http requests-->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- Include SnakeAnim script: - must make sure to download the polylinesnakeaim.js file (plugin) -->
+    <script src="L.Polyline.SnakeAnim.js"></script>
+    
     <link rel="stylesheet" href="style.css">
 </head>
 
