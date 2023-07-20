@@ -45,7 +45,7 @@ map.once('load', () => {
 
         // Value indicator
         sliderValue.textContent = e.target.value + '%';
-    });
+    }); //},'subways'); is supposed to put the subways map on top of historical but not working
 
 
 //Turfs.js - measure distance between 2 clicks
