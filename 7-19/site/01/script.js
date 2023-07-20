@@ -1,7 +1,7 @@
 //creates map - use the API page in maplibre 
 const map = new maplibregl.Map({
     container: 'map', // container id
-    style: "../class-style.json",
+    style: "../subway-color.json",
     hash: true,
     center: [-73.9536, 40.748], // starting position
     zoom: 12 // starting zoom
@@ -26,7 +26,7 @@ map.once('load', () => {
         'id': 'nyc',
         'source': 'historical-nyc-src',
         'type': 'raster'
-    }, 'subways');
+    });
 
 //Create slider that will trigger eventListener
     const slider = document.getElementById('slider');
