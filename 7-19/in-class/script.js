@@ -1,7 +1,7 @@
 //creates map - use the API page in maplibre 
 const map = new maplibregl.Map({
     container: 'map', // container id
-    style: "../site/class-style.json",
+    style: "../site/class-style.json", //using this style.json (from maputnik)
     hash: true,
     center: [-73.9536, 40.748], // starting position
     zoom: 12 // starting zoom
