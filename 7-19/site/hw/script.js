@@ -1,7 +1,7 @@
 //creates map - use the API page in maplibre 
 const map = new maplibregl.Map({
     container: 'map', // container id
-    style: "../class-style.json",
+    style: "../subway-color.json",
     hash: true,
     center: [-73.9536, 40.748], // starting position
     zoom: 12 // starting zoom
@@ -26,13 +26,13 @@ map.once('load', () => {
         'id': 'nyc',
         'source': 'historical-nyc-src',
         'type': 'raster'
-    }, 'subways');
+    }); //}, 'subways'); is supposed to put the subway maps on top of the historical map but not working
 
-//Create slider that will trigger eventListener
+    //Create slider that will trigger eventListener
     const slider = document.getElementById('slider');
     const sliderValue = document.getElementById('slider-value');
 
-//Adds eventListener - when slider value changes, change the raster opacity
+    //Adds eventListener - when slider value changes, change the raster opacity
     slider.addEventListener('input', (e) => {
         // Adjust the layers opacity. layer here is arbitrary - this could
         // be another layer name found in your style or a custom layer
@@ -45,33 +45,33 @@ map.once('load', () => {
 
         // Value indicator
         sliderValue.textContent = e.target.value + '%';
-    }); 
+    }); //},'subways'); is supposed to put the subways map on top of historical but not working
 
 
-//Turfs.js - measure distance between 2 clicks
-//start these as empty arrays
+    //Turfs.js - measure distance between 2 clicks
+    //start these as empty arrays
     let distancePnts = [];
     let markers = [];
 
 
 
-//1st make 2 markers and then add coordinates 
+    //1st make 2 markers and then add coordinates 
     map.on('click', (e) => {
-        if(markers.length > 1){
-            markers.forEach(m=>m.remove());
+        if (markers.length > 1) {
+            markers.forEach(m => m.remove());
             markers = [];
         }
-        
+
         markers.push(new maplibregl.Marker()
             .setLngLat(e.lngLat)
             .addTo(map));
-        distancePnts.push(turf.point([e.lngLat.lng,e.lngLat.lat]))
-        if(distancePnts.length < 2) return;
+        distancePnts.push(turf.point([e.lngLat.lng, e.lngLat.lat]))
+        if (distancePnts.length < 2) return;
         let options = { units: 'miles' };
         let distance = turf.distance(distancePnts[0], distancePnts[1], options);
         console.log(distance);
         distancePnts = [];
-        
+
     });
 });
 

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maputnik HW - 7-19</title>
+
+    <!--Add the maplibre library JS & CSS tags-->
+    <script src="https://unpkg.com/maplibre-gl@3.2.0/dist/maplibre-gl.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.2.0/dist/maplibre-gl.css">
+
+    <!--Add Turf.js script file-->
+    <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="map"></div>
+    <!--Add div with slider-->
+    <div class="map-overlay top">
+        <div class="map-overlay-inner">
+            <label>Layer opacity: <span id="slider-value">100%</span></label>
+            <input id="slider" type="range" min="0" max="100" step="0" value="100">
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+
+</html>
