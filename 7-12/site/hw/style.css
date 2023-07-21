@@ -9,12 +9,18 @@ body,
     height: 100%;
 }
 
+h3{
+    text-align: center;
+    color: indigo;
+}
+
 .popup-style {
-    color: rgb(3, 188, 117);
+    color: rgb(2, 94, 52);
     text-align: center;
 }
 
 #fly {
+    display: block;
     margin: 0px auto;
     width: 10%;
     height: 40px;
