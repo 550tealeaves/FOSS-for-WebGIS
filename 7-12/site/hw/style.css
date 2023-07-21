@@ -1,0 +1,38 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body,
+#map {
+    height: 100%;
+}
+
+.popup-style {
+    color: rgb(3, 188, 117);
+    text-align: center;
+}
+
+#fly {
+    margin: 0px auto;
+    width: 10%;
+    height: 40px;
+    padding: 3px;
+    border: none;
+    border-radius: 30px;
+    font-size: 12px;
+    color: #fff;
+    background: #6570ee;
+}
+
+#fly:hover {
+    cursor: pointer;
+}
+
+#fly:active {
+    color: #6570ee;
+    background-color: white;
+    border: solid #6570ee;
+    box-shadow: 5px 5px 5px #6570ee;
+}
