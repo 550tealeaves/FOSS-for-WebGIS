@@ -7,7 +7,7 @@ const map = new maplibregl.Map({
     hash: true
 });
 
-//Add marker for GC
+//Add marker for GC - https://maplibre.org/maplibre-gl-js/docs/examples/add-a-marker/
 const marker = new maplibregl.Marker()
     .setLngLat([-73.98364463562413, 40.74852647353538])
     .addTo(map);
