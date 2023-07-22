@@ -7,6 +7,11 @@ const map = new maplibregl.Map({
     hash: true
 });
 
+//Add marker for GC
+const marker = new maplibregl.Marker()
+    .setLngLat([-73.98364463562413, 40.74852647353538])
+    .addTo(map);
+
 
 //04 Load geojson - use geojson.io to convert csv or json files to geojson
 //Include Axios
@@ -93,12 +98,13 @@ function addEvents() {
         popup.remove();
     });
 
-    //Select Button on html (based on id) - when clicked, the map will move to the location coordinates specified in the center (Bryant Park)
+    //Select Button on html (based on id) - when clicked, the map will move to the location coordinates specified in the center (GC)
     document.getElementById('fly').addEventListener('click', () => {
         map.flyTo({
-            center: [-73.98344561474633, 40.75380245526688],
+            center: [-73.98364463562413, 40.74852647353538],
             zoom: 17, //set a zoom or else map will be too far when you click button
             essential: true // this animation is considered essential with respect to prefers-reduced-motion
         });
     });
+
 }
