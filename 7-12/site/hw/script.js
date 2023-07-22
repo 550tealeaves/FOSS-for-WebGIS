@@ -13,7 +13,8 @@ const map = new maplibregl.Map({
 map.once('load', main);
 
 async function main() {
-    //Load geojson async/await == .then(...)
+    //Load geojson async/await == (equivalent to) .then(...)
+    //can also use await axios(https://raw.githubusercontent.com/550tealeaves/FOSS-for-WebGIS/main/7-12/site/hw/airbnb.geojson)
     let airbnbGeojson = await axios('airbnb.geojson'); 
         map.addSource('airbnb-src', {
             'type': 'geojson',
