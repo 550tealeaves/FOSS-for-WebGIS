@@ -62,12 +62,14 @@ const pizza = axios('pizza.geojson').then(resp => {
 
     console.log(resp.data)
 
+    //Add the snakeIn animation - first add the points
     //f.geometry.coordinates could also be features.geometry.coordinates
     const points = resp.data.features
         .map(f => new L.LatLng(f.geometry.coordinates[1], f.geometry.coordinates[0])); 
 
+    //Then define the line variable using L.polyline(points) and styling the animation
     var line = L.polyline(points, { snakingSpeed: 20, color: "magenta", weight: 6 });
-    line.addTo(map).snakeIn();
+    line.addTo(map).snakeIn(); //call the snakeIn function
 
 });
 
