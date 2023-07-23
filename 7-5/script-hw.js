@@ -52,7 +52,7 @@ const statesPct = axios('census_states_pct_nototals.json').then(states => {
 
 
 //trying to get the occupation percentages to show but something isn't working - no console log errors
-const categoriesPct = axios('census_cat_total_subset.json').then(catPct => {
+const categoriesPct = axios('census_cat_pct_nototals.json').then(catPct => {
     console.log('categories', catPct); 
 
     L.geoJSON(catPct.data[0].MalePop, {
@@ -64,4 +64,8 @@ const categoriesPct = axios('census_cat_total_subset.json').then(catPct => {
         }
     }).addTo(map).bringToFront(); 
     
+})
+
+const statesPctTwo = axios('census_states_pct_total.json').then(statesEdited => {
+    console.log('short', statesEdited);
 })
