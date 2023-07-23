@@ -1,6 +1,6 @@
 [
   {
-    "Statistics": "Alabama",
+    "NAME": "Alabama",
     "TotalEmpStat_InLaborForce": 0.578,
     "TotalEmpStat_InArmedForces": 0.004,
     "TotalEmpStat_Civilian": 0.574,
@@ -88,7 +88,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Alaska",
+    "NAME": "Alaska",
     "TotalEmpStat_InLaborForce": 0.671,
     "TotalEmpStat_InArmedForces": 0.035,
     "TotalEmpStat_Civilian": 0.636,
@@ -176,7 +176,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Arizona",
+    "NAME": "Arizona",
     "TotalEmpStat_InLaborForce": 0.606,
     "TotalEmpStat_InArmedForces": 0.004,
     "TotalEmpStat_Civilian": 0.602,
@@ -264,7 +264,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Arkansas",
+    "NAME": "Arkansas",
     "TotalEmpStat_InLaborForce": 0.584,
     "TotalEmpStat_InArmedForces": 0.002,
     "TotalEmpStat_Civilian": 0.581,
@@ -352,7 +352,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "California",
+    "NAME": "California",
     "TotalEmpStat_InLaborForce": 0.639,
     "TotalEmpStat_InArmedForces": 0.005,
     "TotalEmpStat_Civilian": 0.634,
@@ -440,7 +440,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Colorado",
+    "NAME": "Colorado",
     "TotalEmpStat_InLaborForce": 0.686,
     "TotalEmpStat_InArmedForces": 0.008,
     "TotalEmpStat_Civilian": 0.678,
@@ -528,7 +528,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Connecticut",
+    "NAME": "Connecticut",
     "TotalEmpStat_InLaborForce": 0.66,
     "TotalEmpStat_InArmedForces": 0.003,
     "TotalEmpStat_Civilian": 0.657,
@@ -616,7 +616,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Delaware",
+    "NAME": "Delaware",
     "TotalEmpStat_InLaborForce": 0.622,
     "TotalEmpStat_InArmedForces": 0.006,
     "TotalEmpStat_Civilian": 0.617,
@@ -704,7 +704,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "District of Columbia",
+    "NAME": "District of Columbia",
     "TotalEmpStat_InLaborForce": 0.714,
     "TotalEmpStat_InArmedForces": 0.006,
     "TotalEmpStat_Civilian": 0.708,
@@ -792,7 +792,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Florida",
+    "NAME": "Florida",
     "TotalEmpStat_InLaborForce": 0.594,
     "TotalEmpStat_InArmedForces": 0.004,
     "TotalEmpStat_Civilian": 0.59,
@@ -880,7 +880,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Georgia",
+    "NAME": "Georgia",
     "TotalEmpStat_InLaborForce": 0.636,
     "TotalEmpStat_InArmedForces": 0.007,
     "TotalEmpStat_Civilian": 0.629,
@@ -968,7 +968,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Hawaii",
+    "NAME": "Hawaii",
     "TotalEmpStat_InLaborForce": 0.651,
     "TotalEmpStat_InArmedForces": 0.04,
     "TotalEmpStat_Civilian": 0.611,
@@ -1056,7 +1056,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Idaho",
+    "NAME": "Idaho",
     "TotalEmpStat_InLaborForce": 0.632,
     "TotalEmpStat_InArmedForces": 0.004,
     "TotalEmpStat_Civilian": 0.628,
@@ -1144,7 +1144,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Illinois",
+    "NAME": "Illinois",
     "TotalEmpStat_InLaborForce": 0.653,
     "TotalEmpStat_InArmedForces": 0.002,
     "TotalEmpStat_Civilian": 0.651,
@@ -1232,7 +1232,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Indiana",
+    "NAME": "Indiana",
     "TotalEmpStat_InLaborForce": 0.639,
     "TotalEmpStat_InArmedForces": 0.001,
     "TotalEmpStat_Civilian": 0.639,
@@ -1320,7 +1320,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Iowa",
+    "NAME": "Iowa",
     "TotalEmpStat_InLaborForce": 0.669,
     "TotalEmpStat_InArmedForces": 0.001,
     "TotalEmpStat_Civilian": 0.668,
@@ -1408,7 +1408,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Kansas",
+    "NAME": "Kansas",
     "TotalEmpStat_InLaborForce": 0.666,
     "TotalEmpStat_InArmedForces": 0.008,
     "TotalEmpStat_Civilian": 0.658,
@@ -1496,7 +1496,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Kentucky",
+    "NAME": "Kentucky",
     "TotalEmpStat_InLaborForce": 0.595,
     "TotalEmpStat_InArmedForces": 0.004,
     "TotalEmpStat_Civilian": 0.591,
@@ -1584,7 +1584,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Louisiana",
+    "NAME": "Louisiana",
     "TotalEmpStat_InLaborForce": 0.592,
     "TotalEmpStat_InArmedForces": 0.005,
     "TotalEmpStat_Civilian": 0.587,
@@ -1672,7 +1672,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Maine",
+    "NAME": "Maine",
     "TotalEmpStat_InLaborForce": 0.629,
     "TotalEmpStat_InArmedForces": 0.002,
     "TotalEmpStat_Civilian": 0.627,
@@ -1760,7 +1760,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Maryland",
+    "NAME": "Maryland",
     "TotalEmpStat_InLaborForce": 0.675,
     "TotalEmpStat_InArmedForces": 0.007,
     "TotalEmpStat_Civilian": 0.668,
@@ -1848,7 +1848,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Massachusetts",
+    "NAME": "Massachusetts",
     "TotalEmpStat_InLaborForce": 0.672,
     "TotalEmpStat_InArmedForces": 0.001,
     "TotalEmpStat_Civilian": 0.672,
@@ -1936,7 +1936,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Michigan",
+    "NAME": "Michigan",
     "TotalEmpStat_InLaborForce": 0.616,
     "TotalEmpStat_InArmedForces": 0.001,
     "TotalEmpStat_Civilian": 0.615,
@@ -2024,7 +2024,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Minnesota",
+    "NAME": "Minnesota",
     "TotalEmpStat_InLaborForce": 0.692,
     "TotalEmpStat_InArmedForces": 0.001,
     "TotalEmpStat_Civilian": 0.691,
@@ -2112,7 +2112,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Mississippi",
+    "NAME": "Mississippi",
     "TotalEmpStat_InLaborForce": 0.574,
     "TotalEmpStat_InArmedForces": 0.006,
     "TotalEmpStat_Civilian": 0.568,
@@ -2200,7 +2200,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Missouri",
+    "NAME": "Missouri",
     "TotalEmpStat_InLaborForce": 0.632,
     "TotalEmpStat_InArmedForces": 0.004,
     "TotalEmpStat_Civilian": 0.628,
@@ -2288,7 +2288,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Montana",
+    "NAME": "Montana",
     "TotalEmpStat_InLaborForce": 0.633,
     "TotalEmpStat_InArmedForces": 0.004,
     "TotalEmpStat_Civilian": 0.629,
@@ -2376,7 +2376,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Nebraska",
+    "NAME": "Nebraska",
     "TotalEmpStat_InLaborForce": 0.693,
     "TotalEmpStat_InArmedForces": 0.004,
     "TotalEmpStat_Civilian": 0.689,
@@ -2464,7 +2464,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Nevada",
+    "NAME": "Nevada",
     "TotalEmpStat_InLaborForce": 0.634,
     "TotalEmpStat_InArmedForces": 0.004,
     "TotalEmpStat_Civilian": 0.63,
@@ -2552,7 +2552,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "New Hampshire",
+    "NAME": "New Hampshire",
     "TotalEmpStat_InLaborForce": 0.672,
     "TotalEmpStat_InArmedForces": 0.002,
     "TotalEmpStat_Civilian": 0.67,
@@ -2640,7 +2640,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "New Jersey",
+    "NAME": "New Jersey",
     "TotalEmpStat_InLaborForce": 0.66,
     "TotalEmpStat_InArmedForces": 0.002,
     "TotalEmpStat_Civilian": 0.658,
@@ -2728,7 +2728,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "New Mexico",
+    "NAME": "New Mexico",
     "TotalEmpStat_InLaborForce": 0.573,
     "TotalEmpStat_InArmedForces": 0.007,
     "TotalEmpStat_Civilian": 0.566,
@@ -2816,7 +2816,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "New York",
+    "NAME": "New York",
     "TotalEmpStat_InLaborForce": 0.631,
     "TotalEmpStat_InArmedForces": 0.002,
     "TotalEmpStat_Civilian": 0.629,
@@ -2904,7 +2904,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "North Carolina",
+    "NAME": "North Carolina",
     "TotalEmpStat_InLaborForce": 0.626,
     "TotalEmpStat_InArmedForces": 0.012,
     "TotalEmpStat_Civilian": 0.614,
@@ -2992,7 +2992,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "North Dakota",
+    "NAME": "North Dakota",
     "TotalEmpStat_InLaborForce": 0.698,
     "TotalEmpStat_InArmedForces": 0.012,
     "TotalEmpStat_Civilian": 0.686,
@@ -3080,7 +3080,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Ohio",
+    "NAME": "Ohio",
     "TotalEmpStat_InLaborForce": 0.633,
     "TotalEmpStat_InArmedForces": 0.001,
     "TotalEmpStat_Civilian": 0.632,
@@ -3168,7 +3168,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Oklahoma",
+    "NAME": "Oklahoma",
     "TotalEmpStat_InLaborForce": 0.615,
     "TotalEmpStat_InArmedForces": 0.007,
     "TotalEmpStat_Civilian": 0.608,
@@ -3256,7 +3256,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Oregon",
+    "NAME": "Oregon",
     "TotalEmpStat_InLaborForce": 0.626,
     "TotalEmpStat_InArmedForces": 0.001,
     "TotalEmpStat_Civilian": 0.625,
@@ -3344,7 +3344,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Pennsylvania",
+    "NAME": "Pennsylvania",
     "TotalEmpStat_InLaborForce": 0.63,
     "TotalEmpStat_InArmedForces": 0.001,
     "TotalEmpStat_Civilian": 0.629,
@@ -3432,7 +3432,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Rhode Island",
+    "NAME": "Rhode Island",
     "TotalEmpStat_InLaborForce": 0.654,
     "TotalEmpStat_InArmedForces": 0.005,
     "TotalEmpStat_Civilian": 0.649,
@@ -3520,7 +3520,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "South Carolina",
+    "NAME": "South Carolina",
     "TotalEmpStat_InLaborForce": 0.605,
     "TotalEmpStat_InArmedForces": 0.009,
     "TotalEmpStat_Civilian": 0.597,
@@ -3608,7 +3608,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "South Dakota",
+    "NAME": "South Dakota",
     "TotalEmpStat_InLaborForce": 0.679,
     "TotalEmpStat_InArmedForces": 0.004,
     "TotalEmpStat_Civilian": 0.675,
@@ -3696,7 +3696,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Tennessee",
+    "NAME": "Tennessee",
     "TotalEmpStat_InLaborForce": 0.618,
     "TotalEmpStat_InArmedForces": 0.003,
     "TotalEmpStat_Civilian": 0.614,
@@ -3784,7 +3784,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Texas",
+    "NAME": "Texas",
     "TotalEmpStat_InLaborForce": 0.651,
     "TotalEmpStat_InArmedForces": 0.005,
     "TotalEmpStat_Civilian": 0.646,
@@ -3872,7 +3872,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Utah",
+    "NAME": "Utah",
     "TotalEmpStat_InLaborForce": 0.692,
     "TotalEmpStat_InArmedForces": 0.002,
     "TotalEmpStat_Civilian": 0.689,
@@ -3960,7 +3960,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Vermont",
+    "NAME": "Vermont",
     "TotalEmpStat_InLaborForce": 0.651,
     "TotalEmpStat_InArmedForces": 0.002,
     "TotalEmpStat_Civilian": 0.649,
@@ -4048,7 +4048,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Virginia",
+    "NAME": "Virginia",
     "TotalEmpStat_InLaborForce": 0.66,
     "TotalEmpStat_InArmedForces": 0.019,
     "TotalEmpStat_Civilian": 0.641,
@@ -4136,7 +4136,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Washington",
+    "NAME": "Washington",
     "TotalEmpStat_InLaborForce": 0.647,
     "TotalEmpStat_InArmedForces": 0.01,
     "TotalEmpStat_Civilian": 0.637,
@@ -4224,7 +4224,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "West Virginia",
+    "NAME": "West Virginia",
     "TotalEmpStat_InLaborForce": 0.533,
     "TotalEmpStat_InArmedForces": 0.001,
     "TotalEmpStat_Civilian": 0.532,
@@ -4312,7 +4312,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Wisconsin",
+    "NAME": "Wisconsin",
     "TotalEmpStat_InLaborForce": 0.661,
     "TotalEmpStat_InArmedForces": 0.001,
     "TotalEmpStat_Civilian": 0.66,
@@ -4400,7 +4400,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "Wyoming",
+    "NAME": "Wyoming",
     "TotalEmpStat_InLaborForce": 0.658,
     "TotalEmpStat_InArmedForces": 0.008,
     "TotalEmpStat_Civilian": 0.651,
@@ -4488,7 +4488,7 @@
     "M_F_TranspoandMaterialMoving": "M"
   },
   {
-    "Statistics": "TOTAL (All Selected States)",
+    "NAME": "TOTAL (All Selected States)",
     "TotalEmpStat_InLaborForce": 0.636,
     "TotalEmpStat_InArmedForces": 0.005,
     "TotalEmpStat_Civilian": 0.631,

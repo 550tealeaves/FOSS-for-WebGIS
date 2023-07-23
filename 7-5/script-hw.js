@@ -31,12 +31,12 @@ const allStates = axios('usState.json').then(resp => { //brings in the map data
             color: "magenta",
             weight: 2 //higher the number, thicker the lines are 
         } 
-    }).addTo(map).bringToFront(); //brought the map to the front so it sits on top
+    }).addTo(map).bringToBack(); //brought the map to the front so it sits on top
 
 }) //map shows up 
 
 //trying to get the state percentages to show
-const statesPct = axios('census_states_pct_nototals.json').then(states => {
+const statesPct = axios('census_states_pct_total.json').then(states => {
     console.log('states', states);
 
     L.geoJSON(states.data, {
@@ -50,19 +50,34 @@ const statesPct = axios('census_states_pct_nototals.json').then(states => {
 
 })
 
+const statesGeojson = axios('census_states_pct.geojson').then(statesGeo => {
+    console.log('statesGeo', statesGeo);
+
+    //L.geoJSON(statesGeo.data) has no error
+    //But trying to access the data.features[0].properties.NAME & get error
+    //Trying to join statesGeojson file with usState.json based on NAME property & not working
+    L.geoJSON(statesGeo.data.features[0].properties.NAME, {
+        style: {
+            radius: 5,
+            opacity: 0.95,
+            color: "green",
+            weight: 5
+        }
+    }).addTo(map).bringToFront();
+})
 
 //trying to get the occupation percentages to show but something isn't working - no console log errors
 const categoriesPct = axios('census_cat_pct_nototals.json').then(catPct => {
     console.log('categories', catPct); 
 
-    L.geoJSON(catPct.data[0].MalePop, {
-        style: { 
-            radius: 6, 
-            opacity: 0.95, 
-            color: "green", 
-            weight: 5 
-        }
-    }).addTo(map).bringToFront(); 
+    // L.geoJSON(catPct.data[0].MalePop, {
+    //     style: { 
+    //         radius: 6, 
+    //         opacity: 0.95, 
+    //         color: "green", 
+    //         weight: 5 
+    //     }
+    // }).addTo(map).bringToFront(); 
     
 })
 
