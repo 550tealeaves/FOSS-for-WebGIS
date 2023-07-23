@@ -66,6 +66,6 @@ const categoriesPct = axios('census_cat_pct_nototals.json').then(catPct => {
     
 })
 
-const statesPctTwo = axios('census_states_pct_total.json').then(statesEdited => {
-    console.log('short', statesEdited);
+const catPctTwo = axios('census_cat_pct.geojson').then(catEdited => {
+    console.log('short', catEdited);
 })
