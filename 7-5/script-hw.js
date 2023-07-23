@@ -85,3 +85,26 @@ const categoriesPct = axios('census_cat_pct_nototals.json').then(catPct => {
 const catPctTwo = axios('census_cat_pct.geojson').then(catEdited => {
     console.log('short', catEdited);
 })
+
+
+//Prof's advice https://gist.github.com/Willjfield/9f9c59b9e5364f059e9c0c5b1186f680
+//Looks like I have to do an await.sync for both the usState and the statesPct and then access the features - need to figure out if there is a way to take the coords data from usState and add it ot statesPct or just access it and use it for statesPct
+
+// ...
+// L.geoJSON(resp.data, {
+//     style: function (feature) {
+//         //Filter the non-spatial data to find the one that matches this feature's NAME
+//         const featureStateData = statesPct.data.filter(f => f.NAME === feature.properties.NAME);
+
+//         //If it doesn't find a match, something is probably wrong. Just return "gray".        
+//         if (featureStateData.length === 0) return { color: "gray" }
+
+//         //Otherwise, get a property (eg. TotalEmpStat_InLaborForce) and multiply it to get a usable blue channel value        
+//         const blueVal = featureStateData[0].TotalEmpStat_InLaborForce * 255;
+//         //Return the color using the found value
+//         return { color: `rgb(0,0,${blueVal})` }
+//     }
+// },
+//     ...
+//         })
+//         ...
