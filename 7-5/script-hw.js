@@ -36,9 +36,10 @@ const allStates = axios('usState.json').then(resp => { //brings in the map data
 }) //map shows up 
 
 //trying to get the state percentages to show
-const statesPct = axios('census_states_pct_total.json').then(states => {
+const statesPct = axios('census_states_pct.json').then(states => {
     console.log('states', states);
 
+    //L.geoJSON(states.data[0].NAME) produces invalid GEOJSON error
     L.geoJSON(states.data, {
         style: {
              radius: 3, 
@@ -53,10 +54,10 @@ const statesPct = axios('census_states_pct_total.json').then(states => {
 const statesGeojson = axios('census_states_pct.geojson').then(statesGeo => {
     console.log('statesGeo', statesGeo);
 
+    //Trying to join statesGeojson file with usState.json based on NAME property & not working
     //L.geoJSON(statesGeo.data) has no error
     //But trying to access the data.features[0].properties.NAME & get error
-    //Trying to join statesGeojson file with usState.json based on NAME property & not working
-    L.geoJSON(statesGeo.data.features[0].properties.NAME, {
+    L.geoJSON(statesGeo.data, {
         style: {
             radius: 5,
             opacity: 0.95,
