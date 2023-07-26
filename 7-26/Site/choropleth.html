@@ -25,7 +25,7 @@
     makeChart(); //execute this function 
 
     function makeChart() {
-        const color = d3.scaleQuantize([1, 30], d3.schemeBlues[9]); //Round to nearest 1-30 integer and use the built-in blue colorscheme with 9 values to match - map values 1-20 to this color scheme that has 9 values 
+        const color = d3.scaleQuantize([1, 30], d3.schemeYlOrRd[9]); //Round to nearest 1-30 integer and use the built-in blue colorscheme with 9 values to match - map values 1-20 to this color scheme that has 9 values 
         const valuemap = new Map(povertyEst.map(d => [+d.FIPS_Code, d.PCTPOVALL_2021])); //This makes a value map that d3 can easily look up in the color function - new Map = data structure that will take FIPS-code from each row and % poverty and store that in easily accessible way for D3
         console.log(Map); 
 
