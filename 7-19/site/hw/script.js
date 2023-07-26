@@ -26,7 +26,7 @@ map.once('load', () => {
         'id': 'nyc',
         'source': 'historical-nyc-src',
         'type': 'raster'
-    }); //}, 'subways'); is supposed to put the subway maps on top of the historical map but not working
+    }, 'subway-ex'); //}, 'subways'); is supposed to put the subway maps on top of the historical map but not working
 
     //Create slider that will trigger eventListener
     const slider = document.getElementById('slider');
