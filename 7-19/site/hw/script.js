@@ -26,7 +26,7 @@ map.once('load', () => {
         'id': 'nyc',
         'source': 'historical-nyc-src',
         'type': 'raster'
-    }, 'subway-ex'); //}, 'subways'); is supposed to put the subway maps on top of the historical map but not working
+    }, 'subway-ex'); //added 'subway-ex' at the end so that the subway-color.json file sits on top of the historical map pic
 
     //Create slider that will trigger eventListener
     const slider = document.getElementById('slider');
