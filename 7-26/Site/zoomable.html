@@ -66,28 +66,28 @@
             .attr("stroke-linejoin", "round")
             .attr("d", path(topojson.mesh(us, us.objects.counties, (a, b) => a !== b))); //uses mesh instead of feature b/c not attaching any data - just want vis representation of outlines 
 
-        svg.call(zoom); //Call the zoom function from the zoom library
+        svg.call(zoom); //Call the zoom function from the zoom library and applies it to the svg (bind the zoom to the svg)
 
         // Resets the state of the map and zooms out to the initial view.
-        function reset() {
-            counties.transition().style("fill", null);
-            svg.transition().duration(750).call(
-                zoom.transform,
-                d3.zoomIdentity,
+        function reset() { 
+            counties.transition().style("fill", null); //takes counties group and applies transition function 
+            svg.transition().duration(750).call( //chains svg to transition function, sets duration (750ms) and calls the below functions
+                zoom.transform, //transformation matrices that control what is viewed
+                d3.zoomIdentity, //identity matrix = default view
                 d3.zoomTransform(svg.node()).invert([width / 2, height / 2])
             );
         }
 
-        function clicked(event, d) {
+        function clicked(event, d) { //click function takes data about event, d = data that defines the path 
             const [[x0, y0], [x1, y1]] = path.bounds(d); //Gets the bounds of the path
             event.stopPropagation();
             counties.transition().style("fill", null);
             d3.select(this).transition().style("fill", "red"); //Styles the path
-            svg.transition().duration(750).call(
+            svg.transition().duration(750).call( //takes svg and apply transformation matrix - calculates bounding box based on element clicked
                 zoom.transform,
                 d3.zoomIdentity
                     .translate(width / 2, height / 2)
-                    .scale(Math.min(8, 0.9 / Math.max((x1 - x0) / width, (y1 - y0) / height))) //Sets the zoom identity matrix
+                    .scale(Math.min(8, 0.9 / Math.max((x1 - x0) / width, (y1 - y0) / height))) //Sets the zoom identity matrix - click county and it will multiply the paths by the below 
                     .translate(-(x0 + x1) / 2, -(y0 + y1) / 2),
                 d3.pointer(event, svg.node()) 
             );
