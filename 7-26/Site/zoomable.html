@@ -49,7 +49,7 @@
         
         //Create a group inside that group - make all the paths for the counties
         const counties = g.append("g") //create new group
-            .attr("fill", "#444") //fill shapes w/ this color
+            .attr("fill", "#4a1060") //fill shapes w/ this color
             .attr("cursor", "pointer") //set cursor to pointer
             .selectAll("path") //create the path
             .data(topojson.feature(us, us.objects.counties).features) //use topojson library to look into variable us - look at counties and features 
@@ -82,7 +82,7 @@
             const [[x0, y0], [x1, y1]] = path.bounds(d); //Gets the bounds of the path
             event.stopPropagation();
             counties.transition().style("fill", null);
-            d3.select(this).transition().style("fill", "red"); //Styles the path
+            d3.select(this).transition().style("fill", "skyblue"); //Styles the path
             svg.transition().duration(750).call( //takes svg and apply transformation matrix - calculates bounding box based on element clicked
                 zoom.transform,
                 d3.zoomIdentity
