@@ -42,7 +42,7 @@ map.once('load', async () => {
         widthScale: 20,
         widthMinPixels: 2,
         getPath: d => d,
-        getColor: d => [150, 50, 150], 
+        getColor: d => [250, 250, 30], 
         getWidth: d => .75,
         opacity: 0.1
     }),);
