@@ -1,6 +1,6 @@
 const map = new maplibregl.Map({
     container: 'map',
-    style: './dark_matter-style.json',
+    style: './dark_matter-style.json', //using dark style from maputnik
     center: [-74.262, 40.73],
     zoom: 15.6,
     bearing: 0,
@@ -8,11 +8,15 @@ const map = new maplibregl.Map({
     hash: true
 });
 
+//import the csv file using async and await
+//load csv as a blob so data can be returned as different types - blob = generic stream of data
 map.once('load', async () => {
     const response = await axios.get("./routes.csv", { responseType: 'blob', });
     const file = response.data;
-    const obj = csvJSON(await file.text());
+    console.log('blob', file) //incomprehensible data
+    const obj = csvJSON(await file.text()); //helps get the text out of the data
 
+    //Create path layer - https://deck.gl/docs/api-reference/layers/path-layer 
     let propertyDataArray = [];
     let p = -1;
     for (let c = 0; c < obj.length; c++) {
@@ -27,6 +31,9 @@ map.once('load', async () => {
         }
     }
 
+
+    //Style the paths
+    //would be cool to change color depending on speed
     console.log(propertyDataArray)
     map.addLayer(new deck.MapboxLayer({
         id: 'deckgl-routes',
@@ -35,12 +42,13 @@ map.once('load', async () => {
         widthScale: 20,
         widthMinPixels: 2,
         getPath: d => d,
-        getColor: d => [150, 50, 150],
+        getColor: d => [150, 50, 150], 
         getWidth: d => .75,
         opacity: 0.1
     }),);
 })
 
+//Creates JSON object from csv file - stack overflow
 function csvJSON(csvStr) {
     var lines = csvStr.split("\n");
     var result = [];
