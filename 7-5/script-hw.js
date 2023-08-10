@@ -31,15 +31,17 @@ function getColor(d) {
 
 const allStates = axios('usState.json').then(resp => { //brings in the map data 
     console.log('response', resp); //see response in console log
-    const statesPct = axios('census_states_pct.json').then(pct => {
-        console.log(pct)
+    const statesPct = axios('census_states_pct.json').then(states => {
+        console.log("states", states)
         L.geoJSON(resp.data, { //access the response.data and style it 
         style: {
             opacity: 0.85, //higher the number the more opaque it is
-                color: (d) => {   // => creates an anonymous function
-                    console.log("d", d)
-                    return "yellow"
-                },
+                color: "magenta",
+            
+                // color: (d) => {   // => creates an anonymous function
+                //     console.log("d", d)
+                //     return "yellow"
+                // },
             weight: 2 //higher the number, thicker the lines are 
         } 
     }).addTo(map).bringToBack(); //brought the map to the front so it sits on top
@@ -47,7 +49,7 @@ const allStates = axios('usState.json').then(resp => { //brings in the map data
     })
 
     
-}) //map shows up 
+}) //map shows up
 
 
 
@@ -56,19 +58,19 @@ const allStates = axios('usState.json').then(resp => { //brings in the map data
 
 //trying to get the state percentages to show
 
-//use await, async to store - 
+//use await, async to store -
 // const statesPct = axios('census_states_pct.json').then(states => {
 //     console.log('states', states);
 
 //     //L.geoJSON(states.data[0].NAME) produces invalid GEOJSON error
 //     L.geoJSON(states.data, {
 //         style: {
-//              radius: 3, 
-//              opacity: 0.95, 
+//              radius: 3,
+//              opacity: 0.95,
 //              color: getColor, //create a function that returns color based on the state
-//              weight: 4 
+//              weight: 4
 //             }
-//     }).addTo(map).bringToFront(); 
+//     }).addTo(map).bringToFront();
 
 // })
 
@@ -90,17 +92,17 @@ const allStates = axios('usState.json').then(resp => { //brings in the map data
 
 // //trying to get the occupation percentages to show but something isn't working - no console log errors
 // const categoriesPct = axios('census_cat_pct_nototals.json').then(catPct => {
-//     console.log('categories', catPct); 
+//     console.log('categories', catPct);
 
 //     // L.geoJSON(catPct.data[0].MalePop, {
-//     //     style: { 
-//     //         radius: 6, 
-//     //         opacity: 0.95, 
-//     //         color: "green", 
-//     //         weight: 5 
+//     //     style: {
+//     //         radius: 6,
+//     //         opacity: 0.95,
+//     //         color: "green",
+//     //         weight: 5
 //     //     }
-//     // }).addTo(map).bringToFront(); 
-    
+//     // }).addTo(map).bringToFront();
+
 // })
 
 // const catPctTwo = axios('census_cat_pct.geojson').then(catEdited => {
@@ -108,8 +110,8 @@ const allStates = axios('usState.json').then(resp => { //brings in the map data
 // })
 
 
-function style(feature) {
-    //Prof advice for final project - 8/9/23
+//Have to pass the style properties as a function - function style(feature)
+//Prof advice for final project - 8/9/23
     //getFeature.properties.name - save as string (ex: stateName)
     //pct.data has all data but no geometry
     //take pct.data.filter to filter array
@@ -117,17 +119,20 @@ function style(feature) {
     //save filtered array as another var (ex: filteredState)
     //take first index - filteredState[0].occupationName
     //pass filteredState[0].occupationName into getColor function which will return a color
-    return {
-        fillColor: getColor(feature.properties.density),
-        weight: 2,
-        opacity: 1,
-        color: 'white',
-        dashArray: '3',
-        fillOpacity: 0.7
-    };
-}
 
-L.geoJson(allStates, { style: style }).addTo(map);
+// function style(feature) {
+    
+//     return {
+//         fillColor: getColor(feature.properties.density),
+//         weight: 2,
+//         opacity: 1,
+//         color: 'white',
+//         dashArray: '3',
+//         fillOpacity: 0.7
+//     };
+// }
+
+// L.geoJson(allStates, { style: style }).addTo(map);
 
 //have to join data - need to match the names from usStates to states pct
 
