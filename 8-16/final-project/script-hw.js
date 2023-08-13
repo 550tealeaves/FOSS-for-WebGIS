@@ -45,7 +45,8 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
     L.geoJSON(resp.data, {
         style: {
             opacity: 0.95,
-            fillColor: getColor()
+            color: 'yellow', //colors the borders
+            fillColor: 'magenta', //colors the states
             weight: 2
         }
     }).addTo(map).bringToBack();

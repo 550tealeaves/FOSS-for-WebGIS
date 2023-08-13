@@ -2,6 +2,7 @@ const povertyEst = await d3.csv("PovertyEstimates.csv"); //IMPORTANT! Had to del
 console.log('poverty', povertyEst);
 const us = await d3.json("us.json"); //don't continue executing code until the file is loaded
 
+
 makeChart(); //execute this function 
 
 function makeChart() {
