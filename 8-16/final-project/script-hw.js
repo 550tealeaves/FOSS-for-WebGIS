@@ -50,6 +50,18 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
             weight: 2
         }
     }).addTo(map).bringToBack();
+
+
+    function style(feature){
+        console.log('feature', feature)
+        return{
+            weight: 3,
+            opacity: 1, 
+            color: 'white',
+            fillOpacity: 0.6,
+            fillColor: getColor(feature[0].properties.Fem_HealthcareSupport)
+        }
+    }
     
     
     
