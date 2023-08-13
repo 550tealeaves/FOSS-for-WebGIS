@@ -23,30 +23,51 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 
 //Adding color - can find colors on https:/ / colorbrewer2.org / #type=sequential & scheme=BuGn & n=3
 function getColor(d) {
-    console.log("d", d)
-    return "yellow"
+    return d > 1000 ? '#800026' :
+        d > 500 ? '#BD0026' :
+            d > 200 ? '#E31A1C' :
+                d > 100 ? '#FC4E2A' :
+                    d > 50 ? '#FD8D3C' :
+                        d > 20 ? '#FEB24C' :
+                            d > 10 ? '#FED976' :
+                                '#FFEDA0';
 }
+
+// function getColor(d) {
+//     console.log("d", d)
+//     return "yellow"
+// }
 
 //make a style function to return the info inside (opacity, color etc) 
 
-const allStates = axios('usState.json').then(resp => { //brings in the map data 
+const allStates = axios('usState-jobs.json').then(resp => { //brings in the map data 
     console.log('response', resp); //see response in console log
-    const statesPct = axios('census_states_pct.json').then(states => {
-        console.log("states", states)
-        L.geoJSON(resp.data, { //access the response.data and style it 
+    L.geoJSON(resp.data, {
         style: {
-            opacity: 0.85, //higher the number the more opaque it is
-                color: "magenta",
+            opacity: 0.95,
+            fillColor: getColor()
+            weight: 2
+        }
+    }).addTo(map).bringToBack();
+    
+    
+    
+    // const statesPct = axios('census_states_pct.json').then(states => {
+    //     console.log("states", states)
+    //     L.geoJSON(resp.data, { //access the response.data and style it 
+    //     style: {
+    //         opacity: 0.85, //higher the number the more opaque it is
+    //             color: "magenta",
             
-                // color: (d) => {   // => creates an anonymous function
-                //     console.log("d", d)
-                //     return "yellow"
-                // },
-            weight: 2 //higher the number, thicker the lines are 
-        } 
-    }).addTo(map).bringToBack(); //brought the map to the front so it sits on top
+    //             // color: (d) => {   // => creates an anonymous function
+    //             //     console.log("d", d)
+    //             //     return "yellow"
+    //             // },
+    //         weight: 2 //higher the number, thicker the lines are 
+    //     } 
+    // }).addTo(map).bringToBack(); //brought the map to the front so it sits on top
 
-    })
+    // })
 
     
 }) //map shows up
