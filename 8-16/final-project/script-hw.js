@@ -18,8 +18,8 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 
 //Adding color - can find colors on https:/ / colorbrewer2.org / #type=sequential & scheme=BuGn & n=3
 
-let jobTitles = []
-let userSelection = 'Fem_HealthcareSupport'
+let jobTitles = [] //create an empty array
+let userSelection = 'Fem_HealthcareSupport' //set the field string = to variable
 
 function getColor(d) {
     console.log('d', d)
@@ -37,7 +37,9 @@ function getColor(d) {
 } //change the value in lines 27-33 b/c the fields in properties are in decimals - 0-1
 
 //Use https://stackoverflow.com/questions/9895082/javascript-populate-drop-down-list-with-array - to learn how to create dropdown and select value
+
 // Use https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript - to learn how to select value
+
 //Save value of selected option (ex: Fem_Health...from dropdown) into a variable - it saves the name of the object key
 
 const allStates = axios('usState-jobs.json').then(resp => { //brings in the map data 
@@ -52,7 +54,6 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
 
             return{
                 //fillColor: `rgb(0,100,${blueVal})`,
-                //fillColor: "rgb(100,50,10)",
                 fillColor: getColor(feature),
                 fillOpacity: 0.95,
                 //opacity: 0.95,
@@ -61,19 +62,6 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
             } 
         }
     }).addTo(map).bringToFront();
-
-    // //make a style function to return the info inside (opacity, color etc) 
-    // function style(feature) {
-    //     console.log('feature', feature)
-    //     return {
-    //         weight: 3,
-    //         opacity: 1,
-    //         color: 'white',
-    //         fillOpacity: 0.6,
-    //         fillColor: getColor(feature[0].properties.Fem_HealthcareSupport)
-    //     }
-    // }
-
 }) 
 
 
@@ -134,10 +122,6 @@ info.addTo(map);
     // }
 
 
-// function getColor(d) {
-//     console.log("d", d)
-//     return "yellow"
-// }
 
 
 
@@ -154,22 +138,3 @@ info.addTo(map);
     //save filtered array as another var (ex: filteredState)
     //take first index - filteredState[0].occupationName
     //pass filteredState[0].occupationName into getColor function which will return a color
-
-// function style(feature) {
-    
-//     return {
-//         fillColor: getColor(feature.properties.density),
-//         weight: 2,
-//         opacity: 1,
-//         color: 'white',
-//         dashArray: '3',
-//         fillOpacity: 0.7
-//     };
-// }
-
-// L.geoJson(allStates, { style: style }).addTo(map);
-
-//have to join data - need to match the names from usStates to states pct
-
-
-//Prof's advice https://gist.github.com/Willjfield/9f9c59b9e5364f059e9c0c5b1186f680
