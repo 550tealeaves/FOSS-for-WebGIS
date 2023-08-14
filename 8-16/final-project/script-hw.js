@@ -17,19 +17,32 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 //wants a URL from were to get the tiles 
 
 //Adding color - can find colors on https:/ / colorbrewer2.org / #type=sequential & scheme=BuGn & n=3
-function getColor(d) {
-    return d > 1000 ? '#800026' :
-        d > 500 ? '#BD0026' :
-            d > 200 ? '#E31A1C' :
-                d > 100 ? '#FC4E2A' :
-                    d > 50 ? '#FD8D3C' :
-                        d > 20 ? '#FEB24C' :
-                            d > 10 ? '#FED976' :
-                                '#FFEDA0';
-}
 
+let jobTitles = []
+let userSelection = 'Fem_HealthcareSupport'
+
+function getColor(d) {
+    console.log('d', d)
+    let dataValue = d.properties[userSelection]
+    //let dataValue = d.properties['Fem_HealthcareSupport'] //will go into properties (object) and access the field Fem_Health... "d" = feature
+    //Create new variable - userSelection to replace string = d.properties[userSelection]
+    return dataValue > 0.090 ? '#800026' :
+        dataValue > 0.080 ? '#BD0026' :
+            dataValue > 0.070 ? '#E31A1C' :
+                dataValue > 0.060 ? '#FC4E2A' :
+                    dataValue > 0.050 ? '#FD8D3C' :
+                        dataValue > 0.020 ? '#FEB24C' :
+                            dataValue > 0.010 ? '#FED976' :
+                                '#FFEDA0';
+} //change the value in lines 27-33 b/c the fields in properties are in decimals - 0-1
+
+//Use https://stackoverflow.com/questions/9895082/javascript-populate-drop-down-list-with-array - to learn how to create dropdown and select value
+// Use https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript - to learn how to select value
+//Save value of selected option (ex: Fem_Health...from dropdown) into a variable - it saves the name of the object key
 
 const allStates = axios('usState-jobs.json').then(resp => { //brings in the map data 
+    jobTitles = Object.keys(resp.data.features[0].properties) //use this to be able to select all the job titles
+    console.log('jobTitles', jobTitles);
     console.log('response', resp); //see response in console log
     L.geoJSON(resp.data, {
         style: function (feature) {
@@ -38,9 +51,9 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
             const greenVal = feature.properties.Total_HealthcareSupport * 15;
 
             return{
-                //fillColor: `rgb(${redVal},${greenVal},${blueVal})`,
+                //fillColor: `rgb(0,100,${blueVal})`,
                 //fillColor: "rgb(100,50,10)",
-                fillColor: getColor,
+                fillColor: getColor(feature),
                 fillOpacity: 0.7,
                 opacity: 0.95,
                 color: 'yellow', //colors the borders
@@ -74,6 +87,7 @@ info.onAdd = function (map) {
 };
 
 info.update = function (props) {
+    console.log('props', props)
     this._div.innerHTML = '<h4>Occupation stats</h4>' + (props ?
         '<b>' + props.name + '</b><br />' + props.Fem_HealthcareSupport + ' people / mi<sup>2</sup>' : 'Hover over a state');
 };
