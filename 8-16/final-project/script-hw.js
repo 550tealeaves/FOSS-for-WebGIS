@@ -16,6 +16,19 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 //L.tileLayer - comes directly from Leaflet library
 //wants a URL from were to get the tiles 
 
+//Adding color - can find colors on https:/ / colorbrewer2.org / #type=sequential & scheme=BuGn & n=3
+function getColor(d) {
+    return d > 1000 ? '#800026' :
+        d > 500 ? '#BD0026' :
+            d > 200 ? '#E31A1C' :
+                d > 100 ? '#FC4E2A' :
+                    d > 50 ? '#FD8D3C' :
+                        d > 20 ? '#FEB24C' :
+                            d > 10 ? '#FED976' :
+                                '#FFEDA0';
+}
+
+
 const allStates = axios('usState-jobs.json').then(resp => { //brings in the map data 
     console.log('response', resp); //see response in console log
     L.geoJSON(resp.data, {
@@ -25,8 +38,9 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
             const greenVal = feature.properties.Total_HealthcareSupport * 15;
 
             return{
-                fillColor: `rgb(${redVal},${greenVal},${blueVal})`,
+                //fillColor: `rgb(${redVal},${greenVal},${blueVal})`,
                 //fillColor: "rgb(100,50,10)",
+                fillColor: getColor,
                 fillOpacity: 0.7,
                 opacity: 0.95,
                 color: 'yellow', //colors the borders
@@ -35,17 +49,17 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
         }
     }).addTo(map).bringToFront();
 
-    //make a style function to return the info inside (opacity, color etc) 
-    function style(feature) {
-        console.log('feature', feature)
-        return {
-            weight: 3,
-            opacity: 1,
-            color: 'white',
-            fillOpacity: 0.6,
-            fillColor: getColor(feature[0].properties.Fem_HealthcareSupport)
-        }
-    }
+    // //make a style function to return the info inside (opacity, color etc) 
+    // function style(feature) {
+    //     console.log('feature', feature)
+    //     return {
+    //         weight: 3,
+    //         opacity: 1,
+    //         color: 'white',
+    //         fillOpacity: 0.6,
+    //         fillColor: getColor(feature[0].properties.Fem_HealthcareSupport)
+    //     }
+    // }
 
 }) 
 
@@ -67,17 +81,6 @@ info.update = function (props) {
 info.addTo(map);
 
 
-//Adding color - can find colors on https:/ / colorbrewer2.org / #type=sequential & scheme=BuGn & n=3
-function getColor(d) {
-    return d > 1000 ? '#800026' :
-        d > 500 ? '#BD0026' :
-            d > 200 ? '#E31A1C' :
-                d > 100 ? '#FC4E2A' :
-                    d > 50 ? '#FD8D3C' :
-                        d > 20 ? '#FEB24C' :
-                            d > 10 ? '#FED976' :
-                                '#FFEDA0';
-}
 
 
     // function highlightFeature(e) {
