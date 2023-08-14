@@ -79,6 +79,44 @@ function getColor(d) {
                                 '#FFEDA0';
 }
 
+
+    // function highlightFeature(e) {
+    //     const layer = e.target;
+
+    //     layer.setStyle({
+    //         weight: 5,
+    //         color: '#666',
+    //         dashArray: '',
+    //         fillOpacity: 0.7
+    //     });
+
+    //     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+    //         layer.bringToFront();
+    //     }
+
+    //     info.update(layer.feature.properties.Fem_HealthcareSupport);
+    // }
+
+    // var geojson;
+
+    // function resetHighlight(e) {
+    //     geojson.resetStyle(e.target);
+    //     info.update();
+    // }
+
+    // function zoomToFeature(e) {
+    //     map.fitBounds(e.target.getBounds());
+    // }
+
+    // function onEachFeature(feature, layer) {
+    //     layer.on({
+    //         mouseover: highlightFeature,
+    //         mouseout: resetHighlight,
+    //         click: zoomToFeature
+    //     });
+    // }
+
+
 // function getColor(d) {
 //     console.log("d", d)
 //     return "yellow"
