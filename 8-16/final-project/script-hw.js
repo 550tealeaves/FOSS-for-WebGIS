@@ -46,18 +46,18 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
     console.log('response', resp); //see response in console log
     L.geoJSON(resp.data, {
         style: function (feature) {
-            const blueVal = feature.properties.Fem_HealthcareSupport * 60;
-            const redVal = feature.properties.Male_HealthcareSupport * 280;
-            const greenVal = feature.properties.Total_HealthcareSupport * 15;
+            // const blueVal = feature.properties.Fem_HealthcareSupport * 60;
+            // const redVal = feature.properties.Male_HealthcareSupport * 280;
+            // const greenVal = feature.properties.Total_HealthcareSupport * 15;
 
             return{
                 //fillColor: `rgb(0,100,${blueVal})`,
                 //fillColor: "rgb(100,50,10)",
                 fillColor: getColor(feature),
-                fillOpacity: 0.7,
-                opacity: 0.95,
-                color: 'yellow', //colors the borders
-                weight: 2
+                fillOpacity: 0.95,
+                //opacity: 0.95,
+                color: 'black', //colors the borders
+                weight: 1
             } 
         }
     }).addTo(map).bringToFront();
