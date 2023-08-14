@@ -1,11 +1,6 @@
 console.log('loaded');
 
 let map = L.map('map').setView([40.7, -73.7], 5);
-//L. - means it comes from the Leaflet library 
-//make a map object in the div with the ID map 
-//setView - sets the starting lat/long and the zoom level
-//use geojson.io - to determine lat/lon and zoom level and insert in the setView area (can start wherever you want it to ) - data up there starts at NYC
-//bigger zoom number = more zoomed in
 
 //http://maps.stamen.com/#terrain/12/37.7706/-122.3782
 const basemap_urls = {
@@ -20,6 +15,23 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 }).addTo(map);
 //L.tileLayer - comes directly from Leaflet library
 //wants a URL from were to get the tiles 
+
+// control that shows state info on hover
+var info = L.control();
+
+info.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'info');
+    this.update();
+    return this._div;
+};
+
+info.update = function (props) {
+    this._div.innerHTML = '<h4>Occupation stats</h4>' + (props ?
+        '<b>' + props.name + '</b><br />' + props.Fem_HealthcareSupport + ' people / mi<sup>2</sup>' : 'Hover over a state');
+};
+
+info.addTo(map);
+
 
 //Adding color - can find colors on https:/ / colorbrewer2.org / #type=sequential & scheme=BuGn & n=3
 function getColor(d) {
