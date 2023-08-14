@@ -19,14 +19,35 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 const allStates = axios('usState-jobs.json').then(resp => { //brings in the map data 
     console.log('response', resp); //see response in console log
     L.geoJSON(resp.data, {
-        style: {
-            opacity: 0.95,
-            color: 'yellow', //colors the borders
-            fillColor: 'magenta', //colors the states
-            weight: 2
-        }
-    }).addTo(map).bringToBack();
+        style: function (feature) {
+            const blueVal = feature.properties.Fem_HealthcareSupport * 60;
+            const redVal = feature.properties.Male_HealthcareSupport * 280;
+            const greenVal = feature.properties.Total_HealthcareSupport * 15;
 
+            return{
+                fillColor: `rgb(${redVal},${greenVal},${blueVal})`,
+                //fillColor: "rgb(100,50,10)",
+                fillOpacity: 0.7,
+                opacity: 0.95,
+                color: 'yellow', //colors the borders
+                weight: 2
+            } 
+        }
+    }).addTo(map).bringToFront();
+
+    //make a style function to return the info inside (opacity, color etc) 
+    function style(feature) {
+        console.log('feature', feature)
+        return {
+            weight: 3,
+            opacity: 1,
+            color: 'white',
+            fillOpacity: 0.6,
+            fillColor: getColor(feature[0].properties.Fem_HealthcareSupport)
+        }
+    }
+
+}) 
 
 
 // control that shows state info on hover
@@ -65,44 +86,6 @@ function getColor(d) {
 
 
 
-//make a style function to return the info inside (opacity, color etc) 
-    function style(feature){
-        console.log('feature', feature)
-        return{
-            weight: 3,
-            opacity: 1, 
-            color: 'white',
-            fillOpacity: 0.6,
-            fillColor: getColor(feature[0].properties.Fem_HealthcareSupport)
-        }
-    }
-    
-}) 
-
-
-
-
-
-
-//trying to get the state percentages to show
-
-//use await, async to store -
-// const statesPct = axios('census_states_pct.json').then(states => {
-//     console.log('states', states);
-
-//     //L.geoJSON(states.data[0].NAME) produces invalid GEOJSON error
-//     L.geoJSON(states.data, {
-//         style: {
-//              radius: 3,
-//              opacity: 0.95,
-//              color: getColor, //create a function that returns color based on the state
-//              weight: 4
-//             }
-//     }).addTo(map).bringToFront();
-
-// })
-
-
 
 
 
@@ -135,23 +118,3 @@ function getColor(d) {
 
 
 //Prof's advice https://gist.github.com/Willjfield/9f9c59b9e5364f059e9c0c5b1186f680
-//Looks like I have to do an await.sync for both the usState and the statesPct and then access the features - need to figure out if there is a way to take the coords data from usState and add it ot statesPct or just access it and use it for statesPct
-
-// ...
-// L.geoJSON(resp.data, {
-//     style: function (feature) {
-//         //Filter the non-spatial data to find the one that matches this feature's NAME
-//         const featureStateData = statesPct.data.filter(f => f.NAME === feature.properties.NAME);
-
-//         //If it doesn't find a match, something is probably wrong. Just return "gray".        
-//         if (featureStateData.length === 0) return { color: "gray" }
-
-//         //Otherwise, get a property (eg. TotalEmpStat_InLaborForce) and multiply it to get a usable blue channel value        
-//         const blueVal = featureStateData[0].TotalEmpStat_InLaborForce * 255;
-//         //Return the color using the found value
-//         return { color: `rgb(0,0,${blueVal})` }
-//     }
-// },
-//     ...
-//         })
-//         ...
