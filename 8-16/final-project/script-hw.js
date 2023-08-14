@@ -16,6 +16,19 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 //L.tileLayer - comes directly from Leaflet library
 //wants a URL from were to get the tiles 
 
+const allStates = axios('usState-jobs.json').then(resp => { //brings in the map data 
+    console.log('response', resp); //see response in console log
+    L.geoJSON(resp.data, {
+        style: {
+            opacity: 0.95,
+            color: 'yellow', //colors the borders
+            fillColor: 'magenta', //colors the states
+            weight: 2
+        }
+    }).addTo(map).bringToBack();
+
+
+
 // control that shows state info on hover
 var info = L.control();
 
@@ -50,20 +63,9 @@ function getColor(d) {
 //     return "yellow"
 // }
 
+
+
 //make a style function to return the info inside (opacity, color etc) 
-
-const allStates = axios('usState-jobs.json').then(resp => { //brings in the map data 
-    console.log('response', resp); //see response in console log
-    L.geoJSON(resp.data, {
-        style: {
-            opacity: 0.95,
-            color: 'yellow', //colors the borders
-            fillColor: 'magenta', //colors the states
-            weight: 2
-        }
-    }).addTo(map).bringToBack();
-
-
     function style(feature){
         console.log('feature', feature)
         return{
@@ -75,27 +77,7 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
         }
     }
     
-    
-    
-    // const statesPct = axios('census_states_pct.json').then(states => {
-    //     console.log("states", states)
-    //     L.geoJSON(resp.data, { //access the response.data and style it 
-    //     style: {
-    //         opacity: 0.85, //higher the number the more opaque it is
-    //             color: "magenta",
-            
-    //             // color: (d) => {   // => creates an anonymous function
-    //             //     console.log("d", d)
-    //             //     return "yellow"
-    //             // },
-    //         weight: 2 //higher the number, thicker the lines are 
-    //     } 
-    // }).addTo(map).bringToBack(); //brought the map to the front so it sits on top
-
-    // })
-
-    
-}) //map shows up
+}) 
 
 
 
@@ -120,40 +102,9 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
 
 // })
 
-// const statesGeojson = axios('census_states_pct.geojson').then(statesGeo => {
-//     console.log('statesGeo', statesGeo);
 
-//     //Trying to join statesGeojson file with usState.json based on NAME property & not working
-//     //L.geoJSON(statesGeo.data) has no error
-//     //But trying to access the data.features[0].properties.NAME & get error
-//     L.geoJSON(statesGeo.data, {
-//         style: {
-//             radius: 5,
-//             opacity: 0.95,
-//             color: "green",
-//             weight: 5
-//         }
-//     }).addTo(map).bringToFront();
-// })
 
-// //trying to get the occupation percentages to show but something isn't working - no console log errors
-// const categoriesPct = axios('census_cat_pct_nototals.json').then(catPct => {
-//     console.log('categories', catPct);
 
-//     // L.geoJSON(catPct.data[0].MalePop, {
-//     //     style: {
-//     //         radius: 6,
-//     //         opacity: 0.95,
-//     //         color: "green",
-//     //         weight: 5
-//     //     }
-//     // }).addTo(map).bringToFront();
-
-// })
-
-// const catPctTwo = axios('census_cat_pct.geojson').then(catEdited => {
-//     console.log('short', catEdited);
-// })
 
 
 //Have to pass the style properties as a function - function style(feature)
