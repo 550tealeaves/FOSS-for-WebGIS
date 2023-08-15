@@ -95,6 +95,15 @@ info.addTo(map);
     document.getElementById("selectJob").appendChild(optionObj); //select for the element w/ id selectJob and add the looped item in the array to dropdown
 });
 
+var e = document.getElementById("selectJob");
+var optionObj = e.value;
+var text = e.options[e.selectedIndex].text;
+
+
+
+
+
+
 
 
 
