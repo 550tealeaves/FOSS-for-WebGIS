@@ -44,6 +44,13 @@ function getColor(d) {
 
 const allStates = axios('usState-jobs.json').then(resp => { //brings in the map data 
     jobTitles = Object.keys(resp.data.features[0].properties) //use this to be able to select all the job titles
+    
+    // jobTitles.forEach(function (item) {
+    //     const optionObj = document.createElement("option"); //loops through each item in the array and creates an option with the item inside
+    //     optionObj.textContent = item;
+    //     document.getElementById("selectJob").appendChild(optionObj); //select for the element w/ id selectJob and add the looped item in the array to dropdown
+    // }); //This will add all the keys in the dropdown menu
+    
     console.log('jobTitles', jobTitles);
     console.log('response', resp); //see response in console log
     L.geoJSON(resp.data, {
@@ -81,7 +88,13 @@ info.update = function (props) {
 
 info.addTo(map);
 
-let select = document.getElementById("#selectJob")
+//Create the dropdown menu by looping through an array
+['Female Healthcare Support', 'Male Healthcare Support', 'Total Healthcare Support'].forEach(function (item) {
+    const optionObj = document.createElement("option"); //loops through each item in the array and creates an option with the item inside
+    optionObj.textContent = item;
+    document.getElementById("selectJob").appendChild(optionObj); //select for the element w/ id selectJob and add the looped item in the array to dropdown
+});
+
 
 
 
