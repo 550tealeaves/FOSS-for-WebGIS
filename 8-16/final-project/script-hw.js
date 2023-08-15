@@ -56,7 +56,6 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
                 //fillColor: `rgb(0,100,${blueVal})`,
                 fillColor: getColor(feature),
                 fillOpacity: 0.95,
-                //opacity: 0.95,
                 color: 'black', //colors the borders
                 weight: 1
             } 
