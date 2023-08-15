@@ -81,6 +81,9 @@ info.update = function (props) {
 
 info.addTo(map);
 
+let select = document.getElementById("#selectJob")
+
+
 
 
 

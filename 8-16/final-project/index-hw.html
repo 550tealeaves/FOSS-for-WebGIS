@@ -17,8 +17,11 @@
     <div>
         <!--Create the form that allows user selection-->
         <form action="" id="thisForm">
-            <select name="" id="selectJob">
-                <option value="pickJob">Select a job category</option>
+            <select name="jobs" id="selectJob" onchange="alert(this.value)">
+                <option value="" selected>--Select an occupation--</option> <!--the selected after value="" ensures that it is the default selection on site-->
+                <option value="female">Female Healthcare Support</option>
+                <option value="male">Male Healthcare Support</option>
+                <option value="total">Total Healthcare Support</option>
             </select>
         </form>   
     </div>
