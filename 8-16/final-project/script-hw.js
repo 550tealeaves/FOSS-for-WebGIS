@@ -47,6 +47,29 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
                 weight: 1
             }
         },
+
+        //Trying to create additional style functions for the other 2 color palettes - not sure how to get them to show
+    //     style2: function (feature) {
+    //     return {
+    //         fillColor: getColorMale(feature),
+    //         weight: 2,
+    //         opacity: 1,
+    //         color: "white",
+    //         dashArray: "3",
+    //         fillOpacity: 0.7,
+    //     };
+    // },
+
+    //     style3: function (feature) {
+    //         return {
+    //             fillColor: getColorTotal(feature),
+    //             weight: 2,
+    //             opacity: 1,
+    //             color: "white",
+    //             dashArray: "3",
+    //             fillOpacity: 0.7,
+    //         };
+    //     },
         onEachFeature: function (feature, layer) {
             layer.bindPopup(feature.properties.NAME + ': ' + Math.abs(feature.properties.Fem_HealthcareSupport * 100.0)  + '%' + ' <br>' )
         }
@@ -84,14 +107,14 @@ function getColor(d) {
     let dataValue = d.properties[userSelection]
     //let dataValue = d.properties['Fem_HealthcareSupport'] //will go into properties (object) and access the field Fem_Health... "d" = feature
     //Create new variable - userSelection to replace string = d.properties[userSelection]
-    return dataValue > 0.090 ? '#800026' :
-        dataValue > 0.080 ? '#BD0026' :
-            dataValue > 0.070 ? '#E31A1C' :
-                dataValue > 0.060 ? '#FC4E2A' :
-                    dataValue > 0.050 ? '#FD8D3C' :
-                        dataValue > 0.020 ? '#FEB24C' :
-                            dataValue > 0.010 ? '#FED976' :
-                                '#FFEDA0';
+    return dataValue > 0.090 ? '#b10026' :
+        dataValue > 0.080 ? '#e31a1c' :
+            dataValue > 0.070 ? '#fc4e2a' :
+                dataValue > 0.060 ? '#fd8d3c' :
+                    dataValue > 0.050 ? '#feb24c' :
+                        dataValue > 0.030 ? '#fed976' :
+                            dataValue > 0.010 ? '#ffeda0' :
+                                '#ffffcc';
 } //change the value in lines 27-33 b/c the fields in properties are in decimals - 0-1
 
 
@@ -105,7 +128,7 @@ function getColorMale(d) {
             dataValueMale > 0.070 ? '#3690c0' :
                 dataValueMale > 0.060 ? '#67a9cf' :
                     dataValueMale > 0.050 ? '#a6bddb' :
-                        dataValueMale > 0.020 ? '#d0d1e6' :
+                        dataValueMale > 0.030 ? '#d0d1e6' :
                             dataValueMale > 0.010 ? '#ece2f0' :
                                 '#fff7fb';
 } //change the value in lines 27-33 b/c the fields in properties are in decimals - 0-1
@@ -120,22 +143,22 @@ function getColorTotal(d) {
             dataValueTotal > 0.070 ? '#8c6bb1' :
                 dataValueTotal > 0.060 ? '#8c96c6' :
                     dataValueTotal > 0.050 ? '#9ebcda' :
-                        dataValueTotal > 0.020 ? '#bfd3e6' :
+                        dataValueTotal > 0.030 ? '#bfd3e6' :
                             dataValueTotal > 0.010 ? '#e0ecf4' :
                                 '#f7fcfd';
 } //change the value in lines 27-33 b/c the fields in properties are in decimals - 0-1
 
-
-function style(feature) {
-    return {
-        weight: 2,
-        opacity: 1,
-        color: 'white',
-        dashArray: '3',
-        fillOpacity: 0.7,
-        fillColor: getColorMale(feature.properties.Male_HealthcareSupport)
-    };
-}
+//This does not work
+// function styleMale(feature) {
+//     return {
+//         weight: 2,
+//         opacity: 1,
+//         color: 'white',
+//         dashArray: '3',
+//         fillOpacity: 0.7,
+//         fillColor: getColorMale(feature.properties.Male_HealthcareSupport)
+//     };
+// }
 
 
 function highlightFeature(e) {
@@ -152,7 +175,7 @@ function highlightFeature(e) {
         layer.bringToFront();
     }
 
-    info.update(layer.feature.properties);
+    info.update(layer.feature.properties.Fem_HealthcareSupport);
 }
 
 var geojson;
@@ -182,7 +205,6 @@ function onEachFeature(feature, layer) {
 
 
 map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
-
 
 
 //Create the dropdown menu by looping through an array
