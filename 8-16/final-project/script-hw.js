@@ -20,6 +20,8 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 
 let jobTitles = [] //create an empty array
 let userSelection = 'Fem_HealthcareSupport' //set the field string = to variable
+let userSelectionMale = 'Male_HealthcareSupport'
+let userSelectionTotal = 'Total_HealthcareSupport'
 
 function getColor(d) {
     console.log('d', d)
@@ -35,6 +37,39 @@ function getColor(d) {
                             dataValue > 0.010 ? '#FED976' :
                                 '#FFEDA0';
 } //change the value in lines 27-33 b/c the fields in properties are in decimals - 0-1
+
+
+function getColorMale(d) {
+    console.log('d', d)
+    let dataValueMale = d.properties[userSelectionMale]
+    //let dataValue = d.properties['Male_HealthcareSupport'] //will go into properties (object) and access the field Fem_Health... "d" = feature
+    //Create new variable - userSelectionMale to replace string = d.properties[userSelectionMale]
+    return dataValueMale > 0.090 ? '#016450' :
+        dataValueMale > 0.080 ? '#02818a' :
+            dataValueMale > 0.070 ? '#3690c0' :
+                dataValueMale > 0.060 ? '#67a9cf' :
+                    dataValueMale > 0.050 ? '#a6bddb' :
+                        dataValueMale > 0.020 ? '#d0d1e6' :
+                            dataValueMale > 0.010 ? '#ece2f0' :
+                                '#fff7fb';
+} //change the value in lines 27-33 b/c the fields in properties are in decimals - 0-1
+
+function getColorTotal(d) {
+    console.log('d', d)
+    let dataValueTotal = d.properties[userSelectionTotal]
+    //let dataValue = d.properties['Total_HealthcareSupport'] //will go into properties (object) and access the field Fem_Health... "d" = feature
+    //Create new variable - userSelectionTotal to replace string = d.properties[userSelectionTotal]
+    return dataValueTotal > 0.090 ? '#6e016b' :
+        dataValueTotal > 0.080 ? '#88419d' :
+            dataValueTotal > 0.070 ? '#8c6bb1' :
+                dataValueTotal > 0.060 ? '#8c96c6' :
+                    dataValueTotal > 0.050 ? '#9ebcda' :
+                        dataValueTotal > 0.020 ? '#bfd3e6' :
+                            dataValueTotal > 0.010 ? '#e0ecf4' :
+                                '#f7fcfd';
+} //change the value in lines 27-33 b/c the fields in properties are in decimals - 0-1
+
+
 
 //Use https://stackoverflow.com/questions/9895082/javascript-populate-drop-down-list-with-array - to learn how to create dropdown and select value
 
