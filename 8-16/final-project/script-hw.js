@@ -16,6 +16,62 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 //L.tileLayer - comes directly from Leaflet library
 //wants a URL from were to get the tiles 
 
+
+//Use https://stackoverflow.com/questions/9895082/javascript-populate-drop-down-list-with-array - to learn how to create dropdown and select value
+
+// Use https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript - to learn how to select value
+
+//Save value of selected option (ex: Fem_Health...from dropdown) into a variable - it saves the name of the object key
+
+const allStates = axios('usState-jobs.json').then(resp => { //brings in the map data 
+    jobTitles = Object.keys(resp.data.features[0].properties) //use this to be able to select all the job titles
+    
+    // jobTitles.forEach(function (item) {
+    //     const optionObj = document.createElement("option"); //loops through each item in the array and creates an option with the item inside
+    //     optionObj.textContent = item;
+    //     document.getElementById("selectJob").appendChild(optionObj); //select for the element w/ id selectJob and add the looped item in the array to dropdown
+    // }); //This will add all the keys in the dropdown menu
+    
+    console.log('jobTitles', jobTitles);
+    console.log('response', resp); //see response in console log
+    L.geoJSON(resp.data, {
+        style: function (feature) {
+            // const blueVal = feature.properties.Fem_HealthcareSupport * 60;
+            // const redVal = feature.properties.Male_HealthcareSupport * 280;
+            // const greenVal = feature.properties.Total_HealthcareSupport * 15;
+
+            return{
+                fillColor: getColor(feature),
+                fillOpacity: 0.95,
+                color: 'black', //colors the borders
+                weight: 1
+            }
+        },
+        onEachFeature: function (feature, layer) {
+            layer.bindPopup(feature.properties.NAME + ': ' + Math.abs(feature.properties.Fem_HealthcareSupport * 100.0)  + '%' + ' <br>' )
+        }
+    }).addTo(map).bringToFront();
+}) 
+
+
+
+// control that shows state info on hover
+var info = L.control();
+
+info.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'info');
+    this.update();
+    return this._div;
+};
+
+info.update = function (props) {
+    console.log('props', props)
+    this._div.innerHTML = '<h4>Occupation stats</h4>' + (props ?
+        '<b>' + props.feature.NAME + '</b><br />' + props.feature.Fem_HealthcareSupport + ' people / mi<sup>2</sup>' : 'Hover over a state');
+};
+
+info.addTo(map);
+
 //Adding color - can find colors on https:/ / colorbrewer2.org / #type=sequential & scheme=BuGn & n=3
 
 let jobTitles = [] //create an empty array
@@ -70,60 +126,64 @@ function getColorTotal(d) {
 } //change the value in lines 27-33 b/c the fields in properties are in decimals - 0-1
 
 
-
-//Use https://stackoverflow.com/questions/9895082/javascript-populate-drop-down-list-with-array - to learn how to create dropdown and select value
-
-// Use https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript - to learn how to select value
-
-//Save value of selected option (ex: Fem_Health...from dropdown) into a variable - it saves the name of the object key
-
-const allStates = axios('usState-jobs.json').then(resp => { //brings in the map data 
-    jobTitles = Object.keys(resp.data.features[0].properties) //use this to be able to select all the job titles
-    
-    // jobTitles.forEach(function (item) {
-    //     const optionObj = document.createElement("option"); //loops through each item in the array and creates an option with the item inside
-    //     optionObj.textContent = item;
-    //     document.getElementById("selectJob").appendChild(optionObj); //select for the element w/ id selectJob and add the looped item in the array to dropdown
-    // }); //This will add all the keys in the dropdown menu
-    
-    console.log('jobTitles', jobTitles);
-    console.log('response', resp); //see response in console log
-    L.geoJSON(resp.data, {
-        style: function (feature) {
-            // const blueVal = feature.properties.Fem_HealthcareSupport * 60;
-            // const redVal = feature.properties.Male_HealthcareSupport * 280;
-            // const greenVal = feature.properties.Total_HealthcareSupport * 15;
-
-            return{
-                fillColor: getColor(feature),
-                fillOpacity: 0.95,
-                color: 'black', //colors the borders
-                weight: 1
-            }
-        },
-        onEachFeature: function (feature, layer) {
-            layer.bindPopup(feature.properties.NAME + ': ' + Math.abs(feature.properties.Fem_HealthcareSupport * 100.0)  + '%' + ' <br>' )
-        }
-    }).addTo(map).bringToFront();
-}) 
+function style(feature) {
+    return {
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7,
+        fillColor: getColorMale(feature.properties.Male_HealthcareSupport)
+    };
+}
 
 
-// control that shows state info on hover
-var info = L.control();
+function highlightFeature(e) {
+    var layer = e.target;
 
-info.onAdd = function (map) {
-    this._div = L.DomUtil.create('div', 'info');
-    this.update();
-    return this._div;
-};
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
 
-info.update = function (props) {
-    console.log('props', props)
-    this._div.innerHTML = '<h4>Occupation stats</h4>' + (props ?
-        '<b>' + props.name + '</b><br />' + props.Fem_HealthcareSupport + ' people / mi<sup>2</sup>' : 'Hover over a state');
-};
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
 
-info.addTo(map);
+    info.update(layer.feature.properties);
+}
+
+var geojson;
+
+function resetHighlight(e) {
+    geojson.resetStyle(e.target);
+    info.update();
+}
+
+function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+}
+
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+    });
+}
+
+// /* global statesData */
+// geojson = L.geoJson(allStates, {
+//     style: style,
+//     onEachFeature: onEachFeature
+// }).addTo(map);
+
+
+map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
+
+
 
 //Create the dropdown menu by looping through an array
 ['Female Healthcare Support', 'Male Healthcare Support', 'Total Healthcare Support'].forEach(function (item) {
@@ -139,66 +199,9 @@ var text = e.options[e.selectedIndex].text;
 
 var popup = L.popup();
 
-function onMapClick(e) {
-    popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
-        .openOn(map);
-}
-
-map.on('click', onMapClick);
 
 
-
-
-
-
-
-
-    // function highlightFeature(e) {
-    //     const layer = e.target;
-
-    //     layer.setStyle({
-    //         weight: 5,
-    //         color: '#666',
-    //         dashArray: '',
-    //         fillOpacity: 0.7
-    //     });
-
-    //     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-    //         layer.bringToFront();
-    //     }
-
-    //     info.update(layer.feature.properties.Fem_HealthcareSupport);
-    // }
-
-    // var geojson;
-
-    // function resetHighlight(e) {
-    //     geojson.resetStyle(e.target);
-    //     info.update();
-    // }
-
-    // function zoomToFeature(e) {
-    //     map.fitBounds(e.target.getBounds());
-    // }
-
-    // function onEachFeature(feature, layer) {
-    //     layer.on({
-    //         mouseover: highlightFeature,
-    //         mouseout: resetHighlight,
-    //         click: zoomToFeature
-    //     });
-    // }
-
-
-
-
-
-
-
-
-
+ 
 //Have to pass the style properties as a function - function style(feature)
 //Prof advice for final project - 8/9/23
     //getFeature.properties.name - save as string (ex: stateName)
