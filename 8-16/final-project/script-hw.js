@@ -222,7 +222,6 @@ var text = e.options[e.selectedIndex].text;
 var popup = L.popup();
 
 
-
  
 //Have to pass the style properties as a function - function style(feature)
 //Prof advice for final project - 8/9/23
