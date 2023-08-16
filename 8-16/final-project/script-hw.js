@@ -95,12 +95,14 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
             // const greenVal = feature.properties.Total_HealthcareSupport * 15;
 
             return{
-                //fillColor: `rgb(0,100,${blueVal})`,
                 fillColor: getColor(feature),
                 fillOpacity: 0.95,
                 color: 'black', //colors the borders
                 weight: 1
-            } 
+            }
+        },
+        onEachFeature: function (feature, layer) {
+            layer.bindPopup(feature.properties.NAME + ': ' + Math.abs(feature.properties.Fem_HealthcareSupport * 100.0)  + '%' + ' <br>' )
         }
     }).addTo(map).bringToFront();
 }) 
@@ -135,7 +137,16 @@ var optionObj = e.value;
 var text = e.options[e.selectedIndex].text;
 
 
+var popup = L.popup();
 
+function onMapClick(e) {
+    popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(map);
+}
+
+map.on('click', onMapClick);
 
 
 
