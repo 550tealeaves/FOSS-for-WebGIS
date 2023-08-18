@@ -36,10 +36,6 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
     console.log('response', resp); //see response in console log
     L.geoJSON(resp.data, {
         style: function (feature) {
-            // const blueVal = feature.properties.Fem_HealthcareSupport * 60;
-            // const redVal = feature.properties.Male_HealthcareSupport * 280;
-            // const greenVal = feature.properties.Total_HealthcareSupport * 15;
-
             return{
                 fillColor: getColor(feature),
                 fillOpacity: 0.95,
@@ -48,6 +44,19 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
             }
         },
 
+        onEachFeature: function (feature, layer) {
+            layer.bindPopup(feature.properties.NAME + ': ' + Math.abs(feature.properties.Fem_HealthcareSupport * 100.0)  + '%' + ' <br>' ),
+            layer.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight,
+                click: zoomToFeature
+            });
+        }
+
+
+
+
+        
         //Trying to create additional style functions for the other 2 color palettes - not sure how to get them to show
     //     style2: function (feature) {
     //     return {
@@ -70,10 +79,36 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
     //             fillOpacity: 0.7,
     //         };
     //     },
-        onEachFeature: function (feature, layer) {
-            layer.bindPopup(feature.properties.NAME + ': ' + Math.abs(feature.properties.Fem_HealthcareSupport * 100.0)  + '%' + ' <br>' )
-        }
+        
     }).addTo(map).bringToFront();
+
+    function highlightFeature(e) {
+        const layer = e.target;
+
+        layer.setStyle({
+            weight: 5,
+            color: '#666',
+            dashArray: '',
+            fillOpacity: 0.7
+        });
+
+        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+            layer.bringToFront();
+        }
+
+        info.update(layer.feature.properties);
+    }
+
+    var geojson;
+
+    function resetHighlight(e) {
+        geojson.resetStyle(e.target);
+        info.update();
+    }
+
+    function zoomToFeature(e) {
+        map.fitBounds(e.target.getBounds());
+    }
 }) 
 
 
@@ -90,7 +125,7 @@ info.onAdd = function (map) {
 info.update = function (props) {
     console.log('props', props)
     this._div.innerHTML = '<h4>Occupation stats</h4>' + (props ?
-        '<b>' + props.feature.NAME + '</b><br />' + props.feature.Fem_HealthcareSupport + ' people / mi<sup>2</sup>' : 'Hover over a state');
+        '<b>' + props.NAME + '</b><br />' + Math.round(props.Fem_HealthcareSupport * 100)  + ' % ' + ' women<sup>2</sup>' : 'Hover over a state');
 };
 
 info.addTo(map);
@@ -148,54 +183,8 @@ function getColorTotal(d) {
                                 '#f7fcfd';
 } //change the value in lines 27-33 b/c the fields in properties are in decimals - 0-1
 
-//This does not work
-// function styleMale(feature) {
-//     return {
-//         weight: 2,
-//         opacity: 1,
-//         color: 'white',
-//         dashArray: '3',
-//         fillOpacity: 0.7,
-//         fillColor: getColorMale(feature.properties.Male_HealthcareSupport)
-//     };
-// }
 
 
-function highlightFeature(e) {
-    var layer = e.target;
-
-    layer.setStyle({
-        weight: 5,
-        color: '#666',
-        dashArray: '',
-        fillOpacity: 0.7
-    });
-
-    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-        layer.bringToFront();
-    }
-
-    info.update(layer.feature.properties.Fem_HealthcareSupport);
-}
-
-var geojson;
-
-function resetHighlight(e) {
-    geojson.resetStyle(e.target);
-    info.update();
-}
-
-function zoomToFeature(e) {
-    map.fitBounds(e.target.getBounds());
-}
-
-function onEachFeature(feature, layer) {
-    layer.on({
-        mouseover: highlightFeature,
-        mouseout: resetHighlight,
-        click: zoomToFeature
-    });
-}
 
 // /* global statesData */
 // geojson = L.geoJson(allStates, {
