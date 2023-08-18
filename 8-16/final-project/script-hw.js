@@ -44,7 +44,7 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
     var geojson = L.geoJSON(resp.data, {
         style: function (feature) {
             return{
-                fillColor: getColorMFSales(feature),
+                fillColor: getColor(feature),
                 fillOpacity: 0.95,
                 color: 'black', //colors the borders
                 weight: 1
@@ -182,11 +182,39 @@ const profFields = {
     }
 }
 
+//Create a variable that will be used in event change - set equal to empty string
+let userSelection = ''; 
+
+
+//Create event change function
+function selectEventHandler(e) {
+    userSelection = e.value
+}
+
+//Target the HTML that will change and add eventListener
+document.getElementById("selectJob").addEventListener('change', selectEventHandler);
+
+function getColor(d) {
+    //move the below 3 fields (to the hover section)
+    const fields = profFields[userSelection];
+    console.log('fields', fields)
+
+    // // const maleValue = d.properties[fields.male];
+    // // const femaleValue = d.properties[fields.female];
+
+    let majorityValue = d.properties[fields.majority];
+
+    return majorityValue == 'F' ? '#fdae6b' :
+        majorityValue == 'M' ? '#542788' :
+            '#ffffff';
+
+}
+
 // ADD COLOR 
 // Find colors on https:/ / colorbrewer2.org / #type=sequential & scheme=BuGn & n=3
 
 let jobTitles = [] //create an empty array
-let userSelection = 'Fem_ProfessionalandRelated' //set the field string = to variable
+let userSelectionChange = 'Fem_ProfessionalandRelated' //set the field string = to variable
 let userSelectionMale = 'Male_ProfessionalandRelated'
 let userSelectionTotal = 'Total_ProfessionalandRelated'
 let userSelectionMFBus = 'M_F_ManagementBusinessandFinancialOperations'
@@ -204,9 +232,9 @@ let userSelectionMFProd = 'M_F_Production'
 let userSelectionMFTransp = 'M_F_TranspoandMaterialMoving'
 
 
-function getColor(d) {
+function getColorOne(d) {
     console.log('d', d)
-    let dataValue = d.properties[userSelection]
+    let dataValue = d.properties[userSelectionChange]
     //let dataValue = d.properties['Fem_HealthcareSupport'] //will go into properties (object) and access the field Fem_Health... "d" = feature
     //Create new variable - userSelection to replace string = d.properties[userSelection]
     return dataValue > 0.399 ? '#b10026' :
