@@ -297,10 +297,10 @@ function getColorMFTransp(d) {
 //     document.getElementById("dropdown").appendChild(optionObj); //select for the element w/ id selectJob and add the looped item in the array to dropdown
 // });
 
-//option 3
-var e = document.getElementById("selectJob");
-let userChange = e.userSelectionMFSales;
-var text = e.options[e.selectedIndex].text;
+// //option 3
+// var e = document.getElementById("selectJob");
+// let userChange = e.userSelectionMFSales;
+// var text = e.options[e.selectedIndex].text;
 
 
 var popup = L.popup();
