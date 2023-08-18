@@ -194,21 +194,27 @@ function selectEventHandler(e) {
 //Target the HTML that will change and add eventListener
 document.getElementById("selectJob").addEventListener('change', selectEventHandler);
 
+// CREATE COLOR VARIABLE
 function getColor(d) {
     //move the below 3 fields (to the hover section)
     const fields = profFields[userSelection];
     console.log('fields', fields)
 
-    // // const maleValue = d.properties[fields.male];
-    // // const femaleValue = d.properties[fields.female];
+    const maleValue = d.properties[fields.male];
+    console.log('males', maleValue)
+    const femaleValue = d.properties[fields.female];
+    console.log('female', femaleValueValue)
 
     let majorityValue = d.properties[fields.majority];
+    console.log('majority', majorityValue)
 
     return majorityValue == 'F' ? '#fdae6b' :
         majorityValue == 'M' ? '#542788' :
             '#ffffff';
 
 }
+
+
 
 // ADD COLOR 
 // Find colors on https:/ / colorbrewer2.org / #type=sequential & scheme=BuGn & n=3
