@@ -1,5 +1,6 @@
 console.log('loaded');
 
+//CREATE BASE MAP LAYERS
 let map = L.map('map').setView([40.7, -73.7], 5);
 
 //http://maps.stamen.com/#terrain/12/37.7706/-122.3782
@@ -15,7 +16,6 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 }).addTo(map);
 //L.tileLayer - comes directly from Leaflet library
 //wants a URL from were to get the tiles 
-
 
 //Use https://stackoverflow.com/questions/9895082/javascript-populate-drop-down-list-with-array - to learn how to create dropdown and select value
 
@@ -50,9 +50,9 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
                 weight: 1
             }
         },
-
+        //onEachFeature - can click and display state name 
         onEachFeature: function (feature, layer) {
-            layer.bindPopup(feature.properties.NAME + ': ' + Math.abs(feature.properties.Fem_HealthcareSupport * 100.0)  + '%' + ' <br>' ),
+            // layer.bindPopup(feature.properties.STUSPS + ': ' + Math.round(feature.properties.Fem_HealthcareSupport * 100.0)  + '%' + ' <br>' ), not needed b/c highlight shows percentages
             layer.on({
                 mouseover: highlightFeature,
                 mouseout: resetHighlight,
@@ -116,11 +116,11 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
     function zoomToFeature(e) {
         map.fitBounds(e.target.getBounds());
     }
+
 }) 
 
 
-
-// control that shows state info on hover
+// CONTROL THAT SHOWS STATE INFO IN HOVER
 var info = L.control();
 
 info.onAdd = function (map) {
@@ -132,12 +132,13 @@ info.onAdd = function (map) {
 info.update = function (props) {
     console.log('props', props)
     this._div.innerHTML = '<h4>Occupation stats</h4>' + (props ?
-        '<b>' + props.NAME + '</b><br />' + Math.round(props.Fem_HealthcareSupport * 100)  + ' % ' + ' women<sup>2</sup>' : 'Hover over a state');
+        '<b>' + props.NAME + '</b><br />' + Math.round(props.Fem_HealthcareSupport * 100)  + ' % ' + ' women' : 'Hover over a state');
 };
 
 info.addTo(map);
 
-//Adding color - can find colors on https:/ / colorbrewer2.org / #type=sequential & scheme=BuGn & n=3
+// ADD COLOR 
+// Find colors on https:/ / colorbrewer2.org / #type=sequential & scheme=BuGn & n=3
 
 let jobTitles = [] //create an empty array
 let userSelection = 'Fem_HealthcareSupport' //set the field string = to variable
@@ -157,58 +158,56 @@ function getColor(d) {
                         dataValue > 0.030 ? '#fed976' :
                             dataValue > 0.010 ? '#ffeda0' :
                                 '#ffffcc';
-} //change the value in lines 27-33 b/c the fields in properties are in decimals - 0-1
+} //change the value in dataValue > #### b/c the fields in properties are in decimals - 0-1
 
 
 function getColorMale(d) {
     console.log('d', d)
-    let dataValueMale = d.properties[userSelectionMale]
+    let dataValue = d.properties[userSelectionMale]
     //let dataValue = d.properties['Male_HealthcareSupport'] //will go into properties (object) and access the field Fem_Health... "d" = feature
     //Create new variable - userSelectionMale to replace string = d.properties[userSelectionMale]
-    return dataValueMale > 0.090 ? '#016450' :
-        dataValueMale > 0.080 ? '#02818a' :
-            dataValueMale > 0.070 ? '#3690c0' :
-                dataValueMale > 0.060 ? '#67a9cf' :
-                    dataValueMale > 0.050 ? '#a6bddb' :
-                        dataValueMale > 0.030 ? '#d0d1e6' :
-                            dataValueMale > 0.010 ? '#ece2f0' :
+    return dataValue > 0.090 ? '#016450' :
+        dataValue > 0.080 ? '#02818a' :
+            dataValue > 0.070 ? '#3690c0' :
+                dataValue > 0.060 ? '#67a9cf' :
+                    dataValue > 0.050 ? '#a6bddb' :
+                        dataValue > 0.030 ? '#d0d1e6' :
+                            dataValue > 0.010 ? '#ece2f0' :
                                 '#fff7fb';
-} //change the value in lines 27-33 b/c the fields in properties are in decimals - 0-1
+} 
 
 function getColorTotal(d) {
     console.log('d', d)
-    let dataValueTotal = d.properties[userSelectionTotal]
+    let dataValue = d.properties[userSelectionTotal]
     //let dataValue = d.properties['Total_HealthcareSupport'] //will go into properties (object) and access the field Fem_Health... "d" = feature
     //Create new variable - userSelectionTotal to replace string = d.properties[userSelectionTotal]
-    return dataValueTotal > 0.090 ? '#6e016b' :
-        dataValueTotal > 0.080 ? '#88419d' :
-            dataValueTotal > 0.070 ? '#8c6bb1' :
-                dataValueTotal > 0.060 ? '#8c96c6' :
-                    dataValueTotal > 0.050 ? '#9ebcda' :
-                        dataValueTotal > 0.030 ? '#bfd3e6' :
-                            dataValueTotal > 0.010 ? '#e0ecf4' :
+    return dataValue > 0.090 ? '#6e016b' :
+        dataValue > 0.080 ? '#88419d' :
+            dataValue > 0.070 ? '#8c6bb1' :
+                dataValue > 0.060 ? '#8c96c6' :
+                    dataValue > 0.050 ? '#9ebcda' :
+                        dataValue > 0.030 ? '#bfd3e6' :
+                            dataValue > 0.010 ? '#e0ecf4' :
                                 '#f7fcfd';
-} //change the value in lines 27-33 b/c the fields in properties are in decimals - 0-1
+} 
 
 
 
 
-// /* global statesData */
-// geojson = L.geoJson(allStates, {
-//     style: style,
-//     onEachFeature: onEachFeature
-// }).addTo(map);
-
-
-map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
-
-
-//Create the dropdown menu by looping through an array
+// CREATE DROPDOWN MENU BY LOOPING THROUGH ARRAY
 ['Female Healthcare Support', 'Male Healthcare Support', 'Total Healthcare Support'].forEach(function (item) {
     const optionObj = document.createElement("option"); //loops through each item in the array and creates an option with the item inside
     optionObj.textContent = item;
     document.getElementById("selectJob").appendChild(optionObj); //select for the element w/ id selectJob and add the looped item in the array to dropdown
 });
+
+
+// //CREATE DROPDOWN MENU BY LOOPING THROUGH ARRAY
+// ['Management, Business, & Financial Operations', 'Professional & Related', 'Healthcare Support', 'Protective Service', 'Food Prep & Serving', 'Building & Grounds Cleaning & Maintenance', 'Personal Care & Service', 'Sales & Related', 'Office & Admin Support', 'Farming, Fishing, & Forestry', 'Construction, Extraction, & Maintenance', 'Production', 'Transportation & Moving'].forEach(function (item) {
+//     const optionObj = document.createElement("option"); //loops through each item in the array and creates an option with the item inside
+//     optionObj.textContent = item;
+//     document.getElementById("dropdown").appendChild(optionObj); //select for the element w/ id selectJob and add the looped item in the array to dropdown
+// });
 
 var e = document.getElementById("selectJob");
 var optionObj = e.value;
@@ -218,6 +217,15 @@ var text = e.options[e.selectedIndex].text;
 var popup = L.popup();
 
 
+
+/* global allStates */
+geojson = L.geoJson(allStates, {
+    style: style,
+    onEachFeature: onEachFeature
+}).addTo(map);
+
+
+map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
  
 //Have to pass the style properties as a function - function style(feature)
 //Prof advice for final project - 8/9/23
