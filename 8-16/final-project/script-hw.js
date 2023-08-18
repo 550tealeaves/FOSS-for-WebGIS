@@ -41,7 +41,7 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
     
     console.log('jobTitles', jobTitles);
     console.log('response', resp); //see response in console log
-    L.geoJSON(resp.data, {
+    var geojson = L.geoJSON(resp.data, {
         style: function (feature) {
             return{
                 fillColor: getColorMFSales(feature),
@@ -60,33 +60,6 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
             });
         }
 
-
-
-
-        
-        //Trying to create additional style functions for the other 2 color palettes - not sure how to get them to show
-    //     style2: function (feature) {
-    //     return {
-    //         fillColor: getColorMale(feature),
-    //         weight: 2,
-    //         opacity: 1,
-    //         color: "white",
-    //         dashArray: "3",
-    //         fillOpacity: 0.7,
-    //     };
-    // },
-
-    //     style3: function (feature) {
-    //         return {
-    //             fillColor: getColorTotal(feature),
-    //             weight: 2,
-    //             opacity: 1,
-    //             color: "white",
-    //             dashArray: "3",
-    //             fillOpacity: 0.7,
-    //         };
-    //     },
-        
     }).addTo(map).bringToFront();
 
     function highlightFeature(e) {
@@ -106,9 +79,9 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
         info.update(layer.feature.properties);
     }
 
-    var geojson;
 
     function resetHighlight(e) {
+        console.log(resetHighlight)
         geojson.resetStyle(e.target);
         info.update();
     }
@@ -132,7 +105,7 @@ info.onAdd = function (map) {
 info.update = function (props) {
     console.log('props', props)
     this._div.innerHTML = '<h4>Occupation stats</h4>' + (props ?
-        '<b>' + props.NAME + '</b><br />' + Math.round(props.Fem_SalesandRelated * 100) + ' % ' + ' women' + '<br />' + Math.round(props.Male_SalesandRelated * 100) + ' % ' + 'men' : 'Hover over a state');
+        '<b>' + props.NAME + '</b><br />' + (props.Fem_SalesandRelated * 100).toFixed(1) + ' % ' + ' women' + '<br />' + (props.Male_SalesandRelated * 100).toFixed(1) + ' % ' + 'men' : 'Hover over a state');
 };
 
 info.addTo(map);
@@ -178,8 +151,6 @@ function getColor(d) {
 function getColorMale(d) {
     console.log('d', d)
     let dataValue = d.properties[userSelectionMale]
-    //let dataValue = d.properties['Male_HealthcareSupport'] //will go into properties (object) and access the field Fem_Health... "d" = feature
-    //Create new variable - userSelectionMale to replace string = d.properties[userSelectionMale]
     return dataValue > 0.090 ? '#016450' :
         dataValue > 0.080 ? '#02818a' :
             dataValue > 0.070 ? '#3690c0' :
@@ -193,8 +164,6 @@ function getColorMale(d) {
 function getColorTotal(d) {
     console.log('d', d)
     let dataValue = d.properties[userSelectionTotal]
-    //let dataValue = d.properties['Total_HealthcareSupport'] //will go into properties (object) and access the field Fem_Health... "d" = feature
-    //Create new variable - userSelectionTotal to replace string = d.properties[userSelectionTotal]
     return dataValue > 0.090 ? '#6e016b' :
         dataValue > 0.080 ? '#88419d' :
             dataValue > 0.070 ? '#8c6bb1' :
@@ -319,32 +288,6 @@ function getColorMFTransp(d) {
 //UPDATE THE DROPDOWN SELECTION TO CHANGE THE MAP
 //https://stackoverflow.com/questions/6727917/javascript-dropdown-updates-the-price-based-on-the-users-selection
 
-//option 1
-// var searchOption = new Array('', '$12.00', '$18.00', '$0.89');
-// $(function () {
-//     $('select[name=jobs]').change(function () {
-//         alert(searchOption[$(this).val()]);
-//     });
-
-//     // Trigger on dom ready
-//     $('select[name=jobs]').change();
-// });
-
-//option 2
-function changeOption (industry) {
-    var searchField = document.getElementById("selectJob");
-    searchField.selectedIndex = 1;
-    document.getElementById("selectJob").value = industry;
-}
-
-
-
-// // CREATE DROPDOWN MENU BY LOOPING THROUGH ARRAY
-// ['Female Professional and Related', 'Male Professional and Related', 'Total Professional and Related'].forEach(function (item) {
-//     const optionObj = document.createElement("option"); //loops through each item in the array and creates an option with the item inside
-//     optionObj.textContent = item;
-//     document.getElementById("selectJob").appendChild(optionObj); //select for the element w/ id selectJob and add the looped item in the array to dropdown
-// });
 
 
 // //CREATE DROPDOWN MENU BY LOOPING THROUGH ARRAY
@@ -355,30 +298,27 @@ function changeOption (industry) {
 // });
 
 //option 3
-// var e = document.getElementById("selectJob");
-// let userChange = e.userSelectionMFSales;
-// var text = e.options[e.selectedIndex].text;
+var e = document.getElementById("selectJob");
+let userChange = e.userSelectionMFSales;
+var text = e.options[e.selectedIndex].text;
 
 
 var popup = L.popup();
 
 
 
-/* global allStates */
-geojson = L.geoJson(allStates, {
-    style: style,
-    onEachFeature: onEachFeature
-}).addTo(map);
+// /* global allStates */
+// geojson = L.geoJson(allStates, {
+//     style: style,
+//     onEachFeature: onEachFeature
+// }).addTo(map);
 
 
 map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
  
-//Have to pass the style properties as a function - function style(feature)
-//Prof advice for final project - 8/9/23
-    //getFeature.properties.name - save as string (ex: stateName)
-    //pct.data has all data but no geometry
-    //take pct.data.filter to filter array
-    //p.stateName = stateName  - this joins the two files by state names
-    //save filtered array as another var (ex: filteredState)
-    //take first index - filteredState[0].occupationName
-    //pass filteredState[0].occupationName into getColor function which will return a color
+
+
+
+// const profFields = { 'prof': { 'male': 'Male_ProfessionalandRelated', 'female': 'Fem_ProfessionalandRelated', 'majority': 'M_F_ProfessionalandRelated', }, 'mbfo': {    //  (...fill this in like prof)    },    //  (...fill this in like above)}let userSelection = '';
+
+// function selectEventHandler(e){    userSelection = e.value}document.getElementById('select-jobs').addEventListener('change', selectEventHandler);function getColorMFProf(d) {    const fields = profFields[userSelection];    const maleValue = d.properties[fields.male];    const femaleValue = d.properties[fields.female];    const majorityValue = d.properties[fields.majority];    return majorityValue == 'F' ? '#fdae6b' :    majorityValue == 'M' ? '#542788' :            '#ffffff';}
