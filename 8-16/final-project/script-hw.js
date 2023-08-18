@@ -44,7 +44,7 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
     L.geoJSON(resp.data, {
         style: function (feature) {
             return{
-                fillColor: getColor(feature),
+                fillColor: getColorMFSales(feature),
                 fillOpacity: 0.95,
                 color: 'black', //colors the borders
                 weight: 1
@@ -94,7 +94,7 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
 
         layer.setStyle({
             weight: 2.5,
-            color: 'navy',
+            color: '#67000d',
             dashArray: '',
             fillOpacity: 0.8
         });
@@ -132,7 +132,7 @@ info.onAdd = function (map) {
 info.update = function (props) {
     console.log('props', props)
     this._div.innerHTML = '<h4>Occupation stats</h4>' + (props ?
-        '<b>' + props.NAME + '</b><br />' + Math.round(props.Fem_HealthcareSupport * 100)  + ' % ' + ' women' : 'Hover over a state');
+        '<b>' + props.NAME + '</b><br />' + Math.round(props.Fem_SalesandRelated * 100) + ' % ' + ' women' + '<br />' + Math.round(props.Male_SalesandRelated * 100) + ' % ' + 'men' : 'Hover over a state');
 };
 
 info.addTo(map);
@@ -141,22 +141,36 @@ info.addTo(map);
 // Find colors on https:/ / colorbrewer2.org / #type=sequential & scheme=BuGn & n=3
 
 let jobTitles = [] //create an empty array
-let userSelection = 'Fem_HealthcareSupport' //set the field string = to variable
-let userSelectionMale = 'Male_HealthcareSupport'
-let userSelectionTotal = 'Total_HealthcareSupport'
+let userSelection = 'Fem_ProfessionalandRelated' //set the field string = to variable
+let userSelectionMale = 'Male_ProfessionalandRelated'
+let userSelectionTotal = 'Total_ProfessionalandRelated'
+let userSelectionMFBus = 'M_F_ManagementBusinessandFinancialOperations'
+let userSelectionMFProf = 'M_F_ProfessionalandRelated'
+let userSelectionMFHealth = 'M_F_HealthcareSupport'
+let userSelectionMFProt = 'M_F_ProtectiveService'
+let userSelectionMFFood = 'M_F_FoodPrepandServing'
+let userSelectionMFBuild = 'M_F_BuildingandGroundsCleaningandMaintenance'
+let userSelectionMFPers = 'M_F_PersonalCareandService'
+let userSelectionMFSales = 'M_F_SalesandRelated'
+let userSelectionMFOffice = 'M_F_OfficeandAdminSupport'
+let userSelectionMFFarm = 'M_F_FarmingFishingandForestry'
+let userSelectionMFCon = 'M_F_ConstructionExtractionandMaintenance'
+let userSelectionMFProd = 'M_F_Production'
+let userSelectionMFTransp = 'M_F_TranspoandMaterialMoving'
+
 
 function getColor(d) {
     console.log('d', d)
     let dataValue = d.properties[userSelection]
     //let dataValue = d.properties['Fem_HealthcareSupport'] //will go into properties (object) and access the field Fem_Health... "d" = feature
     //Create new variable - userSelection to replace string = d.properties[userSelection]
-    return dataValue > 0.090 ? '#b10026' :
-        dataValue > 0.080 ? '#e31a1c' :
-            dataValue > 0.070 ? '#fc4e2a' :
-                dataValue > 0.060 ? '#fd8d3c' :
-                    dataValue > 0.050 ? '#feb24c' :
-                        dataValue > 0.030 ? '#fed976' :
-                            dataValue > 0.010 ? '#ffeda0' :
+    return dataValue > 0.399 ? '#b10026' :
+        dataValue > 0.342 ? '#e31a1c' :
+            dataValue > 0.285 ? '#fc4e2a' :
+                dataValue > 0.228 ? '#fd8d3c' :
+                    dataValue > 0.171 ? '#feb24c' :
+                        dataValue > 0.114 ? '#fed976' :
+                            dataValue > 0.05 ? '#ffeda0' :
                                 '#ffffcc';
 } //change the value in dataValue > #### b/c the fields in properties are in decimals - 0-1
 
@@ -192,10 +206,120 @@ function getColorTotal(d) {
 } 
 
 
+function getColorMFBus(d) {
+    let dataValue = d.properties[userSelectionMFBus]
+    return dataValue == 'F' ? '#fdae6b' :
+        dataValue == 'M' ? '#542788' :
+            '#ffffff';
+
+}
+
+
+function getColorMFProf(d) {
+    let dataValue = d.properties[userSelectionMFProf]
+    return dataValue == 'F' ? '#fdae6b' :
+        dataValue == 'M' ? '#542788' :
+            '#ffffff';
+
+}
+
+function getColorMFHealth(d) {
+    let dataValue = d.properties[userSelectionMFHealth]
+    return dataValue == 'F' ? '#fdae6b' :
+        dataValue == 'M' ? '#542788' :
+            '#ffffff';
+
+}
+
+
+function getColorMFProt(d) {
+    let dataValue = d.properties[userSelectionMFProt]
+    return dataValue == 'F' ? '#fdae6b' :
+        dataValue == 'M' ? '#542788' :
+            '#ffffff';
+
+}
+
+
+function getColorMFFood(d) {
+    let dataValue = d.properties[userSelectionMFFood]
+    return dataValue == 'F' ? '#fdae6b' :
+        dataValue == 'M' ? '#542788' :
+            '#ffffff';
+
+}
+
+
+function getColorMFBuild(d) {
+    let dataValue = d.properties[userSelectionMFBuild]
+    return dataValue == 'F' ? '#fdae6b' :
+        dataValue == 'M' ? '#542788' :
+            '#ffffff';
+
+}
+
+
+function getColorMFPers(d) {
+    let dataValue = d.properties[userSelectionMFPers]
+    return dataValue == 'F' ? '#fdae6b' :
+        dataValue == 'M' ? '#542788' :
+            '#ffffff';
+
+}
+
+function getColorMFSales(d) {
+    let dataValue = d.properties[userSelectionMFSales]
+    return dataValue == 'F' ? '#fdae6b' :
+        dataValue == 'M' ? '#542788' :
+            '#ffffff';
+
+}
+
+function getColorMFOffice(d) {
+    let dataValue = d.properties[userSelectionMFOffice]
+    return dataValue == 'F' ? '#fdae6b' :
+        dataValue == 'M' ? '#542788' :
+            '#ffffff';
+
+}
+
+
+function getColorMFFarm(d) {
+    let dataValue = d.properties[userSelectionMFFarm]
+    return dataValue == 'F' ? '#fdae6b' :
+        dataValue == 'M' ? '#542788' :
+            '#ffffff';
+
+}
+
+function getColorMFCon(d) {
+    let dataValue = d.properties[userSelectionMFCon]
+    return dataValue == 'F' ? '#fdae6b' :
+        dataValue == 'M' ? '#542788' :
+            '#ffffff';
+
+}
+
+function getColorMFProd(d) {
+    let dataValue = d.properties[userSelectionMFProd]
+    return dataValue == 'F' ? '#fdae6b' :
+        dataValue == 'M' ? '#542788' :
+            '#ffffff';
+
+}
+
+function getColorMFTransp(d) {
+    let dataValue = d.properties[userSelectionMFTransp]
+    return dataValue == 'F' ? '#fdae6b' :
+        dataValue == 'M' ? '#542788' :
+            '#ffffff';
+
+}
+
 
 
 // CREATE DROPDOWN MENU BY LOOPING THROUGH ARRAY
-['Female Healthcare Support', 'Male Healthcare Support', 'Total Healthcare Support'].forEach(function (item) {
+['Female Professional and Related', 'Male Professional and Related', 'Total Professional and Related'].forEach(function (item) {
     const optionObj = document.createElement("option"); //loops through each item in the array and creates an option with the item inside
     optionObj.textContent = item;
     document.getElementById("selectJob").appendChild(optionObj); //select for the element w/ id selectJob and add the looped item in the array to dropdown
