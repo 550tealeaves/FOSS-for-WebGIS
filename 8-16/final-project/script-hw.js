@@ -110,6 +110,79 @@ info.update = function (props) {
 
 info.addTo(map);
 
+
+//UPDATE DROPDOWN
+
+//FIRST CREATE OBJECT WITH THE RELEVANT FIELDS THAT SHOULD UPDATE
+const profFields = {
+    'prof': {
+        'male': 'Male_ProfessionalandRelated',
+        'female': 'Fem_ProfessionalandRelated',
+        'majority': 'M_F_ProfessionalandRelated',
+    },
+    'manage': {
+        'male': 'Male_ManagementBusinessandFinancialOperations',
+        'female': 'Fem_ManagementBusinessandFinancialOperations',
+        'majority': 'M_F_ManagementBusinessandFinancialOperations',  
+    },
+    'health': {
+        'male': 'Male_HealthcareSupport',
+        'female': 'Fem_HealthcareSupport',
+        'majority': 'Total_HealthcareSupport',
+    },
+    'prot': {
+        'male': 'Male_ProtectiveService',
+        'female': 'Fem_ProtectiveService',
+        'majority': 'M_F_ProtectiveService',
+    },
+    'food': {
+        'male': 'Male_ProfessionalandRelated',
+        'female': 'Fem_ProfessionalandRelated',
+        'majority': 'M_F_ProfessionalandRelated',
+    },
+    'build': {
+        'male': 'Male_ProfessionalandRelated',
+        'female': 'Fem_ProfessionalandRelated',
+        'majority': 'M_F_ProfessionalandRelated',
+    },
+    'personal': {
+        'male': 'Male_ProfessionalandRelated',
+        'female': 'Fem_ProfessionalandRelated',
+        'majority': 'M_F_ProfessionalandRelated',
+    },
+    'sales': {
+        'male': 'Male_ProfessionalandRelated',
+        'female': 'Fem_ProfessionalandRelated',
+        'majority': 'M_F_ProfessionalandRelated',
+    },
+    'admin': {
+        'male': 'Male_ProfessionalandRelated',
+        'female': 'Fem_ProfessionalandRelated',
+        'majority': 'M_F_ProfessionalandRelated',
+    },
+    'farm': {
+        'male': 'Male_ProfessionalandRelated',
+        'female': 'Fem_ProfessionalandRelated',
+        'majority': 'M_F_ProfessionalandRelated',
+    },
+    'construct': {
+        'male': 'Male_ProfessionalandRelated',
+        'female': 'Fem_ProfessionalandRelated',
+        'majority': 'M_F_ProfessionalandRelated',
+    },
+    'prod': {
+        'male': 'Male_ProfessionalandRelated',
+        'female': 'Fem_ProfessionalandRelated',
+        'majority': 'M_F_ProfessionalandRelated',
+    },
+    'transp': {
+        'male': 'Male_ProfessionalandRelated',
+        'female': 'Fem_ProfessionalandRelated',
+        'majority': 'M_F_ProfessionalandRelated',
+    }
+    //  (...fill this in like above)
+}
+
 // ADD COLOR 
 // Find colors on https:/ / colorbrewer2.org / #type=sequential & scheme=BuGn & n=3
 
