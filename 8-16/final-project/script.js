@@ -180,7 +180,7 @@ const profFields = {
         'female': 'Fem_TranspoandMaterialMoving',
         'majority': 'M_F_TranspoandMaterialMoving',
     }
-}
+};
 
 //Create a variable that will be used in event change - set equal to empty string
 let userSelection = ''; 
