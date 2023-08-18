@@ -316,14 +316,35 @@ function getColorMFTransp(d) {
 
 }
 
+//UPDATE THE DROPDOWN SELECTION TO CHANGE THE MAP
+//https://stackoverflow.com/questions/6727917/javascript-dropdown-updates-the-price-based-on-the-users-selection
+
+//option 1
+// var searchOption = new Array('', '$12.00', '$18.00', '$0.89');
+// $(function () {
+//     $('select[name=jobs]').change(function () {
+//         alert(searchOption[$(this).val()]);
+//     });
+
+//     // Trigger on dom ready
+//     $('select[name=jobs]').change();
+// });
+
+//option 2
+function changeOption (industry) {
+    var searchField = document.getElementById("selectJob");
+    searchField.selectedIndex = 1;
+    document.getElementById("selectJob").value = industry;
+}
 
 
-// CREATE DROPDOWN MENU BY LOOPING THROUGH ARRAY
-['Female Professional and Related', 'Male Professional and Related', 'Total Professional and Related'].forEach(function (item) {
-    const optionObj = document.createElement("option"); //loops through each item in the array and creates an option with the item inside
-    optionObj.textContent = item;
-    document.getElementById("selectJob").appendChild(optionObj); //select for the element w/ id selectJob and add the looped item in the array to dropdown
-});
+
+// // CREATE DROPDOWN MENU BY LOOPING THROUGH ARRAY
+// ['Female Professional and Related', 'Male Professional and Related', 'Total Professional and Related'].forEach(function (item) {
+//     const optionObj = document.createElement("option"); //loops through each item in the array and creates an option with the item inside
+//     optionObj.textContent = item;
+//     document.getElementById("selectJob").appendChild(optionObj); //select for the element w/ id selectJob and add the looped item in the array to dropdown
+// });
 
 
 // //CREATE DROPDOWN MENU BY LOOPING THROUGH ARRAY
@@ -333,9 +354,10 @@ function getColorMFTransp(d) {
 //     document.getElementById("dropdown").appendChild(optionObj); //select for the element w/ id selectJob and add the looped item in the array to dropdown
 // });
 
-var e = document.getElementById("selectJob");
-var optionObj = e.value;
-var text = e.options[e.selectedIndex].text;
+//option 3
+// var e = document.getElementById("selectJob");
+// let userChange = e.userSelectionMFSales;
+// var text = e.options[e.selectedIndex].text;
 
 
 var popup = L.popup();
