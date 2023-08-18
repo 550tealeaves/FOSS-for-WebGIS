@@ -203,7 +203,7 @@ function getColor(d) {
     const maleValue = d.properties[fields.male];
     console.log('males', maleValue)
     const femaleValue = d.properties[fields.female];
-    console.log('female', femaleValueValue)
+    console.log('female', femaleValue)
 
     let majorityValue = d.properties[fields.majority];
     console.log('majority', majorityValue)
