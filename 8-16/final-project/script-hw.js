@@ -25,6 +25,13 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 
 const allStates = axios('usState-jobs.json').then(resp => { //brings in the map data 
     jobTitles = Object.keys(resp.data.features[0].properties) //use this to be able to select all the job titles
+
+    jobValues = Object.values(resp.data.features[0].properties) //use this to see all the values from the key.value pairs
+
+    // jobValuesList = Object.values(resp.data.features[9,80].properties)
+    // console.log('short', jobValuesList)
+
+    console.log('jobValues', jobValues)
     
     // jobTitles.forEach(function (item) {
     //     const optionObj = document.createElement("option"); //loops through each item in the array and creates an option with the item inside
