@@ -128,7 +128,7 @@ const profFields = {
     'health': {
         'male': 'Male_HealthcareSupport',
         'female': 'Fem_HealthcareSupport',
-        'majority': 'Total_HealthcareSupport',
+        'majority': 'M_F_HealthcareSupport',
     },
     'prot': {
         'male': 'Male_ProtectiveService',
@@ -136,51 +136,50 @@ const profFields = {
         'majority': 'M_F_ProtectiveService',
     },
     'food': {
-        'male': 'Male_ProfessionalandRelated',
-        'female': 'Fem_ProfessionalandRelated',
-        'majority': 'M_F_ProfessionalandRelated',
+        'male': 'Male_FoodPrepandServing',
+        'female': 'Fem_FoodPrepandServing',
+        'majority': 'M_F_FoodPrepandServing',
     },
     'build': {
-        'male': 'Male_ProfessionalandRelated',
-        'female': 'Fem_ProfessionalandRelated',
-        'majority': 'M_F_ProfessionalandRelated',
+        'male': 'Male_BuildingandGroundsCleaningandMaintenance',
+        'female': 'Fem_BuildingandGroundsCleaningandMaintenance',
+        'majority': 'M_F_BuildingandGroundsCleaningandMaintenance',
     },
     'personal': {
-        'male': 'Male_ProfessionalandRelated',
-        'female': 'Fem_ProfessionalandRelated',
-        'majority': 'M_F_ProfessionalandRelated',
+        'male': 'Male_PersonalCareandService',
+        'female': 'Fem_PersonalCareandService',
+        'majority': 'M_F_PersonalCareandService',
     },
     'sales': {
-        'male': 'Male_ProfessionalandRelated',
-        'female': 'Fem_ProfessionalandRelated',
-        'majority': 'M_F_ProfessionalandRelated',
+        'male': 'Male_SalesandRelated',
+        'female': 'Fem_SalesandRelated',
+        'majority': 'M_F_SalesandRelated',
     },
     'admin': {
-        'male': 'Male_ProfessionalandRelated',
-        'female': 'Fem_ProfessionalandRelated',
-        'majority': 'M_F_ProfessionalandRelated',
+        'male': 'Male_OfficeandAdminSupport',
+        'female': 'Fem_OfficeandAdminSupport',
+        'majority': 'M_F_OfficeandAdminSupport',
     },
     'farm': {
-        'male': 'Male_ProfessionalandRelated',
-        'female': 'Fem_ProfessionalandRelated',
-        'majority': 'M_F_ProfessionalandRelated',
+        'male': 'Male_FarmingFishingandForestry',
+        'female': 'Fem_FarmingFishingandForestry',
+        'majority': 'M_F_FarmingFishingandForestry',
     },
     'construct': {
-        'male': 'Male_ProfessionalandRelated',
-        'female': 'Fem_ProfessionalandRelated',
-        'majority': 'M_F_ProfessionalandRelated',
+        'male': 'Male_ConstructionExtractionandMaintenance',
+        'female': 'Fem_ConstructionExtractionandMaintenance',
+        'majority': 'M_F_ConstructionExtractionandMaintenance',
     },
     'prod': {
-        'male': 'Male_ProfessionalandRelated',
-        'female': 'Fem_ProfessionalandRelated',
-        'majority': 'M_F_ProfessionalandRelated',
+        'male': 'Male_Production',
+        'female': 'Fem_Production',
+        'majority': 'M_F_Production',
     },
     'transp': {
-        'male': 'Male_ProfessionalandRelated',
-        'female': 'Fem_ProfessionalandRelated',
-        'majority': 'M_F_ProfessionalandRelated',
+        'male': 'Male_TranspoandMaterialMoving',
+        'female': 'Fem_TranspoandMaterialMoving',
+        'majority': 'M_F_TranspoandMaterialMoving',
     }
-    //  (...fill this in like above)
 }
 
 // ADD COLOR 
