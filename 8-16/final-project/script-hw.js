@@ -93,10 +93,10 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
         const layer = e.target;
 
         layer.setStyle({
-            weight: 5,
-            color: '#666',
+            weight: 2.5,
+            color: 'navy',
             dashArray: '',
-            fillOpacity: 0.7
+            fillOpacity: 0.8
         });
 
         if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
