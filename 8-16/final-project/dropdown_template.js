@@ -18,6 +18,7 @@ function selectEventHandler(e){
 document.getElementById('select-jobs').addEventListener('change', selectEventHandler);
 
 function getColorMFProf(d) {
+    //move the below 3 fields (to the hover section)
     const fields = profFields[userSelection];
 
     const maleValue = d.properties[fields.male];
