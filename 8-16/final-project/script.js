@@ -44,7 +44,7 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
     var geojson = L.geoJSON(resp.data, {
         style: function (feature) {
             return{
-                fillColor: getColor(feature),
+                fillColor: getColorOne(feature),
                 fillOpacity: 0.95,
                 color: 'black', //colors the borders
                 weight: 1
@@ -112,6 +112,8 @@ info.addTo(map);
 
 
 //UPDATE DROPDOWN
+
+
 
 //FIRST CREATE OBJECT WITH THE RELEVANT FIELDS THAT SHOULD UPDATE
 const profFields = {
@@ -182,6 +184,8 @@ const profFields = {
     }
 };
 
+console.log('industry', profFields) //problem console log only shows the strings - no values listed in variable
+
 //Create a variable that will be used in event change - set equal to empty string
 let userSelection = ''; 
 
@@ -194,25 +198,25 @@ function selectEventHandler(e) {
 //Target the HTML that will change and add eventListener
 document.getElementById("selectJob").addEventListener('change', selectEventHandler);
 
-// CREATE COLOR VARIABLE
-function getColor(d) {
-    //move the below 3 fields (to the hover section)
-    const fields = profFields[userSelection];
-    console.log('fields', fields)
+// // CREATE COLOR VARIABLE
+// function getColor(d) {
+//     //move the below 3 fields (to the hover section)
+//     const fields = profFields[userSelection];
+//     console.log('fields', fields)
 
-    const maleValue = d.properties[fields.male];
-    console.log('males', maleValue)
-    const femaleValue = d.properties[fields.female];
-    console.log('female', femaleValue)
+//     const maleValue = d.properties[fields.male];
+//     console.log('males', maleValue)
+//     const femaleValue = d.properties[fields.female];
+//     console.log('female', femaleValue)
 
-    let majorityValue = d.properties[fields.majority];
-    console.log('majority', majorityValue)
+//     let majorityValue = d.properties[fields.majority];
+//     console.log('majority', majorityValue)
 
-    return majorityValue == 'F' ? '#fdae6b' :
-        majorityValue == 'M' ? '#542788' :
-            '#ffffff';
+//     return majorityValue == 'F' ? '#fdae6b' :
+//         majorityValue == 'M' ? '#542788' :
+//             '#ffffff';
 
-}
+// }
 
 
 
