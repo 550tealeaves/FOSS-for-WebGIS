@@ -40,6 +40,7 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
     // }); //This will add all the keys in the dropdown menu
     
     console.log('jobTitles', jobTitles);
+    
     console.log('response', resp); //see response in console log
     var geojson = L.geoJSON(resp.data, {
         style: function (feature) {
@@ -116,6 +117,7 @@ info.addTo(map);
 
 
 //FIRST CREATE OBJECT WITH THE RELEVANT FIELDS THAT SHOULD UPDATE
+//problem - the below keys are only bringing in the strings as values instead of the actual numbers
 const profFields = {
     'prof': {
         'male': 'Male_ProfessionalandRelated',
@@ -194,6 +196,7 @@ let userSelection = '';
 function selectEventHandler(e) {
     userSelection = e.value
 }
+
 
 //Target the HTML that will change and add eventListener
 document.getElementById("selectJob").addEventListener('change', selectEventHandler);
