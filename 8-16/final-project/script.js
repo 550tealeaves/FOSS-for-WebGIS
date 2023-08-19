@@ -1,4 +1,4 @@
-console.log('loaded');
+//console.log('loaded');
 
 //CREATE BASE MAP LAYERS
 let map = L.map('map').setView([40.7, -73.7], 5);
@@ -45,7 +45,7 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
     var geojson = L.geoJSON(resp.data, {
         style: function (feature) {
             return{
-                fillColor: getColorOne(feature),
+                fillColor: getColor(feature),
                 fillOpacity: 0.95,
                 color: 'black', //colors the borders
                 weight: 1
@@ -120,71 +120,71 @@ info.addTo(map);
 //problem - the below keys are only bringing in the strings as values instead of the actual numbers
 const profFields = {
     'prof': {
-        'male': 'Male_ProfessionalandRelated',
-        'female': 'Fem_ProfessionalandRelated',
-        'majority': 'M_F_ProfessionalandRelated',
+        male: 'Male_ProfessionalandRelated',
+        female: 'Fem_ProfessionalandRelated',
+        majority: 'M_F_ProfessionalandRelated',
     },
     'manage': {
-        'male': 'Male_ManagementBusinessandFinancialOperations',
-        'female': 'Fem_ManagementBusinessandFinancialOperations',
-        'majority': 'M_F_ManagementBusinessandFinancialOperations',  
+        male: 'Male_ManagementBusinessandFinancialOperations',
+        female: 'Fem_ManagementBusinessandFinancialOperations',
+        majority: 'M_F_ManagementBusinessandFinancialOperations',  
     },
     'health': {
-        'male': 'Male_HealthcareSupport',
-        'female': 'Fem_HealthcareSupport',
-        'majority': 'M_F_HealthcareSupport',
+        male: 'Male_HealthcareSupport',
+        female: 'Fem_HealthcareSupport',
+        majority: 'M_F_HealthcareSupport',
     },
     'prot': {
-        'male': 'Male_ProtectiveService',
-        'female': 'Fem_ProtectiveService',
-        'majority': 'M_F_ProtectiveService',
+        male: 'Male_ProtectiveService',
+        female: 'Fem_ProtectiveService',
+        majority: 'M_F_ProtectiveService',
     },
     'food': {
-        'male': 'Male_FoodPrepandServing',
-        'female': 'Fem_FoodPrepandServing',
-        'majority': 'M_F_FoodPrepandServing',
+        male: 'Male_FoodPrepandServing',
+        female: 'Fem_FoodPrepandServing',
+        majority: 'M_F_FoodPrepandServing',
     },
     'build': {
-        'male': 'Male_BuildingandGroundsCleaningandMaintenance',
-        'female': 'Fem_BuildingandGroundsCleaningandMaintenance',
-        'majority': 'M_F_BuildingandGroundsCleaningandMaintenance',
+        male: 'Male_BuildingandGroundsCleaningandMaintenance',
+        female: 'Fem_BuildingandGroundsCleaningandMaintenance',
+        majority: 'M_F_BuildingandGroundsCleaningandMaintenance',
     },
     'personal': {
-        'male': 'Male_PersonalCareandService',
-        'female': 'Fem_PersonalCareandService',
-        'majority': 'M_F_PersonalCareandService',
+        male: 'Male_PersonalCareandService',
+        female: 'Fem_PersonalCareandService',
+        majority: 'M_F_PersonalCareandService',
     },
     'sales': {
-        'male': 'Male_SalesandRelated',
-        'female': 'Fem_SalesandRelated',
-        'majority': 'M_F_SalesandRelated',
+        male: 'Male_SalesandRelated',
+        female: 'Fem_SalesandRelated',
+        majority: 'M_F_SalesandRelated',
     },
     'admin': {
-        'male': 'Male_OfficeandAdminSupport',
-        'female': 'Fem_OfficeandAdminSupport',
-        'majority': 'M_F_OfficeandAdminSupport',
+        male: 'Male_OfficeandAdminSupport',
+        female: 'Fem_OfficeandAdminSupport',
+        majority: 'M_F_OfficeandAdminSupport',
     },
     'farm': {
-        'male': 'Male_FarmingFishingandForestry',
-        'female': 'Fem_FarmingFishingandForestry',
-        'majority': 'M_F_FarmingFishingandForestry',
+        male: 'Male_FarmingFishingandForestry',
+        female: 'Fem_FarmingFishingandForestry',
+        majority: 'M_F_FarmingFishingandForestry',
     },
     'construct': {
-        'male': 'Male_ConstructionExtractionandMaintenance',
-        'female': 'Fem_ConstructionExtractionandMaintenance',
-        'majority': 'M_F_ConstructionExtractionandMaintenance',
+        male: 'Male_ConstructionExtractionandMaintenance',
+        female: 'Fem_ConstructionExtractionandMaintenance',
+        majority: 'M_F_ConstructionExtractionandMaintenance',
     },
     'prod': {
-        'male': 'Male_Production',
-        'female': 'Fem_Production',
-        'majority': 'M_F_Production',
+        male: 'Male_Production',
+        female: 'Fem_Production',
+        majority: 'M_F_Production',
     },
     'transp': {
-        'male': 'Male_TranspoandMaterialMoving',
-        'female': 'Fem_TranspoandMaterialMoving',
-        'majority': 'M_F_TranspoandMaterialMoving',
+        male: 'Male_TranspoandMaterialMoving',
+        female: 'Fem_TranspoandMaterialMoving',
+        majority: 'M_F_TranspoandMaterialMoving',
     }
-};
+}
 
 console.log('industry', profFields) //problem console log only shows the strings - no values listed in variable
 
@@ -201,25 +201,29 @@ function selectEventHandler(e) {
 //Target the HTML that will change and add eventListener
 document.getElementById("selectJob").addEventListener('change', selectEventHandler);
 
+
+
 // // CREATE COLOR VARIABLE
-// function getColor(d) {
-//     //move the below 3 fields (to the hover section)
-//     const fields = profFields[userSelection];
-//     console.log('fields', fields)
+function getColor(g) {
+    console.log('g2', g)
+    
+    const fields = profFields[userSelection];
+    console.log('fields', fields)
+    
+    //const maleValue = g.properties[fields.male];
+    // console.log('males', maleValue)
+    // const femaleValue = g.properties[fields.female];
+    // console.log('female', femaleValue)
 
-//     const maleValue = d.properties[fields.male];
-//     console.log('males', maleValue)
-//     const femaleValue = d.properties[fields.female];
-//     console.log('female', femaleValue)
+    //let majorityValue = g.properties['M_F_Production']; //this works - map shows as mostly purple
+    const majorityValue = g.properties[fields.majority];
+    console.log('majority', majorityValue)
 
-//     let majorityValue = d.properties[fields.majority];
-//     console.log('majority', majorityValue)
+    return majorityValue == 'F' ? '#fdae6b' :
+        majorityValue == 'M' ? '#542788' :
+            '#ffffff';
 
-//     return majorityValue == 'F' ? '#fdae6b' :
-//         majorityValue == 'M' ? '#542788' :
-//             '#ffffff';
-
-// }
+}
 
 
 
