@@ -158,7 +158,7 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
             female: 'Fem_TranspoandMaterialMoving',
             majority: 'M_F_TranspoandMaterialMoving',
         }
-    };
+    }
 
     console.log('industry', profFields)
 
