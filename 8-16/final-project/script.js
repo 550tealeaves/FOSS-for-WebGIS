@@ -1,7 +1,7 @@
 //console.log('loaded');
 
 //CREATE BASE MAP LAYERS
-let map = L.map('map').setView([40.7, -73.7], 5);
+let map = L.map('map').setView([46.0, -97.5], 3.4);
 
 //http://maps.stamen.com/#terrain/12/37.7706/-122.3782
 const basemap_urls = {
@@ -23,6 +23,8 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 
 //Save value of selected option (ex: Fem_Health...from dropdown) into a variable - it saves the name of the object key
 
+var geojson; 
+
 const allStates = axios('usState-jobs.json').then(resp => { //brings in the map data 
     jobTitles = Object.keys(resp.data.features[0].properties) //use this to be able to select all the job titles
 
@@ -42,9 +44,78 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
     console.log('jobTitles', jobTitles);
     
     console.log('response', resp); //see response in console log
-    var geojson = L.geoJSON(resp.data, {
+    const profFields = {
+        'prof': {
+            'male': 'Male_ProfessionalandRelated',
+            'female': 'Fem_ProfessionalandRelated',
+            'majority': 'M_F_ProfessionalandRelated',
+        },
+        'manage': {
+            'male': 'Male_ManagementBusinessandFinancialOperations',
+            'female': 'Fem_ManagementBusinessandFinancialOperations',
+            'majority': 'M_F_ManagementBusinessandFinancialOperations',
+        },
+        'health': {
+            'male': 'Male_HealthcareSupport',
+            'female': 'Fem_HealthcareSupport',
+            'majority': 'M_F_HealthcareSupport',
+        },
+        'prot': {
+            'male': 'Male_ProtectiveService',
+            'female': 'Fem_ProtectiveService',
+            'majority': 'M_F_ProtectiveService',
+        },
+        'food': {
+            'male': 'Male_FoodPrepandServing',
+            'female': 'Fem_FoodPrepandServing',
+            'majority': 'M_F_FoodPrepandServing',
+        },
+        'build': {
+            'male': 'Male_BuildingandGroundsCleaningandMaintenance',
+            'female': 'Fem_BuildingandGroundsCleaningandMaintenance',
+            'majority': 'M_F_BuildingandGroundsCleaningandMaintenance',
+        },
+        'personal': {
+            'male': 'Male_PersonalCareandService',
+            'female': 'Fem_PersonalCareandService',
+            'majority': 'M_F_PersonalCareandService',
+        },
+        'sales': {
+            'male': 'Male_SalesandRelated',
+            'female': 'Fem_SalesandRelated',
+            'majority': 'M_F_SalesandRelated',
+        },
+        'admin': {
+            'male': 'Male_OfficeandAdminSupport',
+            'female': 'Fem_OfficeandAdminSupport',
+            'majority': 'M_F_OfficeandAdminSupport',
+        },
+        'farm': {
+            'male': 'Male_FarmingFishingandForestry',
+            'female': 'Fem_FarmingFishingandForestry',
+            'majority': 'M_F_FarmingFishingandForestry',
+        },
+        'construct': {
+            'male': 'Male_ConstructionExtractionandMaintenance',
+            'female': 'Fem_ConstructionExtractionandMaintenance',
+            'majority': 'M_F_ConstructionExtractionandMaintenance',
+        },
+        'prod': {
+            'male': 'Male_Production',
+            'female': 'Fem_Production',
+            'majority': 'M_F_Production',
+        },
+        'transp': {
+            'male': 'Male_TranspoandMaterialMoving',
+            'female': 'Fem_TranspoandMaterialMoving',
+            'majority': 'M_F_TranspoandMaterialMoving',
+        }
+    };
+    let userSelection = '';
+
+    geojson = L.geoJSON(resp.data, {
         style: function (feature) {
-            return{
+            return {
                 fillColor: getColor(feature),
                 fillOpacity: 0.95,
                 color: 'black', //colors the borders
@@ -63,12 +134,66 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
 
     }).addTo(map).bringToFront();
 
+    //Create event change function
+    function selectEventHandler(e) {
+        userSelection = e.target.value;
+
+        geojson.eachLayer(function (layer) {
+
+            layer.setStyle({
+                fillColor: getColor(layer.feature),
+                fillOpacity: 0.95,
+                color: 'black', //colors the borders
+                weight: 1
+            }
+            );
+
+        });
+
+    }
+    //Target the HTML that will change and add eventListener
+    document.getElementById("selectJob").addEventListener('change', selectEventHandler);
+
+
+    // // CREATE COLOR VARIABLE
+    function getColor(d) {
+
+        if (userSelection.length === 0) return '#8888';
+        //move the below 3 fields (to the hover section)
+        const fields = profFields[userSelection];
+
+        const maleValue = d.properties[fields.male];
+        console.log('males', maleValue)
+        const femaleValue = d.properties[fields.female];
+        console.log('female', femaleValue)
+
+        let majorityValue = d.properties[fields.majority];
+        console.log('majority', majorityValue)
+
+        return majorityValue == 'F' ? '#fdae6b' :
+            majorityValue == 'M' ? '#542788' :
+                '#ffffff';
+
+    }
+
+    function getStyle(feature) {
+        return {
+            fillColor: getColor(feature),
+            fillOpacity: 0.95,
+            color: 'black', //colors the borders
+            weight: 1
+        }
+    }
+
+
+
+
     function highlightFeature(e) {
         const layer = e.target;
 
         layer.setStyle({
             weight: 2.5,
-            color: '#67000d',
+            color: '#2cc1f7',
             dashArray: '',
             fillOpacity: 0.8
         });
@@ -91,113 +216,7 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
         map.fitBounds(e.target.getBounds());
     }
 
-
-    const profFields = {
-        'prof': {
-            male: 'Male_ProfessionalandRelated',
-            female: 'Fem_ProfessionalandRelated',
-            majority: 'M_F_ProfessionalandRelated',
-        },
-        'manage': {
-            male: 'Male_ManagementBusinessandFinancialOperations',
-            female: 'Fem_ManagementBusinessandFinancialOperations',
-            majority: 'M_F_ManagementBusinessandFinancialOperations',
-        },
-        'health': {
-            male: 'Male_HealthcareSupport',
-            female: 'Fem_HealthcareSupport',
-            majority: 'M_F_HealthcareSupport',
-        },
-        'prot': {
-            male: 'Male_ProtectiveService',
-            female: 'Fem_ProtectiveService',
-            majority: 'M_F_ProtectiveService',
-        },
-        'food': {
-            male: 'Male_FoodPrepandServing',
-            female: 'Fem_FoodPrepandServing',
-            majority: 'M_F_FoodPrepandServing',
-        },
-        'build': {
-            male: 'Male_BuildingandGroundsCleaningandMaintenance',
-            female: 'Fem_BuildingandGroundsCleaningandMaintenance',
-            majority: 'M_F_BuildingandGroundsCleaningandMaintenance',
-        },
-        'personal': {
-            male: 'Male_PersonalCareandService',
-            female: 'Fem_PersonalCareandService',
-            majority: 'M_F_PersonalCareandService',
-        },
-        'sales': {
-            male: 'Male_SalesandRelated',
-            female: 'Fem_SalesandRelated',
-            majority: 'M_F_SalesandRelated',
-        },
-        'admin': {
-            male: 'Male_OfficeandAdminSupport',
-            female: 'Fem_OfficeandAdminSupport',
-            majority: 'M_F_OfficeandAdminSupport',
-        },
-        'farm': {
-            male: 'Male_FarmingFishingandForestry',
-            female: 'Fem_FarmingFishingandForestry',
-            majority: 'M_F_FarmingFishingandForestry',
-        },
-        'construct': {
-            male: 'Male_ConstructionExtractionandMaintenance',
-            female: 'Fem_ConstructionExtractionandMaintenance',
-            majority: 'M_F_ConstructionExtractionandMaintenance',
-        },
-        'prod': {
-            male: 'Male_Production',
-            female: 'Fem_Production',
-            majority: 'M_F_Production',
-        },
-        'transp': {
-            male: 'Male_TranspoandMaterialMoving',
-            female: 'Fem_TranspoandMaterialMoving',
-            majority: 'M_F_TranspoandMaterialMoving',
-        }
-    }
-
-    console.log('industry', profFields)
-
-    //Create a variable that will be used in event change - set equal to empty string
-    let userSelection = '';
-
-    //Create event change function
-    function selectEventHandler(e) {
-        userSelection = e.value
-    }
-
-
-    //Target the HTML that will change and add eventListener
-    document.getElementById("selectJob").addEventListener('change', selectEventHandler);
-
-    function getColor(g) {
-        console.log('g2', g)
-
-        const fields = profFields[userSelection];
-        console.log('fields', fields)
-
-        const maleValue = g.properties[fields.male];
-        console.log('males', maleValue)
-        const femaleValue = g.properties[fields.female];
-        console.log('female', femaleValue)
-
-        let majorityValue = g.properties[fields.majority];
-        //let majorityValue = g.properties['M_F_Production']; //this works - map shows as mostly purple
-        console.log('majority', majorityValue)
-
-        return majorityValue == 'F' ? '#fdae6b' :
-            majorityValue == 'M' ? '#542788' :
-                '#ffffff';
-
-        // return 'blue';
-
-    }
-
-}) 
+})
 
 
 // CONTROL THAT SHOWS STATE INFO IN HOVER
@@ -212,126 +231,17 @@ info.onAdd = function (map) {
 info.update = function (props) {
     console.log('props', props)
     this._div.innerHTML = '<h4>Occupation stats</h4>' + (props ?
-        '<b>' + props.NAME + '</b><br />' + (props.Fem_SalesandRelated * 100).toFixed(1) + ' % ' + ' women' + '<br />' + (props.Male_SalesandRelated * 100).toFixed(1) + ' % ' + 'men' : 'Hover over a state');
+        '<b>' + props.NAME + '</b><br />' + (d.properties[fields.female] * 100).toFixed(1) + ' % ' + ' women' + '<br />' + (d.properties[fields.male] * 100).toFixed(1) + ' % ' + 'men' : 'Hover over a state');
 };
 
 info.addTo(map);
 
+var popup = L.popup();
 
-//UPDATE DROPDOWN
-
-
-
-//FIRST CREATE OBJECT WITH THE RELEVANT FIELDS THAT SHOULD UPDATE
-//problem - the below keys are only bringing in the strings as values instead of the actual numbers
-// const profFields = {
-//     'prof': {
-//         male: 'Male_ProfessionalandRelated',
-//         female: 'Fem_ProfessionalandRelated',
-//         majority: 'M_F_ProfessionalandRelated',
-//     },
-//     'manage': {
-//         male: 'Male_ManagementBusinessandFinancialOperations',
-//         female: 'Fem_ManagementBusinessandFinancialOperations',
-//         majority: 'M_F_ManagementBusinessandFinancialOperations',  
-//     },
-//     'health': {
-//         male: 'Male_HealthcareSupport',
-//         female: 'Fem_HealthcareSupport',
-//         majority: 'M_F_HealthcareSupport',
-//     },
-//     'prot': {
-//         male: 'Male_ProtectiveService',
-//         female: 'Fem_ProtectiveService',
-//         majority: 'M_F_ProtectiveService',
-//     },
-//     'food': {
-//         male: 'Male_FoodPrepandServing',
-//         female: 'Fem_FoodPrepandServing',
-//         majority: 'M_F_FoodPrepandServing',
-//     },
-//     'build': {
-//         male: 'Male_BuildingandGroundsCleaningandMaintenance',
-//         female: 'Fem_BuildingandGroundsCleaningandMaintenance',
-//         majority: 'M_F_BuildingandGroundsCleaningandMaintenance',
-//     },
-//     'personal': {
-//         male: 'Male_PersonalCareandService',
-//         female: 'Fem_PersonalCareandService',
-//         majority: 'M_F_PersonalCareandService',
-//     },
-//     'sales': {
-//         male: 'Male_SalesandRelated',
-//         female: 'Fem_SalesandRelated',
-//         majority: 'M_F_SalesandRelated',
-//     },
-//     'admin': {
-//         male: 'Male_OfficeandAdminSupport',
-//         female: 'Fem_OfficeandAdminSupport',
-//         majority: 'M_F_OfficeandAdminSupport',
-//     },
-//     'farm': {
-//         male: 'Male_FarmingFishingandForestry',
-//         female: 'Fem_FarmingFishingandForestry',
-//         majority: 'M_F_FarmingFishingandForestry',
-//     },
-//     'construct': {
-//         male: 'Male_ConstructionExtractionandMaintenance',
-//         female: 'Fem_ConstructionExtractionandMaintenance',
-//         majority: 'M_F_ConstructionExtractionandMaintenance',
-//     },
-//     'prod': {
-//         male: 'Male_Production',
-//         female: 'Fem_Production',
-//         majority: 'M_F_Production',
-//     },
-//     'transp': {
-//         male: 'Male_TranspoandMaterialMoving',
-//         female: 'Fem_TranspoandMaterialMoving',
-//         majority: 'M_F_TranspoandMaterialMoving',
-//     }
-// }
-
-// console.log('industry', profFields) //problem console log only shows the strings - no values listed in variable
-
-//Create a variable that will be used in event change - set equal to empty string
-// let userSelection = ''; 
-
-
-// //Create event change function
-// function selectEventHandler(e) {
-//     userSelection = e.value
-// }
-
-
-// //Target the HTML that will change and add eventListener
-// document.getElementById("selectJob").addEventListener('change', selectEventHandler);
+map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
 
 
 
-// // CREATE COLOR VARIABLE
-// function getColor(g) {
-//     // console.log('g2', g)
-    
-//     // const fields = profFields[userSelection];
-//     // console.log('fields', fields)
-    
-//     // //const maleValue = g.properties[fields.male];
-//     // // console.log('males', maleValue)
-//     // // const femaleValue = g.properties[fields.female];
-//     // // console.log('female', femaleValue)
-
-//     // let majorityValue = g.properties[fields.majority];
-//     // //let majorityValue = g.properties['M_F_Production']; //this works - map shows as mostly purple
-//     // console.log('majority', majorityValue)
-
-//     // return majorityValue == 'F' ? '#fdae6b' :
-//     //     majorityValue == 'M' ? '#542788' :
-//     //         '#ffffff';
-
-//     return 'blue';
-
-// }
 
 
 
@@ -340,21 +250,7 @@ info.addTo(map);
 
 let jobTitles = [] //create an empty array
 let userSelectionChange = 'Fem_ProfessionalandRelated' //set the field string = to variable
-let userSelectionMale = 'Male_ProfessionalandRelated'
-let userSelectionTotal = 'Total_ProfessionalandRelated'
-let userSelectionMFBus = 'M_F_ManagementBusinessandFinancialOperations'
-let userSelectionMFProf = 'M_F_ProfessionalandRelated'
-let userSelectionMFHealth = 'M_F_HealthcareSupport'
-let userSelectionMFProt = 'M_F_ProtectiveService'
-let userSelectionMFFood = 'M_F_FoodPrepandServing'
-let userSelectionMFBuild = 'M_F_BuildingandGroundsCleaningandMaintenance'
-let userSelectionMFPers = 'M_F_PersonalCareandService'
-let userSelectionMFSales = 'M_F_SalesandRelated'
-let userSelectionMFOffice = 'M_F_OfficeandAdminSupport'
-let userSelectionMFFarm = 'M_F_FarmingFishingandForestry'
-let userSelectionMFCon = 'M_F_ConstructionExtractionandMaintenance'
-let userSelectionMFProd = 'M_F_Production'
-let userSelectionMFTransp = 'M_F_TranspoandMaterialMoving'
+
 
 
 function getColorOne(d) {
@@ -373,170 +269,7 @@ function getColorOne(d) {
 } //change the value in dataValue > #### b/c the fields in properties are in decimals - 0-1
 
 
-function getColorMale(d) {
-    console.log('d', d)
-    let dataValue = d.properties[userSelectionMale]
-    return dataValue > 0.090 ? '#016450' :
-        dataValue > 0.080 ? '#02818a' :
-            dataValue > 0.070 ? '#3690c0' :
-                dataValue > 0.060 ? '#67a9cf' :
-                    dataValue > 0.050 ? '#a6bddb' :
-                        dataValue > 0.030 ? '#d0d1e6' :
-                            dataValue > 0.010 ? '#ece2f0' :
-                                '#fff7fb';
-} 
 
-function getColorTotal(d) {
-    console.log('d', d)
-    let dataValue = d.properties[userSelectionTotal]
-    return dataValue > 0.090 ? '#6e016b' :
-        dataValue > 0.080 ? '#88419d' :
-            dataValue > 0.070 ? '#8c6bb1' :
-                dataValue > 0.060 ? '#8c96c6' :
-                    dataValue > 0.050 ? '#9ebcda' :
-                        dataValue > 0.030 ? '#bfd3e6' :
-                            dataValue > 0.010 ? '#e0ecf4' :
-                                '#f7fcfd';
-} 
-
-
-function getColorMFBus(d) {
-    let dataValue = d.properties[userSelectionMFBus]
-    return dataValue == 'F' ? '#fdae6b' :
-        dataValue == 'M' ? '#542788' :
-            '#ffffff';
-
-}
-
-
-function getColorMFProf(d) {
-    let dataValue = d.properties[userSelectionMFProf]
-    return dataValue == 'F' ? '#fdae6b' :
-        dataValue == 'M' ? '#542788' :
-            '#ffffff';
-
-}
-
-function getColorMFHealth(d) {
-    let dataValue = d.properties[userSelectionMFHealth]
-    return dataValue == 'F' ? '#fdae6b' :
-        dataValue == 'M' ? '#542788' :
-            '#ffffff';
-
-}
-
-
-function getColorMFProt(d) {
-    let dataValue = d.properties[userSelectionMFProt]
-    return dataValue == 'F' ? '#fdae6b' :
-        dataValue == 'M' ? '#542788' :
-            '#ffffff';
-
-}
-
-
-function getColorMFFood(d) {
-    let dataValue = d.properties[userSelectionMFFood]
-    return dataValue == 'F' ? '#fdae6b' :
-        dataValue == 'M' ? '#542788' :
-            '#ffffff';
-
-}
-
-
-function getColorMFBuild(d) {
-    let dataValue = d.properties[userSelectionMFBuild]
-    return dataValue == 'F' ? '#fdae6b' :
-        dataValue == 'M' ? '#542788' :
-            '#ffffff';
-
-}
-
-
-function getColorMFPers(d) {
-    let dataValue = d.properties[userSelectionMFPers]
-    return dataValue == 'F' ? '#fdae6b' :
-        dataValue == 'M' ? '#542788' :
-            '#ffffff';
-
-}
-
-function getColorMFSales(d) {
-    let dataValue = d.properties[userSelectionMFSales]
-    return dataValue == 'F' ? '#fdae6b' :
-        dataValue == 'M' ? '#542788' :
-            '#ffffff';
-
-}
-
-function getColorMFOffice(d) {
-    let dataValue = d.properties[userSelectionMFOffice]
-    return dataValue == 'F' ? '#fdae6b' :
-        dataValue == 'M' ? '#542788' :
-            '#ffffff';
-
-}
-
-
-function getColorMFFarm(d) {
-    let dataValue = d.properties[userSelectionMFFarm]
-    return dataValue == 'F' ? '#fdae6b' :
-        dataValue == 'M' ? '#542788' :
-            '#ffffff';
-
-}
-
-function getColorMFCon(d) {
-    let dataValue = d.properties[userSelectionMFCon]
-    return dataValue == 'F' ? '#fdae6b' :
-        dataValue == 'M' ? '#542788' :
-            '#ffffff';
-
-}
-
-function getColorMFProd(d) {
-    let dataValue = d.properties[userSelectionMFProd]
-    return dataValue == 'F' ? '#fdae6b' :
-        dataValue == 'M' ? '#542788' :
-            '#ffffff';
-
-}
-
-function getColorMFTransp(d) {
-    let dataValue = d.properties[userSelectionMFTransp]
-    return dataValue == 'F' ? '#fdae6b' :
-        dataValue == 'M' ? '#542788' :
-            '#ffffff';
-
-}
-
-//UPDATE THE DROPDOWN SELECTION TO CHANGE THE MAP
-//https://stackoverflow.com/questions/6727917/javascript-dropdown-updates-the-price-based-on-the-users-selection
-
-
-
-// //CREATE DROPDOWN MENU BY LOOPING THROUGH ARRAY
-// ['Management, Business, & Financial Operations', 'Professional & Related', 'Healthcare Support', 'Protective Service', 'Food Prep & Serving', 'Building & Grounds Cleaning & Maintenance', 'Personal Care & Service', 'Sales & Related', 'Office & Admin Support', 'Farming, Fishing, & Forestry', 'Construction, Extraction, & Maintenance', 'Production', 'Transportation & Moving'].forEach(function (item) {
-//     const optionObj = document.createElement("option"); //loops through each item in the array and creates an option with the item inside
-//     optionObj.textContent = item;
-//     document.getElementById("dropdown").appendChild(optionObj); //select for the element w/ id selectJob and add the looped item in the array to dropdown
-// });
-
-// //option 3
-// var e = document.getElementById("selectJob");
-// let userChange = e.userSelectionMFSales;
-// var text = e.options[e.selectedIndex].text;
-
-
-var popup = L.popup();
-
-
-
-// /* global allStates */
-// geojson = L.geoJson(allStates, {
-//     style: style,
-//     onEachFeature: onEachFeature
-// }).addTo(map);
 
 
 map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
