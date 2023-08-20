@@ -174,6 +174,9 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
             majorityValue == 'M' ? '#542788' :
                 '#ffffff';
 
+
+
+                
     }
 
     function getStyle(feature) {
@@ -229,6 +232,7 @@ info.update = function (props) {
     console.log('props', props)
     this._div.innerHTML = '<h4>Occupation stats</h4>' + (props ?
         '<b>' + props.NAME + '</b><br />' + ([userSelection.femaleValue] * 100).toFixed(1) + ' % ' + ' women' + '<br />' + ([userSelection.maleValue] * 100).toFixed(1) + ' % ' + 'men' : 'Hover over a state');
+
     }; info.addTo(map);
 
 })
