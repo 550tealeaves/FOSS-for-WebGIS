@@ -161,7 +161,7 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
         if (userSelection.length === 0) return '#8888';
         //move the below 3 fields (to the hover section)
         const fields = profFields[userSelection];
-
+        console.log('fields', fields)
         const maleValue = d.properties[fields.male];
         console.log('males', maleValue)
         const femaleValue = d.properties[fields.female];
