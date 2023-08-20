@@ -216,9 +216,6 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
         map.fitBounds(e.target.getBounds());
     }
 
-})
-
-
 // CONTROL THAT SHOWS STATE INFO IN HOVER
 var info = L.control();
 
@@ -231,10 +228,11 @@ info.onAdd = function (map) {
 info.update = function (props) {
     console.log('props', props)
     this._div.innerHTML = '<h4>Occupation stats</h4>' + (props ?
-        '<b>' + props.NAME + '</b><br />' + (d.properties[fields.female] * 100).toFixed(1) + ' % ' + ' women' + '<br />' + (d.properties[fields.male] * 100).toFixed(1) + ' % ' + 'men' : 'Hover over a state');
-};
+        '<b>' + props.NAME + '</b><br />' + ([userSelection.female] * 100).toFixed(1) + ' % ' + ' women' + '<br />' + ([userSelection.male] * 100).toFixed(1) + ' % ' + 'men' : 'Hover over a state');
+    }; info.addTo(map);
 
-info.addTo(map);
+})
+
 
 var popup = L.popup();
 
