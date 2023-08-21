@@ -8,14 +8,14 @@ const basemap_urls = {
     terrain: "https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg",
     osm: "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
 }
-//adding different basemaps
+
+//Adding different basemaps
 
 L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
-//L.tileLayer - comes directly from Leaflet library
-//wants a URL from were to get the tiles 
+
 
 //Use https://stackoverflow.com/questions/9895082/javascript-populate-drop-down-list-with-array - to learn how to create dropdown and select value
 
@@ -26,14 +26,17 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 var geojson; 
 
 const allStates = axios('usState-jobs.json').then(resp => { //brings in the map data 
+    
+    console.log('response', resp); //see response in console log
+    
     jobTitles = Object.keys(resp.data.features[0].properties) //use this to be able to select all the job titles
+    console.log('jobTitles', jobTitles);
 
     jobValues = Object.values(resp.data.features[0].properties) //use this to see all the values from the key.value pairs
+    console.log('jobValues', jobValues)
 
     // jobValuesList = Object.values(resp.data.features[9,80].properties)
-    // console.log('short', jobValuesList)
 
-    console.log('jobValues', jobValues)
     
     // jobTitles.forEach(function (item) {
     //     const optionObj = document.createElement("option"); //loops through each item in the array and creates an option with the item inside
@@ -41,11 +44,9 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
     //     document.getElementById("selectJob").appendChild(optionObj); //select for the element w/ id selectJob and add the looped item in the array to dropdown
     // }); //This will add all the keys in the dropdown menu
     
-    console.log('jobTitles', jobTitles);
     
-    console.log('response', resp); //see response in console log
     
-    //create an object with the field names of the 3 keys you want to work with - getting male/female percentages based on catgory. majority = F/M based on amount difference
+    //Create an object with the field names of the 3 keys you want to work with - getting male/female percentages based on catgory. majority = F/M based on amount difference
     const profFields = {
         'prof': {
             'male': 'Male_ProfessionalandRelated',
@@ -136,7 +137,7 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
 
     }).addTo(map).bringToFront();
 
-    //Create event change function
+    //Create event change function that will update when the one selects an option from dropdown
     function selectEventHandler(e) {
         userSelection = e.target.value;
 
@@ -153,14 +154,17 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
         });
 
     }
-    //Target the HTML that will change and add eventListener
+    //Target the HTML ("selectJob") that will change and add eventListener
+    //Add the 'change' eventListener to the HTML & will trigger the selectEventHandler function
     document.getElementById("selectJob").addEventListener('change', selectEventHandler);
 
 
     // // CREATE COLOR VARIABLE
     function getColor(d) {
 
+        //sets default color if there is no userSelection (length=0)
         if (userSelection.length === 0) return '#8888';
+        
         //move the below 3 fields (to the hover section)
         const fields = profFields[userSelection];
         console.log('fields', fields)
@@ -174,13 +178,10 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
 
         return majorityValue == 'F' ? '#fdae6b' :
             majorityValue == 'M' ? '#542788' :
-                '#ffffff';
-
-
-
-                
+                '#ffffff';          
     }
 
+    // Don't think function is used - commented it out and nothing changed
     function getStyle(feature) {
         return {
             fillColor: getColor(feature),
@@ -189,9 +190,6 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
             weight: 1
         }
     }
-
-
-
 
     function highlightFeature(e) {
         const layer = e.target;
@@ -209,7 +207,6 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
 
         info.update(layer.feature.properties);
     }
-
 
     function resetHighlight(e) {
         console.log(resetHighlight)
@@ -242,39 +239,31 @@ info.update = function (props) {
 
 var popup = L.popup();
 
-map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
+map.attributionControl.addAttribution('Occupation data &copy; <a href="http://census.gov/">US Census Bureau</a>');
 
 
 
 
-
-
-// ADD COLOR 
-// Find colors on https:/ / colorbrewer2.org / #type=sequential & scheme=BuGn & n=3
-
-let jobTitles = [] //create an empty array
-let userSelectionChange = 'Fem_ProfessionalandRelated' //set the field string = to variable
+// let jobTitles = [] //create an empty array
+// let userSelectionChange = 'Fem_ProfessionalandRelated' //set the field string = to variable
 
 
 
-function getColorOne(d) {
-    console.log('d', d)
-    let dataValue = d.properties[userSelectionChange]
-    //let dataValue = d.properties['Fem_HealthcareSupport'] //will go into properties (object) and access the field Fem_Health... "d" = feature
-    //Create new variable - userSelection to replace string = d.properties[userSelection]
-    return dataValue > 0.399 ? '#b10026' :
-        dataValue > 0.342 ? '#e31a1c' :
-            dataValue > 0.285 ? '#fc4e2a' :
-                dataValue > 0.228 ? '#fd8d3c' :
-                    dataValue > 0.171 ? '#feb24c' :
-                        dataValue > 0.114 ? '#fed976' :
-                            dataValue > 0.05 ? '#ffeda0' :
-                                '#ffffcc';
-} //change the value in dataValue > #### b/c the fields in properties are in decimals - 0-1
+// function getColorOne(d) {
+//     console.log('d', d)
+//     let dataValue = d.properties[userSelectionChange]
+//     
+        //let dataValue = d.properties['Fem_HealthcareSupport'] //will go into properties (object) and access the field Fem_Health... "d" = feature
+//     //Create new variable - userSelection to replace string = d.properties[userSelection]
+//     return dataValue > 0.399 ? '#b10026' :
+//         dataValue > 0.342 ? '#e31a1c' :
+//             dataValue > 0.285 ? '#fc4e2a' :
+//                 dataValue > 0.228 ? '#fd8d3c' :
+//                     dataValue > 0.171 ? '#feb24c' :
+//                         dataValue > 0.114 ? '#fed976' :
+//                             dataValue > 0.05 ? '#ffeda0' :
+//                                 '#ffffcc';
+// } //change the value in dataValue > #### b/c the fields in properties are in decimals - 0-1
 
 
-
-
-
-map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
  
