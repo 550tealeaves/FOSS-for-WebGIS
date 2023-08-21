@@ -124,7 +124,7 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
         },
         //onEachFeature - can click and display state name 
         onEachFeature: function (feature, layer) {
-            // layer.bindPopup(feature.properties.STUSPS + ': ' + Math.round(feature.properties.Fem_HealthcareSupport * 100.0)  + '%' + ' <br>' ), not needed b/c highlight shows percentages
+            layer.bindPopup(feature.properties.STUSPS + '<br />' + ([userSelection.femaleValue] * 100).toFixed(1) + ' % ' + ' women' + '<br />' + ([userSelection.maleValue] * 100).toFixed(1) + ' % ' + 'men'), //not needed b/c highlight shows percentages
             layer.on({
                 mouseover: highlightFeature,
                 mouseout: resetHighlight,
