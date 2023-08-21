@@ -44,6 +44,8 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
     console.log('jobTitles', jobTitles);
     
     console.log('response', resp); //see response in console log
+    
+    //create an object with the field names of the 3 keys you want to work with - getting male/female percentages based on catgory. majority = F/M based on amount difference
     const profFields = {
         'prof': {
             'male': 'Male_ProfessionalandRelated',
