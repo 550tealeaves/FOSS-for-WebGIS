@@ -125,18 +125,20 @@
 
         legend.onAdd = function (map) {
 
-            var div = L.DomUtil.create('div', 'info legend');
-            var grades = [0, 10, 20, 50, 100, 200, 500, 1000];
-            var labels = [];
-            var from, to;
+            //Create div in DOM w/ class="info legend" & assign that to variable div
+            var div = L.DomUtil.create('div', 'info legend'); 
+            var grades = [0, 10, 20, 50, 100, 200, 500, 1000]; //grades array
+            var labels = []; //empty array - but can write a string or #, it will show as title on legend
+            var from, to;  //define variables to be used later
 
+            //Create loop that goes through each item in grades array (starting w/ 1st item) & increments by 1 (i++)
             for (var i = 0; i < grades.length; i++) {
-                from = grades[i];
-                to = grades[i + 1];
+                from = grades[i]; //start of legend will be each item in the array
+                to = grades[i + 1]; //end of legend will be the next item in array
 
                 labels.push(
                     '<i style="background:' + getColor(from + 1) + '"></i> ' +
-                    from + (to ? '&ndash;' + to : '+'));
+                    from + (to ? '&ndash;' + to : '+')); //will style the legend according ot colors in getColor function & adds '+' after last item in array
             }
 
             div.innerHTML = labels.join('<br>');
