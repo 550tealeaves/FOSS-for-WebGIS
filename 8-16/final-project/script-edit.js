@@ -105,19 +105,21 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
             'majority': 'M_F_TranspoandMaterialMoving',
         }
     };
+
     let userSelection = '';
 
     // CREATE COLOR VARIABLE
     function getColor(d) {
         //sets default color if there is no userSelection (length=0)
+        
         if (userSelection.length === 0) return '#8888';
 
         //move the below 3 fields (to the hover section)
-        const fields = profFields[userSelection];
+        let fields = profFields[userSelection];
         console.log('fields', fields)
-        const maleValue = d.properties[fields.male];
+        let maleValue = d.properties[fields.male]*100;
         console.log('males', maleValue)
-        const femaleValue = d.properties[fields.female];
+        let femaleValue = d.properties[fields.female]*100;
         console.log('female', femaleValue)
 
         let majorityValue = d.properties[fields.majority];
@@ -138,9 +140,9 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
             }
         },
  
-        //onEachFeature - can click and display state name 
+        //onEachFeature - can click and display state name and tooltip
         onEachFeature: function (feature, layer) {
-            layer.bindPopup(feature.properties.STUSPS + '<br />' + ([userSelection.femaleValue] * 100).toFixed(3) + ' % ' + ' women' + '<br />' + ([userSelection.maleValue] * 100).toFixed(3) + ' % ' + 'men'), //adds tooltip
+            layer.bindPopup(feature.properties.STUSPS + '<br />' + ([profFields.female] - 140).toFixed(2) + ' % ' + ' women' + '<br />' + ([profFields.male] - 27).toFixed(2) + ' % ' + 'men'), //adds tooltip - problem is the default number rounds to 0 so multiply/div doesn't work - but subtraction does 
             layer.on({
                 mouseover: highlightFeature,
                 mouseout: resetHighlight,

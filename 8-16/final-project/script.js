@@ -1,4 +1,4 @@
-//console.log('loaded');
+//The reason the numbers don't show on hover is because the userSelection defaults to 0 so multiplication/division don't work
 
 //CREATE BASE MAP LAYERS
 let map = L.map('map').setView([46.0, -97.5], 3.4);
