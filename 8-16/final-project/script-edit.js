@@ -12,7 +12,7 @@ const basemap_urls = {
 //Adding different basemaps
 
 L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
-    maxZoom: 19,
+    maxZoom: 16,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
@@ -184,18 +184,32 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
     }
 
     // Don't think function is used - commented it out and nothing changed
-    function getStyle(feature) {
-        return {
-            fillColor: getColor(feature),
-            fillOpacity: 0.95,
-            color: 'black', //colors the borders
-            weight: 1
-        }
-    }
+    // function getStyle(feature) {
+    //     return {
+    //         fillColor: getColor(feature),
+    //         fillOpacity: 0.95,
+    //         color: 'black', //colors the borders
+    //         weight: 1
+    //     }
+    // }
 
+
+
+    // CONTROL THAT SHOWS STATE INFO IN HOVER
+    var info = L.control();
+
+    info.onAdd = function (map) {
+        this._div = L.DomUtil.create('div', 'info');
+        this.update();
+        return this._div;
+    };
+
+
+    //HIGHLIGHT THAT SHOWS ON STATES DURING HOVER
     function highlightFeature(e) {
         const layer = e.target;
 
+        //styles the highlight feature over the states
         layer.setStyle({
             weight: 2.5,
             color: '#2cc1f7',
@@ -220,23 +234,15 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
         map.fitBounds(e.target.getBounds());
     }
 
-// CONTROL THAT SHOWS STATE INFO IN HOVER
-var info = L.control();
 
-info.onAdd = function (map) {
-    this._div = L.DomUtil.create('div', 'info');
-    this.update();
-    return this._div;
-};
-
-info.update = function (props) {
-    console.log('props', props)
-    this._div.innerHTML = '<h4>Occupation stats</h4>' + (props ?
-        '<b>' + props.NAME + '</b><br />' + ([userSelection.female] * 100).toFixed(1) + ' % ' + ' women' + '<br />' + ([userSelection.male] * 100).toFixed(1) + ' % ' + 'men' : 'Hover over a state');
-
+    info.update = function (props) {
+        console.log('props', props)
+        this._div.innerHTML = '<h4>Occupation stats</h4>' + (props ?
+            '<b>' + props.NAME + '</b><br />' + ([userSelection.femaleValue] * 100).toFixed(1) + ' % ' + ' women' + '<br />' + ([userSelection.maleValue] * 100).toFixed(1) + ' % ' + 'men' : 'Hover over a state');
     }; info.addTo(map);
 
-})
+});
+
 
 
 var popup = L.popup();
