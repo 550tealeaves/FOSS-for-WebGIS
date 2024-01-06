@@ -1,4 +1,6 @@
-//console.log('loaded');
+//Use https://stackoverflow.com/questions/9895082/javascript-populate-drop-down-list-with-array - to learn how to create dropdown and select value
+
+// Use https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript - to learn how to select value
 
 //CREATE BASE MAP LAYERS
 let map = L.map('map').setView([46.0, -97.5], 3.4);
@@ -17,11 +19,6 @@ L.tileLayer(basemap_urls.terrain, { //will show the terrain layer
 }).addTo(map);
 
 
-//Use https://stackoverflow.com/questions/9895082/javascript-populate-drop-down-list-with-array - to learn how to create dropdown and select value
-
-// Use https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript - to learn how to select value
-
-//Save value of selected option (ex: Fem_Health...from dropdown) into a variable - it saves the name of the object key
 
 var geojson; 
 
@@ -35,18 +32,12 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
     jobValues = Object.values(resp.data.features[0].properties) //use this to see all the values from the key.value pairs
     console.log('jobValues', jobValues)
 
-    // jobValuesList = Object.values(resp.data.features[9,80].properties)
-
-    
-    // jobTitles.forEach(function (item) {
-    //     const optionObj = document.createElement("option"); //loops through each item in the array and creates an option with the item inside
-    //     optionObj.textContent = item;
-    //     document.getElementById("selectJob").appendChild(optionObj); //select for the element w/ id selectJob and add the looped item in the array to dropdown
-    // }); //This will add all the keys in the dropdown menu
     
     
     
-    //Create an object with the field names of the 3 keys you want to work with - getting male/female percentages based on catgory. majority = F/M based on amount difference
+    //CREATE OBJECT W/ FIELD NAMES OF THE 3 KEYS YOU ARE WORKING WITH 
+    //GET MALE/FEMALE PERCENTAGES BASED ON CATEGORY. 
+    //MAJORITY = F/M BASED ON AMOUNT DIFFERENCE 
     const profFields = {
         'prof': {
             'male': 'Male_ProfessionalandRelated',
@@ -137,12 +128,11 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
 
     }).addTo(map).bringToFront();
 
-    //Create event change function that will update when the one selects an option from dropdown
+    //CREATE EVENT CHANGE FUNCTION THAT UPDATES WHEN USER SELECTS OPTION FROM DROPDOWN 
     function selectEventHandler(e) {
         userSelection = e.target.value;
 
         geojson.eachLayer(function (layer) {
-
             layer.setStyle({
                 fillColor: getColor(layer.feature),
                 fillOpacity: 0.95,
@@ -150,20 +140,17 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
                 weight: 1
             }
             );
-
         });
-
     }
-    //Target the HTML ("selectJob") that will change and add eventListener
-    //Add the 'change' eventListener to the HTML & will trigger the selectEventHandler function
+
+    //TARGET THE HTML ("selectJob") THAT WILL CHANGE AND ADD eventListener 
+    //ADD THE 'CHANGE' eventListener TO HTML & WILL TRIGGER THE selectionEventHandler FUNCTION 
     document.getElementById("selectJob").addEventListener('change', selectEventHandler);
 
 
     
-    
-    // // CREATE COLOR VARIABLE
+    // CREATE COLOR VARIABLE
     function getColor(d) {
-
         //sets default color if there is no userSelection (length=0)
         if (userSelection.length === 0) return '#8888';
         
@@ -183,17 +170,7 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
                 '#ffffff';          
     }
 
-    // Don't think function is used - commented it out and nothing changed
-    // function getStyle(feature) {
-    //     return {
-    //         fillColor: getColor(feature),
-    //         fillOpacity: 0.95,
-    //         color: 'black', //colors the borders
-    //         weight: 1
-    //     }
-    // }
-
-
+    
 
     // CONTROL THAT SHOWS STATE INFO IN HOVER
     var info = L.control();
@@ -224,12 +201,14 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
         info.update(layer.feature.properties);
     }
 
+    //RESETS THE HIGHLIGHT 
     function resetHighlight(e) {
         console.log(resetHighlight)
         geojson.resetStyle(e.target);
         info.update();
     }
 
+    //ZOOM FEATURE WHEN YOU CLICK THE STATE
     function zoomToFeature(e) {
         map.fitBounds(e.target.getBounds());
     }
@@ -252,26 +231,14 @@ map.attributionControl.addAttribution('Occupation data &copy; <a href="http://ce
 
 
 
-// let jobTitles = [] //create an empty array
-// let userSelectionChange = 'Fem_ProfessionalandRelated' //set the field string = to variable
 
 
-
-// function getColorOne(d) {
-//     console.log('d', d)
-//     let dataValue = d.properties[userSelectionChange]
-//     
-        //let dataValue = d.properties['Fem_HealthcareSupport'] //will go into properties (object) and access the field Fem_Health... "d" = feature
-//     //Create new variable - userSelection to replace string = d.properties[userSelection]
-//     return dataValue > 0.399 ? '#b10026' :
-//         dataValue > 0.342 ? '#e31a1c' :
-//             dataValue > 0.285 ? '#fc4e2a' :
-//                 dataValue > 0.228 ? '#fd8d3c' :
-//                     dataValue > 0.171 ? '#feb24c' :
-//                         dataValue > 0.114 ? '#fed976' :
-//                             dataValue > 0.05 ? '#ffeda0' :
-//                                 '#ffffcc';
-// } //change the value in dataValue > #### b/c the fields in properties are in decimals - 0-1
-
-
- 
+// Don't think function is used - commented it out and nothing changed
+// function getStyle(feature) {
+//     return {
+//         fillColor: getColor(feature),
+//         fillOpacity: 0.95,
+//         color: 'black', //colors the borders
+//         weight: 1
+//     }
+// }
