@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HW</title>
+    <!--Add the Leaflet CSS/JS links-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!--Add the axios script file-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div>
+        <!--Create the form that allows user selection-->
+        <form action="" id="thisForm">
+            <select name="jobs" id="selectJob">
+                <option value="" selected>--Select an occupation--</option>
+                 <!--the selected after value="" ensures that it is the default selection on site-->
+                <option value="manage">Management, Business, & Financial Operations</option>
+                <option value="prof">Professional & Related</option>
+                <option value="health">Healthcare Support</option>
+                <option value="prot">Protective Service</option>
+                <option value="food">Food Prep & Serving</option>
+                <option value="build">Building & Grounds Cleaning & Maintenance</option>
+                <option value="personal">Personal Care & Service</option>
+                <option value="sales">Sales & Related</option>
+                <option value="admin">Office & Admin Support</option>
+                <option value="farm">Farming, Fishing, & Forestry</option>
+                <option value="construct">Construction, Extraction, & Maintenance</option>
+                <option value="prod">Production</option>
+                <option value="transp">Transportation & Moving</option>
+            </select>
+        </form>   
+    </div>
+    <br />
+    <br />
+    <div id="map"></div>
+    
+    <script src="script-edit.js"></script>
+</body>
+</html>
