@@ -107,6 +107,27 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
     };
     let userSelection = '';
 
+    // CREATE COLOR VARIABLE
+    function getColor(d) {
+        //sets default color if there is no userSelection (length=0)
+        if (userSelection.length === 0) return '#8888';
+
+        //move the below 3 fields (to the hover section)
+        const fields = profFields[userSelection];
+        console.log('fields', fields)
+        const maleValue = d.properties[fields.male];
+        console.log('males', maleValue)
+        const femaleValue = d.properties[fields.female];
+        console.log('female', femaleValue)
+
+        let majorityValue = d.properties[fields.majority];
+        console.log('majority', majorityValue)
+
+        return majorityValue == 'F' ? '#fdae6b' :
+            majorityValue == 'M' ? '#542788' :
+                '#ffffff';
+    } 
+
     geojson = L.geoJSON(resp.data, {
         style: function (feature) {
             return {
@@ -116,9 +137,10 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
                 weight: 1
             }
         },
+ 
         //onEachFeature - can click and display state name 
         onEachFeature: function (feature, layer) {
-            layer.bindPopup(feature.properties.STUSPS + '<br />' + ([userSelection.femaleValue] * 100).toFixed(1) + ' % ' + ' women' + '<br />' + ([userSelection.maleValue] * 100).toFixed(1) + ' % ' + 'men'), //not needed b/c highlight shows percentages
+            layer.bindPopup(feature.properties.STUSPS + '<br />' + ([userSelection.femaleValue] * 100).toFixed(3) + ' % ' + ' women' + '<br />' + ([userSelection.maleValue] * 100).toFixed(3) + ' % ' + 'men'), //adds tooltip
             layer.on({
                 mouseover: highlightFeature,
                 mouseout: resetHighlight,
@@ -149,29 +171,9 @@ const allStates = axios('usState-jobs.json').then(resp => { //brings in the map 
 
 
     
-    // CREATE COLOR VARIABLE
-    function getColor(d) {
-        //sets default color if there is no userSelection (length=0)
-        if (userSelection.length === 0) return '#8888';
-        
-        //move the below 3 fields (to the hover section)
-        const fields = profFields[userSelection];
-        console.log('fields', fields)
-        const maleValue = d.properties[fields.male];
-        console.log('males', maleValue)
-        const femaleValue = d.properties[fields.female];
-        console.log('female', femaleValue)
-
-        let majorityValue = d.properties[fields.majority];
-        console.log('majority', majorityValue)
-
-        return majorityValue == 'F' ? '#fdae6b' :
-            majorityValue == 'M' ? '#542788' :
-                '#ffffff';          
-    }
-
     
 
+    
     // CONTROL THAT SHOWS STATE INFO IN HOVER
     var info = L.control();
 
