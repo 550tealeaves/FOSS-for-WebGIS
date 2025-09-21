@@ -1,7 +1,83 @@
-html,
 body {
-    height: 100%;
-    margin: 0;
+    background-color: rgb(245, 232, 228);
+    margin: 20px;
+}
+
+h1,
+h2 {
+    font-style: italic;
+}
+
+.h1-topic {
+    font-weight: bold;
+    color: darkmagenta;
+}
+
+.h2-topic {
+    font-style: normal;
+
+}
+
+li {
+    list-style-position: inside;
+}
+
+.quote {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+table {
+    text-align: center;
+    margin: auto;
+}
+
+table,
+td {
+    border: 1px solid #4c154e;
+}
+
+thead,
+tfoot {
+    background-color: #4c154e;
+    color: #fff;
+}
+
+footer {
+    font-size: 12px;
+}
+
+#sortBtn {
+    background-color: darkmagenta;
+    color: white;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 0 0 1px rgb(209, 16, 16);
+}
+
+#sortBtn:hover {
+    background-color: white;
+    color: darkmagenta;
+    transition: 0.3s;
+}
+
+/*#sortBtn:focus is for keyboard users who press tab and #sortBtn can highlight*/
+#sortBtn:focus {
+    outline-color: transparent;
+    box-shadow: 0 0 0 1px #380367;
+}
+
+#sortBtn:active {
+    background-color: palegoldenrod;
+}
+
+blockquote {
+    list-style: square;
+}
+
+.thank-you {
+    border: 3px solid #4c154e;
 }
 
 .leaflet-container {
@@ -14,6 +90,7 @@ body {
 #map {
     width: 900px;
     height: 500px;
+    margin: 30px auto;
 }
 
 .info {
@@ -27,30 +104,5 @@ body {
 
 .info h4 {
     margin: 0 0 5px;
-    color: #388662;
-}
-
-.legend {
-    text-align: left;
-    line-height: 18px;
-    color: #555;
-}
-
-.legend i {
-    width: 18px;
-    height: 18px;
-    float: left;
-    margin-right: 8px;
-    opacity: 0.7;
-}
-
-#container {
-  width: 100%;
-  height: auto;
-}
-
-svg {
-  width: 100%;
-  height: auto;
-  display: block;
+    color: #238859;
 }
